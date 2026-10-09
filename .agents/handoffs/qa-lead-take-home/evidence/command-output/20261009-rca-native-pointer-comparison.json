@@ -1,0 +1,3536 @@
+{
+  "started": "2026-10-09T03:29:30.160Z",
+  "head": "96c7ebea9c7f8270a64e3845e01d7a9f5904ae17",
+  "dirty": "M .agents/handoffs/qa-lead-take-home/04-code-review.md\n M .agents/handoffs/qa-lead-take-home/run-log.md\n M package-lock.json\n?? .agents/handoffs/qa-lead-take-home/evidence/command-output/20261009-rca-native-pointer-diagnostic.json\n?? .agents/handoffs/qa-lead-take-home/evidence/command-output/20261009-rca-native-pointer-no-query.json\n?? .agents/handoffs/qa-lead-take-home/evidence/command-output/20261009-rca-native-pointer.json\n?? .agents/handoffs/qa-lead-take-home/evidence/notes/20261009-rca-native-pointer.mjs",
+  "sourceHash": "c3aebf8f96e57c6dc90faa6e11906192192fe35e3c12fe117b44521ddbe6fdc6",
+  "cases": [
+    {
+      "width": 1280,
+      "height": 800,
+      "preselected": false,
+      "errors": [],
+      "url": "https://automationintesting.online/reservation/1",
+      "cleanState": {
+        "calendar": false,
+        "headings": [
+          "Single Room",
+          "Room Description",
+          "Room Features",
+          "Room Policies",
+          "Check-in & Check-out",
+          "House Rules",
+          "Similar Rooms You Might Like",
+          "Double",
+          "Suite"
+        ]
+      }
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "preselected": true,
+      "errors": [],
+      "url": "https://automationintesting.online/reservation/1?checkin=2029-01-29&checkout=2029-01-31",
+      "initial": {
+        "at": 880.1000000089407,
+        "label": "October 2026",
+        "events": [],
+        "calendar": {
+          "x": 858,
+          "y": 276.796875,
+          "width": 324,
+          "height": 400
+        },
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 1749.375
+        },
+        "scrollY": 0,
+        "confirmation": false,
+        "pointer": []
+      },
+      "before": {
+        "at": 1730.9000000059605,
+        "label": "February 2029",
+        "events": [
+          {
+            "text": "Selected",
+            "rect": {
+              "x": 906,
+              "y": 390.40625,
+              "width": 136,
+              "height": 28
+            },
+            "rowDays": [
+              "28",
+              "29",
+              "30",
+              "31",
+              "01",
+              "02",
+              "03"
+            ],
+            "style": "flex-basis: 42.8571%; max-width: 42.8571%;"
+          }
+        ],
+        "calendar": {
+          "x": 858,
+          "y": 276.796875,
+          "width": 324,
+          "height": 400
+        },
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 2215.375
+        },
+        "scrollY": 0,
+        "confirmation": false,
+        "pointer": [
+          {
+            "type": "pointermove",
+            "at": 895.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 896,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 900.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 900.7000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 905.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 905.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1288,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1288.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1290.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1290.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1291.7000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1291.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1306,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1306,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1308.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1308.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1308.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1308.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1322.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1322.7000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1323.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1323.4000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1323.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1323.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1339.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1339.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1339.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1339.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1340.2999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1340.2999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1356.1000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1356.1000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1356.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1356.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1357.4000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1357.4000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1373,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1373,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1375.6000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1375.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1376.2000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1376.2000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1389.5,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1389.6000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1390.5,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1390.5,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1390.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1390.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1405.6000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1405.6000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1406.2999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1406.2999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1406.7999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1406.7999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1422.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1422.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1424,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1424,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1424.7999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1424.7999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1439.2999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1439.2999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1439.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1440,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1440.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1440.4000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1455.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1455.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1456.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1456.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1457.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1457.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1472.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1472.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1473.1000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1473.1000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1473.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1473.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1489.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1489.4000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1491.2999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1491.2999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1492.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1492.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1505.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1505.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1506.1000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1506.1000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1506.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1506.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1521.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1521.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1522.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1522.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1523.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1523.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1538.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1538.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1539.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1539.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1539.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1539.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1555.6000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1555.6000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1556.2000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1556.2000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1556.7000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1556.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1571.7000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1571.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1572.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1572.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1573.6000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1573.6000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1589.2999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1589.2999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1590.2999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1590.2999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1590.7000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1590.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1605.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1605.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1606.7000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1606.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1607.1000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1607.1000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1622.7999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1622.7999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1623.7999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1623.7999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1624.2000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1624.2000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1639.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1639.4000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1640.1000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1640.1000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1640.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1640.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1655,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1655,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1656.2999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1656.2999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1657,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1657,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1672.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1672.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1676,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1676,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1676.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1676.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1689.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1689.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1690.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1690.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1691,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1691,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1706,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1706,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1707.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1707.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1708,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1708,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1722.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1722.7000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1723.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1723.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1724.1000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1724.1000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          }
+        ]
+      },
+      "points": {
+        "start": {
+          "x": 927,
+          "y": 547.640625,
+          "hit": "rbc-day-bg"
+        },
+        "end": {
+          "x": 973,
+          "y": 547.640625,
+          "hit": "rbc-day-bg"
+        },
+        "bodyCentre": {
+          "x": 640,
+          "y": 1107.6875,
+          "hit": null
+        }
+      },
+      "drag": {
+        "began": 1791516579798,
+        "ended": 1791516580438
+      },
+      "after": {
+        "at": 2374,
+        "label": "February 2029",
+        "events": [
+          {
+            "text": "Selected",
+            "rect": {
+              "x": 906,
+              "y": 499.640625,
+              "width": 274,
+              "height": 28
+            },
+            "rowDays": [
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24"
+            ],
+            "style": "flex-basis: 85.7143%; max-width: 85.7143%;"
+          },
+          {
+            "text": "Selected",
+            "rect": {
+              "x": 860,
+              "y": 561.71875,
+              "width": 136,
+              "height": 28
+            },
+            "rowDays": [
+              "25",
+              "26",
+              "27",
+              "28",
+              "01",
+              "02",
+              "03"
+            ],
+            "style": "flex-basis: 42.8571%; max-width: 42.8571%;"
+          }
+        ],
+        "calendar": {
+          "x": 858,
+          "y": 199.796875,
+          "width": 324,
+          "height": 400
+        },
+        "body": {
+          "x": 0,
+          "y": -77,
+          "width": 1280,
+          "height": 2215.375
+        },
+        "scrollY": 77,
+        "confirmation": false,
+        "pointer": [
+          {
+            "type": "pointermove",
+            "at": 895.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 896,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 900.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 900.7000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 905.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 905.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1288,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1288.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1290.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1290.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1291.7000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1291.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1306,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1306,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1308.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1308.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1308.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1308.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1322.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1322.7000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1323.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1323.4000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1323.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1323.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1339.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1339.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1339.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1339.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1340.2999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1340.2999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1356.1000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1356.1000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1356.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1356.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1357.4000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1357.4000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1373,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1373,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1375.6000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1375.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1376.2000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1376.2000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1389.5,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1389.6000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1390.5,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1390.5,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1390.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1390.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1405.6000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1405.6000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1406.2999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1406.2999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1406.7999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1406.7999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1422.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1422.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1424,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1424,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1424.7999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1424.7999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1439.2999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1439.2999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1439.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1440,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1440.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1440.4000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1455.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1455.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1456.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1456.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1457.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1457.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1472.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1472.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1473.1000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1473.1000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1473.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1473.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1489.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1489.4000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1491.2999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1491.2999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1492.2000000029802,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1492.2000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1505.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1505.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1506.1000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1506.1000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1506.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1506.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1521.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1521.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1522.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1522.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1523.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1523.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1538.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1538.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1539.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1539.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1539.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1539.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1555.6000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1555.6000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1556.2000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1556.2000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1556.7000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1556.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1571.7000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1571.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1572.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1572.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1573.6000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1573.6000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1589.2999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1589.2999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1590.2999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1590.2999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1590.7000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1590.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1605.9000000059605,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1605.9000000059605,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1606.7000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1606.7000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1607.1000000089407,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1607.1000000089407,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1622.7999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1622.7999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1623.7999999970198,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1623.7999999970198,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1624.2000000029802,
+            "trusted": true,
+            "x": 1037.0625,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1624.2000000029802,
+            "trusted": true,
+            "x": 1037,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1639.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1639.4000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1640.1000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1640.1000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1640.7999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1640.7999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1655,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1655,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1656.2999999970198,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1656.2999999970198,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1657,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1657,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1672.9000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1672.9000000059605,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1676,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1676,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1676.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1676.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1689.4000000059605,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1689.5,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1690.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1690.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1691,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1691,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1706,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1706,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1707.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1707.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1708,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1708,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1722.5,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mousemove",
+            "at": 1722.7000000029802,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointerdown",
+            "at": 1723.6000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "mousedown",
+            "at": 1723.6000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 1,
+            "target": ""
+          },
+          {
+            "type": "pointerup",
+            "at": 1724.1000000089407,
+            "trusted": true,
+            "x": 1092.609375,
+            "y": 292.796875,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "mouseup",
+            "at": 1724.1000000089407,
+            "trusted": true,
+            "x": 1092,
+            "y": 292,
+            "buttons": 0,
+            "target": ""
+          },
+          {
+            "type": "pointermove",
+            "at": 1740.2999999970198,
+            "trusted": true,
+            "x": 927,
+            "y": 547.640625,
+            "buttons": 0,
+            "target": "rbc-day-bg"
+          },
+          {
+            "type": "mousemove",
+            "at": 1740.2999999970198,
+            "trusted": true,
+            "x": 927,
+            "y": 547,
+            "buttons": 0,
+            "target": "rbc-day-bg"
+          },
+          {
+            "type": "pointerdown",
+            "at": 1743.5,
+            "trusted": true,
+            "x": 927,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-day-bg"
+          },
+          {
+            "type": "mousedown",
+            "at": 1743.5,
+            "trusted": true,
+            "x": 927,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-day-bg"
+          },
+          {
+            "type": "pointermove",
+            "at": 1756,
+            "trusted": true,
+            "x": 930.8333129882812,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-day-bg"
+          },
+          {
+            "type": "mousemove",
+            "at": 1756,
+            "trusted": true,
+            "x": 930,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-day-bg"
+          },
+          {
+            "type": "pointermove",
+            "at": 1789.9000000059605,
+            "trusted": true,
+            "x": 934.6666870117188,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-button-link"
+          },
+          {
+            "type": "mousemove",
+            "at": 1789.9000000059605,
+            "trusted": true,
+            "x": 934,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-button-link"
+          },
+          {
+            "type": "pointermove",
+            "at": 1822.7000000029802,
+            "trusted": true,
+            "x": 938.5,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-day-bg rbc-selected-cell"
+          },
+          {
+            "type": "mousemove",
+            "at": 1822.7000000029802,
+            "trusted": true,
+            "x": 938,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-day-bg rbc-selected-cell"
+          },
+          {
+            "type": "pointermove",
+            "at": 1855.4000000059605,
+            "trusted": true,
+            "x": 942.3333129882812,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-button-link"
+          },
+          {
+            "type": "mousemove",
+            "at": 1855.4000000059605,
+            "trusted": true,
+            "x": 942,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-button-link"
+          },
+          {
+            "type": "pointermove",
+            "at": 2001.4000000059605,
+            "trusted": true,
+            "x": 946.1666870117188,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "mousemove",
+            "at": 2001.4000000059605,
+            "trusted": true,
+            "x": 946,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "pointermove",
+            "at": 2039.2000000029802,
+            "trusted": true,
+            "x": 950,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "mousemove",
+            "at": 2039.2999999970198,
+            "trusted": true,
+            "x": 950,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "pointermove",
+            "at": 2061.2000000029802,
+            "trusted": true,
+            "x": 953.8333129882812,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "mousemove",
+            "at": 2061.2000000029802,
+            "trusted": true,
+            "x": 953,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "pointermove",
+            "at": 2089.1000000089407,
+            "trusted": true,
+            "x": 957.6666870117188,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "mousemove",
+            "at": 2089.1000000089407,
+            "trusted": true,
+            "x": 957,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "pointermove",
+            "at": 2174.4000000059605,
+            "trusted": true,
+            "x": 961.5,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "mousemove",
+            "at": 2174.4000000059605,
+            "trusted": true,
+            "x": 961,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "pointermove",
+            "at": 2205.4000000059605,
+            "trusted": true,
+            "x": 965.3333129882812,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "mousemove",
+            "at": 2205.4000000059605,
+            "trusted": true,
+            "x": 965,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "pointermove",
+            "at": 2227.2999999970198,
+            "trusted": true,
+            "x": 969.1666870117188,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "mousemove",
+            "at": 2227.2999999970198,
+            "trusted": true,
+            "x": 969,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-date-cell"
+          },
+          {
+            "type": "pointermove",
+            "at": 2249.1000000089407,
+            "trusted": true,
+            "x": 973,
+            "y": 547.640625,
+            "buttons": 1,
+            "target": "rbc-button-link"
+          },
+          {
+            "type": "mousemove",
+            "at": 2249.1000000089407,
+            "trusted": true,
+            "x": 973,
+            "y": 547,
+            "buttons": 1,
+            "target": "rbc-button-link"
+          },
+          {
+            "type": "pointerup",
+            "at": 2270.9000000059605,
+            "trusted": true,
+            "x": 973,
+            "y": 547.640625,
+            "buttons": 0,
+            "target": "rbc-button-link"
+          },
+          {
+            "type": "mouseup",
+            "at": 2270.9000000059605,
+            "trusted": true,
+            "x": 973,
+            "y": 547,
+            "buttons": 0,
+            "target": "rbc-button-link"
+          }
+        ]
+      },
+      "timeoutDOM": {
+        "title": "Restful-booker-platform demo",
+        "url": "https://automationintesting.online/reservation/1?checkin=2029-01-29&checkout=2029-01-31",
+        "headings": [
+          "Single Room",
+          "Room Description",
+          "Room Features",
+          "Room Policies",
+          "Check-in & Check-out",
+          "House Rules",
+          "Book This Room",
+          "Price Summary",
+          "Similar Rooms You Might Like",
+          "Double",
+          "Suite"
+        ],
+        "calendar": true,
+        "buttons": [
+          "",
+          "Today",
+          "Back",
+          "Next",
+          "28",
+          "29",
+          "30",
+          "31",
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "27",
+          "28",
+          "01",
+          "02",
+          "03",
+          "Reserve Now"
+        ]
+      }
+    }
+  ],
+  "cleanup": [],
+  "roomid": 1,
+  "error": "observable DOM wait timed out",
+  "ended": "2026-10-09T03:29:50.736Z"
+}

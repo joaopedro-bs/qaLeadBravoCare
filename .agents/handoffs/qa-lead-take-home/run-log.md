@@ -189,3 +189,44 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
 - Inspected final CLI exit2 (nine tests, seven passes, two failures), eight passing local safety proofs, implementation handoff, evidence manifest and narrowly scoped privacy inspection (124 files, no literal credential-value disclosures detected).
 - Preserve the pre-existing uncommitted architecture and contract-discovery material in the work-item evidence snapshot; these originated in Claude's completed stage 2, not a restarted architecture stage.
 - Stop after implementation/execution. Claude's independent automation review remains pending. The unrelated root package-lock.json stays unstaged and untouched.
+
+### 2026-10-09 00:12 -03 - Stage 4 start: independent review (Claude coordinator)
+
+- Context: stage 3 (implementation/execution) and commits d15967c, bcd8002, 8d12c4a, 96c7ebe were produced by another coordinator session. This Claude coordinator did not run or verify stage 3 before this point.
+- Worktree state at start: HEAD 96c7ebe. Only the root `package-lock.json` is modified (pre-existing, unexplained, untouched). `delivery/part1-test-suite/results/` is not tracked by git (.gitignore `results/`).
+- User brief: automation-reviewer only. No fixes, commits, pushes, publication or uploads. Stop after 04 with a handoff for error-analyst.
+- Launched automation-reviewer (sequential; it writes only 04-code-review.md).
+
+### 2026-10-09 00:13-00:20 -03 - Stage 4: independent review (automation-reviewer) + coordinator spot-check
+
+- automation-reviewer wrote 04-code-review.md (215 lines). It hit its 8-turn limit after writing the full file, so no hand-back report was delivered. Verdict: CHANGES REQUESTED.
+- Reviewer stated it made no code/config/doc changes, no Cypress execution and no HTTP requests.
+- Claims a-e: all CONFIRMED. (d) is qualified: the 404 verification is inferred from source, not logged, and those runs used pre-commit source.
+- Findings:
+  - F-01 High: P0 guest booking S-10/S-11 has never passed.
+  - F-02 Medium: the "Selected" step check cannot distinguish a working drag from the URL pre-selection.
+  - F-03 Medium: the committed final source was never executed live.
+  - F-05 Medium: D-018 handler is global, has no ceiling, and is invisible in JUnit/CI.
+  - F-04 and F-06..F-11: Low / optional.
+- D-018: ACCEPT WITH CHANGES (anchored match, per-spec scope, ceiling, JUnit/CI visibility, ticket + expiry). Stays `proposed`.
+- Coordinator spot-check (independent of the reviewer):
+  - final attempts.json `.bookingObservations` = one 201, bookingid 6; submitted 2029-01-29..31 vs expected 2029-02-12..14. CONFIRMED.
+  - final cleanup registry `[]`; 4 `deleted-and-absent` 202 lines across final/2340/2354 jsonl. CONFIRMED.
+  - support/e2e.ts handler is a substring match on 'Minified React error #418;' and global. CONFIRMED.
+  - final XML timestamp 2026-10-09T02:58:48Z = 23:58:48 -03, before commit bcd8002 (00:08:27). CONFIRMED: committed source was not executed live.
+  - ADDITION to review Q1: the string '418' IS present in 20261008-2335-results-a0c2d126....xml and 20261008-2335-results-be3af9ef....xml. The original #418 failure text is preserved there. The reviewer did not open those files.
+- No fixes, commits, pushes, publication or uploads in this stage. Root package-lock.json is still uncommitted and untouched.
+- STOP: next stage error-analyst (05), pending user go-ahead.
+
+### 2026-10-09 - Stage 5: error-analyst RCA (authorized diagnosis only)
+
+- Read canonical instructions/role contract, full01/02/03/04, DECISIONS/runlog and exact raw failures/attempts/calendar/originalReact evidence. Review remains CHANGES REQUESTED; no implementation fixes or decision acceptance.
+- OriginalS10 body-subject actionability failure classified test bug (high confidence); exact original body bounds unavailable. Native settled desktop body centre1030.69 is outside800-height viewport, while mobile679.51 is inside844; sample supports the geometry explanation without claiming historical identity.
+- OriginalS11 Selected text is non-discriminating. Native drag visibly moved URL-selectedJan29..31 to Feb12/13 at both viewports; final native unchangedPOSTFeb12..14 received201, contradicting unconditional URL-date override. Original retry/handler timing remains missing.
+- Separate RCA Chrome155/Node diagnostic under work-item evidence; no delivery import/edit/request rewrite/state bypass. Bare no-query reservation has no calendar. First unsettled-scroll and missing-focus diagnostics preserved; latter400 rejected with noID, false IDless cleanup entry explicitly reconciled in execution notes.
+- Final native390x844 focus/value-verified run created one accepted bookingID4 markerqaxtugqwgm; guesttoken absent; adminGET200 fullidentity matched, DELETE202, verifyGET404, no supported outstanding created-record obligations. No third-party/global writes.
+- BookingConfirmed and Returnhome rendered positive-size/non-hidden DOM; exact confirmation dates/viewport intersection remain unverified because diagnostic regex serialization failed. This diagnostic does not turn deliverableS10/S11 green.
+- OriginalReact418 exact appchunk/message preserved; original timing relative to drag missing. Native Chrome did not emit418, but runner/engine differences prevent causal exclusion. D018 stays proposed; recommend removal, no baseline-derived ceiling/ticket/owner invented.
+- Known post-live ID guards, summary precedence/status and metadata/symptom changes retain local-only validation; exact historical working-tree diff is unavailable. No CI/Xray/device proof.
+- 05-error-analysis.md written NEEDS FIX; next authorized owner test-automation-writer, not automatically launched. No04/DECISIONS/delivery changes, commits, pushes, publication or uploads. Rootpackage-lock preserved.
+- Diagnostic journal bounds03:28:06.955Z..03:34:43.910Z (6m36.955s); reading/reporting additional agent wall-clock. Human working time and remaining six-hour human budget NOT YET PROVIDED. Remote investigation stopped after final cleanup.

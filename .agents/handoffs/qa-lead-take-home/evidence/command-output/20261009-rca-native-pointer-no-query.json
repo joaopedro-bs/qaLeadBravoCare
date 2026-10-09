@@ -1,0 +1,19 @@
+{
+  "started": "2026-10-09T03:28:06.955Z",
+  "head": "96c7ebea9c7f8270a64e3845e01d7a9f5904ae17",
+  "dirty": "M .agents/handoffs/qa-lead-take-home/04-code-review.md\n M .agents/handoffs/qa-lead-take-home/run-log.md\n M package-lock.json\n?? .agents/handoffs/qa-lead-take-home/evidence/command-output/20261009-rca-native-pointer.json\n?? .agents/handoffs/qa-lead-take-home/evidence/notes/20261009-rca-native-pointer.mjs",
+  "sourceHash": "a31ca5c99e56503c325cf885e890ef575c787c9e6362de59d63162e07125c062",
+  "cases": [
+    {
+      "width": 1280,
+      "height": 800,
+      "preselected": false,
+      "errors": [],
+      "url": "https://automationintesting.online/reservation/1"
+    }
+  ],
+  "cleanup": [],
+  "roomid": 1,
+  "error": "observable DOM wait timed out",
+  "ended": "2026-10-09T03:28:24.136Z"
+}

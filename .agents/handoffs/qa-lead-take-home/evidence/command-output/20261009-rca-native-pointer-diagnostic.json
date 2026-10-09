@@ -1,0 +1,38 @@
+{
+  "started": "2026-10-09T03:28:51.371Z",
+  "head": "96c7ebea9c7f8270a64e3845e01d7a9f5904ae17",
+  "dirty": "M .agents/handoffs/qa-lead-take-home/04-code-review.md\n M .agents/handoffs/qa-lead-take-home/run-log.md\n M package-lock.json\n?? .agents/handoffs/qa-lead-take-home/evidence/command-output/20261009-rca-native-pointer-no-query.json\n?? .agents/handoffs/qa-lead-take-home/evidence/command-output/20261009-rca-native-pointer.json\n?? .agents/handoffs/qa-lead-take-home/evidence/notes/20261009-rca-native-pointer.mjs",
+  "sourceHash": "1fc0b098b97392fb73dc64741a9701dabf3f9c0ce47854a8d300a98f3d2c12ba",
+  "cases": [
+    {
+      "width": 1280,
+      "height": 800,
+      "preselected": false,
+      "errors": [],
+      "url": "https://automationintesting.online/reservation/1",
+      "timeoutDOM": {
+        "title": "Restful-booker-platform demo",
+        "url": "https://automationintesting.online/reservation/1",
+        "headings": [
+          "Single Room",
+          "Room Description",
+          "Room Features",
+          "Room Policies",
+          "Check-in & Check-out",
+          "House Rules",
+          "Similar Rooms You Might Like",
+          "Double",
+          "Suite"
+        ],
+        "calendar": false,
+        "buttons": [
+          ""
+        ]
+      }
+    }
+  ],
+  "cleanup": [],
+  "roomid": 1,
+  "error": "observable DOM wait timed out",
+  "ended": "2026-10-09T03:29:06.035Z"
+}

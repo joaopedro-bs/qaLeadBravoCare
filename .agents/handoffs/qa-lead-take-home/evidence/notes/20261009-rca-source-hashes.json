@@ -1,0 +1,11 @@
+{
+  "captured": "2026-10-09T03:34:26.653Z",
+  "files": {
+    "delivery/part1-test-suite/cypress/support/pages/reservation.ts": "baaa905388cb71a7e601533ff15e1b9d212e2214e86c028474056e48041f2239",
+    "delivery/part1-test-suite/cypress/support/e2e.ts": "cffc52e70a31866cfe4b78423d82ec976f8f9955522b8148015527704670e40a",
+    "delivery/part1-test-suite/cypress/support/node-tasks.ts": "a90e6c3e5a90c2ccca632d0bcd74ed6f9da915ff64ad5750177ad33533edc90c",
+    "delivery/part1-test-suite/cypress/e2e/hotfix/guest-booking.cy.ts": "c874a2ca31653d8371715761a58ff7a51a6f67d21eb4354cca142a0ad6690f5d",
+    "delivery/part1-test-suite/DECISIONS.md": "77d45a36f5496d5eb75b9b56c2887cb4362e5c1463725662c15638d15dd72bef",
+    "package-lock.json": "9bbc7d92a3104ec3f7f6867cb6f3e44101b64d78a00a5bcf0533a558dd2db2e8"
+  }
+}
