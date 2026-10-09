@@ -1,0 +1,143 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: phaseB-s10-s11
+Started: 2026-10-09 00:56:21 -03
+Command: npm --prefix delivery/part1-test-suite run hotfix -- --spec cypress/e2e/hotfix/guest-booking.cy.ts --reporter-options mochaFile=results/junit/phaseB-s10-s11/results-[hash].xml
+
+## Output
+
+
+> restful-booker-qa-foundation@1.0.0 hotfix
+> cypress run --spec 'cypress/e2e/smoke/**/*.cy.ts,cypress/e2e/hotfix/**/*.cy.ts' --spec cypress/e2e/hotfix/guest-booking.cy.ts --reporter-options mochaFile=results/junit/phaseB-s10-s11/results-[hash].xml
+
+
+DevTools listening on ws://127.0.0.1:58729/devtools/browser/4d4abef3-1b75-48cf-b5c2-caae89e952d4
+Couldn't determine Mocha version
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        15.5.0                                                                         │
+  │ Browser:        Electron 138 (headless)                                                        │
+  │ Node Version:   v24.11.1 (/Users/joaopedrobarbosa/Documents/techInterviewSNDB/.claude/worktree │
+  │                 s/qa-lead-take-home/delivery/part1-test-suite/node_modules/node/bin/node)      │
+  │ Specs:          1 found (guest-booking.cy.ts)                                                  │
+  │ Searched:       cypress/e2e/hotfix/guest-booking.cy.ts                                         │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  guest-booking.cy.ts                                                             (1 of 1)
+[37186:1009/005631.696493:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.696551:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.696603:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.696636:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.696649:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.701422:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.701484:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.701658:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.702425:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.702443:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.702459:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.702474:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.702485:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.702502:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[37186:1009/005631.702544:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        2                                                                                │
+  │ Passing:      0                                                                                │
+  │ Failing:      2                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     5 seconds                                                                        │
+  │ Spec Ran:     guest-booking.cy.ts                                                              │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✖  guest-booking.cy.ts                      00:05        2        -        2        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✖  1 of 1 failed (100%)                     00:05        2        -        2        -        -  
+
+
+## Exit status
+2
+
+Finished: 2026-10-09 00:56:39 -03

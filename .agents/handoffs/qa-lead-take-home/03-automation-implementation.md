@@ -1,115 +1,157 @@
 # Automation Implementation - qa-lead-take-home
 
-Status: READY FOR REVIEW. Execution outcome: FAIL / CORE INCOMPLETE (7 passed, 2 failed).
+Status: **BLOCKED**. The live S-10/S-11 run failed 0/2 on both attempts because of the unsuppressed application error React #418. Following Step 3, the full daily core was not run. The calendar driver and selection proof have still not been validated live.
 
 ## Upstream handoffs consumed
 
-- Canonical AGENTS.md, RTK.md, GUARDRAILS, AI_OPERATING_MODEL, LOOPS, WORKFLOW, EVIDENCE and test-automation-writer role contract.
-- Full 01-test-spec.md, 02-test-architecture.md, DECISIONS.md and prior run-log.md.
-- Referenced read-only HTML/API evidence, frontend selector/endpoint notes, admin bundle note, observed API contracts and redacted discovery transcripts/scripts.
-- Latest user approval of the nine-test core and mandatory revisions is authoritative. Existing 01/02 remain historical; request-rewriting fallback, ID-only deletion, automatic reset/concurrency classification, iOS UA spoofing and unverified latest compiler choice were superseded in DECISIONS and this handoff.
+- AGENTS.md, GUARDRAILS, AI_OPERATING_MODEL, LOOPS, WORKFLOW and the test-automation-writer SKILL.md.
+- 04-code-review.md (F-02, F-05, F-06, F-10, D-018 section) and 05-error-analysis.md (final native timeline, minimum recommended correction, acceptance checks).
+- RCA script `evidence/notes/20261009-rca-native-pointer.mjs`, used for the native pointer sequence and hit-point geometry.
+- User-required changes 1-5 for this iteration, as relayed by the coordinator. These are binding: native pointer driver, exact selection proof, preserved business assertions, #418 suppression removed, cleanup unchanged.
 
-## Files changed
+## Files changed (Phase A, committed by coordinator as c65c14c)
 
-All deliverable code is self-contained in `delivery/part1-test-suite/`:
+All files are under `delivery/part1-test-suite/`.
 
-- package.json / package-lock.json, tsconfig.json, .gitignore, cypress.config.ts.
-- Five specs under `cypress/e2e/smoke`, `hotfix`, `daily` (nine implemented tests).
-- Typed support: api-types, data/date-window selection, reservation selectors/calendar driver, browser creation witness, Node auth/identity registry/cleanup, global evidence hooks.
-- `tests/cleanup.test.mjs`: eight local safety proofs using mocked HTTP, never live writes.
-- English README.md, revised DECISIONS.md, `.github/workflows/e2e.yml`.
-- This handoff, run-log and actual execution evidence under this work item.
+| File | Purpose |
+|---|---|
+| `cypress/support/pages/reservation.ts` | Native CDP pointer drag on the real calendar cells. `initialWindow()` produces two discriminating initial URL windows. Selection proof uses a pre-drag snapshot and exact target-cell assertions. `openForm` and `fillGuest` are unchanged. |
+| `cypress/e2e/hotfix/guest-booking.cy.ts` | S-10 uses `inside-target-month` and S-11 uses `outside-target-month`. `recordBookingObservation` now records `test` (titlePath), `attempt` (currentRetry), `observedAt` and `initialWindow`. Business assertions are unchanged. |
+| `cypress/support/e2e.ts` | No `uncaught:exception` handler at all. Keeps witness drain registration and `cleanupCurrentAttempt`. |
+| `cypress/support/node-tasks.ts` | Removed the `recordBrowserSymptoms` task, the `browserSymptoms` state and summary field, and the symptom-only `PASS WITH RISKS` branch. `PASS WITH RISKS` now comes only from cleanup problems, and FAIL keeps precedence. Accepts the new observation fields. `failureSymptom` maps the new tagged messages. Cleanup logic is untouched. |
 
-Preserved prior commits and changes. The unrelated workspace-root package-lock.json was not modified, staged or reverted by implementation. No commit was made by this specialist; coordinator owns authorized staged inspections and local commits.
-
-## Scenario-to-code mapping
-
-| Scenario | Code | Final local daily result |
-|---|---|---|
-| S-01 | smoke/api-contracts.cy.ts | PASS, first attempt: live room contract/types |
-| S-03 | same | PASS, first attempt: anonymous 401/error contract |
-| S-07 | smoke/home.cy.ts | PASS, first attempt: room-specific reservation URL plus API type/description/price, 1280x800 |
-| S-08 | same | PASS, first attempt: same at 390x844 desktop engine |
-| S-09 | smoke/reservation-page.cy.ts | PASS, first attempt: API-sourced room and visible form after Reserve Now; no submission/date-change claim |
-| S-10 | hotfix/guest-booking.cy.ts | FAIL on both attempts; desktop calendar pointer target hidden |
-| S-11 | same | FAIL on both attempts; one real 201 submitted URL-initialized dates rather than selected target; required assertion failed |
-| S-31 (S-12,S-15) | daily/booking-api.cy.ts | PASS, first attempt: anonymous 201, deliberate identical overlap 409, own admin GET/list identity, report, owned delete 202 and GET404 |
-| S-14 | same | PASS, first attempt: invalid fields400 and observed validation rules |
-
-The roomName display oracle in 02 did not match inspected behavior: cards show room type. The revised assertion preserves room identity through its own reservation href and verifies rendered public fields. Original failed assumptions remain in execution history. S-09 retains its approved form-load scope; calendar-change proof is required by S-10/S-11 and remains incomplete.
+Post-execution documentation change (Phase B, not part of the tested commit): `README.md` sections "Mobile coverage and application symptoms" now match the observed results and the removal of the #418 toleration.
 
 ## Design decisions
 
-- Accepted D-010, D-011, D-013, D-014 and D-016. Revised D-006..D-009, D-012, D-015 and D-017 before acceptance. D-018 (narrow React hydration handling) is proposed and a reviewer focus.
-- Pins: Cypress15.5.0, TypeScript5.9.3, Node24.11.1 LTS, @types/node24.10.0. Registry Cypress engines support Node24. A local Node dev dependency keeps npm scripts on the CI runtime without changing host Node26; adds binary install size.
-- Initial Node24.10.0 install failed (missing Darwin ARM architecture package); targeted registry inspection confirmed24.11.1. Clean `npm ci` later passed. TypeScript7/latest-only selection was not used.
-- Cumulative folder-glob tiers; built-in JUnit; no grep/reporter/BDD service layer. API lifecycle uses small Node tasks for privacy-sensitive operations while ordinary read-only contracts use cy.request.
-- CI configuration is GitHub Actions PR smoke, scheduled daily and dispatch tiers, with shared-demo serialization and narrow artifact paths. It is nested in the self-contained deliverable and cannot trigger until that directory is a repository root. CI was not executed; Xray import and real-device validation are unverified.
+- **Driver.** The driver sends Chrome DevTools Protocol input through `Cypress.automation('remote:debugger:protocol', {command:'Input.dispatchMouseEvent'})`. This adds no dependency. The input sequence copies the RCA: move, press on the bottom-centre of the check-in `.rbc-day-bg` (4px above its bottom edge), 12 moves with `buttons:1`, then release on the last-night cell. `cypress-real-events` is only a fallback proposal if CDP turns out to be unavailable, and it has not been installed.
+- **Iframe mapping.**
+  - The runner `iframe.aut-iframe` class was confirmed read-only in the Cypress 15.5 bundle.
+  - The driver asserts `iframe.contentWindow === AUT window`.
+  - Scale is `iframeRect.width / aut.innerWidth`, and the height ratio must agree within 0.01.
+  - The top-page point is `iframeRect.left/top + local * scale`.
+- **Stability and hit-testing.** The order is:
+  1. Navigate with Next, asserting the label after every click.
+  2. Scroll the target row to the centre with native `scrollIntoView`.
+  3. Wait for 3 consecutive identical month-view rect and scroll reads.
+  4. Re-read the rects in the same `.then` that dispatches.
 
-## UI inspection and bounded implementation loop
-
-1. Initial smoke: two API passes, three UI failures on both attempts with application React#418. Exact underlying cause remains unknown.
-2. Narrow handling now records each exact React#418 occurrence and continues functional assertions; other uncaught errors fail. Final run recorded nine occurrences, associated with tests/attempts. No clean application-runtime claim.
-3. Rendered reservation DOM showed Today/Back/Next, a month calendar and Reserve Now; inputs appear only after opening the form. Public bundle inspection confirmed onSelectSlot start/end with >1 slots and the success heading `Booking Confirmed`, date text and `Return home` link.
-4. The URL initializes a Selected event; the calendar remains at the current month. Actual navigation/drag was attempted with observable labels and hit testing. Fixed navbar/event coverage and body hit-testing blocked attempts. A different initial URL window was used so the final request must prove a real calendar change. No force clicks, DOM state mutation, stubs or intercepted request rewrites were used.
-5. Final targeted and daily UI execution reached a real201 in one mobile attempt, but request dates stayed at the initial URL window. Full E2E is therefore incomplete; visible success assertions exist but were not successfully reached/proven. Calendar diagnostics stopped at the cut line. No stretch tests were implemented.
-
-Final daily observed mobile request: target `2029-02-12..2029-02-14`, submitted `2029-01-29..2029-01-31`,201 ID6. Stored identity uses the actual submitted fields plus this execution's expected unique marker; the record was verified and deleted. This is evidence of a failed date-change assertion, not a successful full journey. Driver failure is a hypothesis; the underlying cause remains unknown pending independent investigation.
+  `elementFromPoint` at both AUT-local points must be inside `.rbc-month-view`, in the target `.rbc-month-row`, and not on an `.rbc-event`. A passive capture listener must see a trusted mousedown in the target row and a trusted mouseup.
+- **Selection proof.**
+  - Pre-drag snapshot: each Selected segment as row, first/last column and left/right px, measured from the `.rbc-row-segment` wrapper.
+  - S-10 precondition: the URL Selected event is visible in the target month and does not equal the target.
+  - S-11 precondition: no Selected segment in the target month view.
+  - After the drag, in a retrying `should`:
+    - exactly one Selected segment;
+    - in the check-in row;
+    - left edge within ±2px of the check-in cell;
+    - right edge within ±2px of the last-night cell;
+    - columns exactly `[checkinCol, lastNightCol]`;
+    - not equal to any pre-drag segment.
+- **Initial windows.**
+  - Inside: target -7 days, or +14 days for check-in days 1-7. This is always the same month on a different row.
+  - Outside: target -60 days, which can never appear in the target view.
+  - The "minus 14" example was not used because, for check-in days up to 14, it can fall outside the visible month.
+- **Failure messages** are tagged: `[native-pointer]`, `[calendar-hit-target]`, `[calendar-geometry]`, `[calendar-precondition]`, `[calendar-selection]`. There is no `force`, no `cy.on('fail')`, no stubs or request rewriting, and no state or URL bypass.
 
 ## Data and cleanup behavior
 
-- Anonymous guest UI/API creation; admin token retained only in a Node closure for later verification/cleanup. Assignment demo credentials extracted directly to child-process environment, never persisted or printed. No credential/token/cookie reaches browser config or artifacts.
-- Per-attempt alphabetic marker, synthetic contacts, API-sourced room, report-checked future date window with one-day buffer and up to20 in-memory candidates. No seed/count oracle or room/branding write.
-- Persistent registry stores returned ID plus exact marker, room, names, dates and deposit flag before assertions. Browser witness is also drained in afterEach if an application error interrupts cy.wait after submission; successful responses without an ID/missing responses leave explicit obligations.
-- Before deletion, admin GET must match the stored identifying fields. Mismatch/unverified identity means no delete and retained obligation. Already-absent records resolve as absent, with cause unknown. DELETE202 must be followed by GET404.
-- Cleanup HTTP failures return separately, preserve original test results and retain entries. A separate outcome journal and after-run summary expose failures; unresolved cleanup makes the run unsuccessful. Registry writes use temporary-file rename. No old-run/pattern sweeps.
-- Actual new implementation execution: targeted API lifecycle created/deleted one booking; targeted UI created/deleted one; final daily created/deleted two. Four accepted creates total across these runs, all verified deleted/absent; reused numeric IDs are not assumed evidence of a reset. No remaining cleanup obligation.
-- Read-before-delete is not atomic; no conditional-delete contract was observed. Abrupt process termination can still interrupt response/registry transfer; missing-response witnesses retain uncertainty when the hook runs. Keep interrupted-run registry files for accountable manual recovery.
+Cleanup behaviour is unchanged from the previous iteration:
 
-## Validation commands run and inspected results
+- Full identity GET before DELETE, comparing the ID and all identity fields.
+- 404 absence verified after the delete.
+- Positive safe-integer ID guard.
+- Unresolved obligations reported separately from test results.
+- Registry throw in `after:run`.
 
-Commands were invoked through RTK; credential values were supplied only through env and excluded from logged command arguments.
+`tests/cleanup.test.mjs` needed no changes.
 
-| Command | Result / evidence (relative to evidence/command-output) |
+## Tested source
+
+| Item | Value |
 |---|---|
-| npm install --no-audit --no-fund | First Node24.10.0 architecture package failed; corrected24.11.1 install completed. Recorded in run-log; no claim first install passed. |
-| npm run typecheck | Initial small typing failures fixed, later metadata typing failure fixed; final exit0 in `20261009-0004-final-summary-typecheck.txt` |
-| npm run smoke -- --spec cypress/e2e/smoke/api-contracts.cy.ts |2/2 passed first attempt; compatibility proof `20261008-2331-api-compatibility.txt` |
-| npm run smoke and narrow S-09 diagnostics | Earlier failures/retries retained; read run matrix below and JUnit manifest before associating cumulative reports |
-| npm run daily -- --spec cypress/e2e/daily/booking-api.cy.ts |2/2 passed first attempt; `20261008-2340-api-lifecycle.txt`, matching attempt summary/cleanup |
-| npm run hotfix -- --spec cypress/e2e/hotfix/guest-booking.cy.ts |0/2 passed, both retries failed; `20261008-2354-real-guest-booking.txt`, matching summary and exact single XML |
-| npm ci --no-audit --no-fund |exit0,178 packages; `20261008-2357-npm-ci.txt` |
-| npm run daily -- --reporter-options mochaFile=results/junit/final-daily/results-[hash].xml |exit2,9tests,7passed,2failed,0pending/skipped; `20261009-0000-final-daily.txt` |
-| npm run test:cleanup |Final8/8 local mocked safety proofs passed; `20261009-0004-final-summary-proofs.txt` |
+| Delivery commit | c65c14c (coordinator-reported) |
+| HEAD | 2a515a2d51ed1bec7df98d25a1d2749b12baa392. Read from the worktree's git ref file because git commands were refused by the session guard (`evidence/command-output/20261009-phaseB-source-state.md`). |
+| Delivery tree | 88aca0dac59952befb4edc4f69733315cf3dc460 (coordinator-reported, not recomputed here) |
+| Working tree | Clean except the unrelated root package-lock.json, per the coordinator. This agent made no delivery edits before the run. |
 
-The final Node ID equality/positive-safe-integer guard and primary summary status were tightened **after** the final live run. They passed final typecheck and eight local safety proofs, including mismatched returned ID/no delete and FAIL primary outcome with resolved cleanup. No further live run was performed. Exact final source is not claimed fully live-validated.
+## Validation commands run
 
-## Evidence map and assessment
+Each command was run from the worktree root through `scripts/collect-evidence.sh`. Credentials were passed only as an environment prefix; the evidence records only the command arguments.
 
-- Final run ID `cdd7962f-e251-4728-afc3-7d68f9a419d8`: final-daily command log, attempt summary, cleanup JSONL, empty registry and exactly five `20261009-0000-final-daily-results-*.xml` files. The isolated `results/junit/final-daily/` folder contains only this run.
-- Seven first-attempt passes; four failed UI attempts (two scenarios with one retry each); no retry passes. Nine React#418 occurrences. API ID4 and UI ID6 deleted202 then absent404; unresolved cleanup0.
-- Original captured final summary's status string predates the primary FAIL-status correction. It must be read with CLI exit2/JUnit failures; overall outcome is **FAIL / CORE INCOMPLETE**, not PASS WITH RISKS. New status handling is locally proven; the original capture is preserved unchanged.
-- Early `2335`, `2340`, `2345`, `2352` report-copy groups contain cumulative XML from prior runs. Their prefixes alone do not identify which run a report belongs to. Use the manifest note and XML scenario/timestamps. Original histories were preserved; later targeted/final captures use isolated report folders.
-- Evidence filenames were preassigned stage labels and are not precise execution-start timestamps; Cypress logs/JUnit timestamps and run IDs are authoritative. Do not use these labels to compute human working time.
+| Phase | Command | Exit | Result | Evidence (`evidence/command-output/`) |
+|---|---|---|---|---|
+| A | `npm --prefix delivery/part1-test-suite run typecheck` | 0 | tsc clean | `20261009-005245-phaseA-typecheck.txt` |
+| A | `npm --prefix delivery/part1-test-suite run test:cleanup` | 0 | 8 pass / 0 fail (mocked) | `20261009-005247-phaseA-cleanup-proofs.txt` |
+| B | `npm --prefix delivery/part1-test-suite run hotfix -- --spec cypress/e2e/hotfix/guest-booking.cy.ts --reporter-options mochaFile=results/junit/phaseB-s10-s11/results-[hash].xml` | 2 | 2 tests, 0 passed, 2 failed (Electron 138 headless, Cypress 15.5.0, Node 24.11.1) | `20261009-005621-phaseB-s10-s11.txt`, `20261009-phaseB-s10-s11-run-summary.json`, `20261009-phaseB-s10-s11-results-43de883c2ab13fb2f439a864edd0dd34.xml`, `20261009-phaseB-s10-s11-cleanup-registry.json`, `20261009-phaseB-s10-s11-cleanup-outcomes.jsonl` (0 lines: the run id `5ee8b744-7fca-49c9-9786-74dbc79f3ef9` has no outcomes) |
+| B | `npm run daily` (full core) | not run | Skipped by the Step 3 gate because S-10/S-11 did not pass | none |
+
+## Results (run id 5ee8b744-7fca-49c9-9786-74dbc79f3ef9)
+
+| Test | First attempt | Retry | Final | Symptom tag |
+|---|---|---|---|---|
+| [S-10] 1280x800, initial window inside target month | FAILED | FAILED | FAILED (1.783s) | `react-hydration-418` |
+| [S-11] 390x844, initial window outside target month | FAILED | FAILED | FAILED (1.012s) | `react-hydration-418` |
+
+- The final failure text in both cases is Cypress's default uncaught-exception failure: "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]=". The stack is in the app chunk `_next/static/chunks/174b7k13ybrt2.js` (frames `rX`, `iu`, `sd`, `se`, `s$`, `MessagePort.O`). This is the hydration-mismatch error the previous iteration tolerated.
+- JUnit records only the final attempt. The run summary shows both attempts as `failed`, classification `unknown`. The first-attempt failure messages are not retained individually, and I did not verify that the first attempt also failed on #418.
+- **No tagged driver or selection message appeared.** `bookingObservations` is `[]`, so no booking POST was observed in any attempt. Each test lasted only 1.0-1.8s, which is far shorter than the 24+ Next clicks required. This implies, but does not prove (there are no screenshots or command log), that #418 fired during or right after `cy.visit`, before the drag. The native CDP driver, hit tests and selection proof are therefore **not exercised and not validated**.
+- Run summary: status `FAIL: CORE INCOMPLETE`, totals 2/0/2/0/0, cleanup `[]`, `unresolvedCleanup` 0, cleanupStatus RESOLVED. The new summary format, without `browserSymptoms`, was produced live.
+
+## Booking observations and cleanup
+
+- Booking observations: none, so there is no submitted-vs-expected comparison, no status and no ID.
+- 201 bookings created: none observed. Cleanup outcomes for this run: none. Registry: `[]`. Unresolved cleanup: 0. This is reported separately from the test results.
+- Secret scan: `grep -il -e password -e "token=" -e cookie` over the five new Phase B artifacts found no match (exit 1).
+
+## #418 status
+
+- The suppression is removed, as the user required, and it was not restored.
+- #418 now fails both booking tests on every attempt by default.
+- Root cause (server/client markup mismatch) and user impact remain unknown.
+- D-018 was not accepted (suppression removed per user instruction; DECISIONS.md status changed in c65c14c, history preserved). Any new #418 allowance would require a new explicit user decision. Options listed for that decision, as decision input only (this agent did not choose one):
+  1. Keep the default failure and report S-10/S-11 as blocked by a product defect. The suite then remains red until the app is fixed.
+  2. Authorize a narrow, scoped, observable allowance per 04 D-018 (anchored message, per-spec scope, per-test ceiling, CI-visible count, owner and expiry). That would be a code change and requires a new tested-source commit and rerun.
+  3. Run a scoped diagnostic to time #418 relative to `cy.visit` and hydration readiness.
+
+  Of the other smoke tests, S-07/S-08/S-09 visit UI pages and are expected to hit #418 too. This is a hypothesis; they were not run in Phase B.
 
 ## Validation not run
 
-Independent automation review, formal RCA and final QA report are deliberately not started. No CI execution, Xray import, real-device Safari/iOS validation, WebKit, Firefox matrix, performance, room/global setting writes, contact-message stretch or admin-UI stretch execution. No push, split, publication or upload.
+- Full daily core: gated off.
+- The native driver, the selection proof, and the confirmation-date assertion on a live page.
+- CI (GitHub Actions, Bitbucket, Jenkins), Xray import, real-device Safari/iOS, WebKit, Firefox, performance and stretch scope.
+- No commits, pushes, publication or uploads by this agent.
 
-## Known limitations
+## Known limitations and live-run risks (still open)
 
-Full UI booking remains incomplete at both viewports; confirmation assertions are unproven. Desktop pointer-target hit testing and mobile date-change behavior need independent investigation. React hydration handling narrows diagnostic behavior and qualifies otherwise passing UI checks. Shared-demo races persist. Node transport status0 intentionally withholds sensitive details and has unknown cause. Mocked safety proofs establish local logic, not live race/reset coverage. Minor Node module-type warning and local macOS certificate/tty/Mocha-version warnings were present; targeted APIs still executed successfully, without disabling TLS verification.
-
-Human working time is NOT YET PROVIDED. Agent wall-clock is recorded separately; remaining six-hour human budget cannot be computed from it. No stretch work was started.
+- Electron CDP `remote:debugger:protocol` availability is unverified live, because the server handler is inside the compiled snapshot.
+- Headless AUT scaling and fractional coordinates.
+- ±2px edge tolerance, which assumes the `.rbc-row-segment` box aligns with the day cells.
+- Sticky navbar overlapping the target row; this would surface as `[calendar-hit-target]`.
+- The stability wait uses Cypress's retry interval, which is shorter than the RCA's 50ms spacing.
+- Shared-demo races and ID reuse; non-atomic read-before-delete (D-009).
 
 ## Reviewer focus areas
 
-1. Investigate real calendar pointer/selection state; do not rewrite intercepted dates or weaken target-date/success assertions to make green.
-2. Review D-018 narrow React#418 handling and nine observed events; decide whether functional checks may continue with risks.
-3. Inspect ID+full-identity guard, witness registration before assertions, persistent unresolved obligations, original-failure preservation, post-run summary FAIL priority and interruption limitations.
-4. Check Node-only credential/token transport and all JUnit/task failure paths. Confirm upload paths exclude registry/raw API/browser media.
-5. Confirm CI reference configuration vs unexecuted CI/Xray/real-device claims and exact final-source/live-validation distinction.
+1. Native driver correctness: iframe mapping, the hit-test predicate, trusted-event trace, cleanup of the passive listener in `finally`.
+2. Strength of the selection proof: the segment-based columns and the pixel checks, and whether the S-10/S-11 preconditions discriminate.
+3. That the status precedence is unchanged after removing the symptoms branch, and the new tagged `failureSymptom` mapping.
+4. #418 now blocks the P0 journey. D-018 was not accepted, so any allowance needs a new explicit user decision.
+
+## Previous implementation iteration (superseded)
+
+This is a summary; the full detail is in git history and the earlier evidence.
+
+- The nine-test core was implemented: S-01, S-03, S-07, S-08, S-09, S-10, S-11, S-31 (S-12/S-15), S-14. Pins: Cypress 15.5.0, TypeScript 5.9.3, Node 24.11.1, @types/node 24.10.0. CI is configured as GitHub Actions and has not been executed. JUnit only; Xray is unverified.
+- Final daily run `cdd7962f-e251-4728-afc3-7d68f9a419d8`: exit 2, 9 tests, 7 first-attempt passes, S-10/S-11 failed on both attempts.
+  - S-10 failed on body actionability: "hidden from view: `<body>`".
+  - One S-11 attempt sent a real 201 (ID 6) carrying the URL dates 2029-01-29..31 instead of the target 2029-02-12..14.
+  - Nine #418 occurrences were tolerated by the previous global handler.
+  - API ID 4 and UI ID 6 were identity-checked, deleted (202) and confirmed absent (404). Unresolved cleanup was 0.
+- After that run, the ID-equality and positive-safe-integer guards and the FAIL-first summary status were tightened. They were proven locally (typecheck and 8/8 mocked proofs) but not live until this Phase B run.
+- The 04 review returned CHANGES REQUESTED (F-02 weak Selected check, F-05 D-018 scope, F-06 observation attribution, F-10 body drag). The 05 RCA showed that native pointer input changes the selection at both viewports and that a native POST carries the changed dates. It recommended this iteration's correction.
 
 ## Handoff status
 
-READY FOR REVIEW with blocking execution gaps S-10/S-11. Overall core execution is FAIL / INCOMPLETE; seven passes do not justify the hotfix gate or release. Stop here for Claude's independent automation review. Do not publish or start downstream stages automatically.
+**BLOCKED.** The P0 guest booking journey (S-10/S-11) fails before the calendar interaction because of unsuppressed application error React #418. The corrected driver and selection proof are not yet validated live. No cleanup obligation remains. D-018 was not accepted; a new explicit user decision on #418 is needed before further live validation. If a new allowance is authorized, it needs a new code commit and a rerun of S-10/S-11, then the daily core.

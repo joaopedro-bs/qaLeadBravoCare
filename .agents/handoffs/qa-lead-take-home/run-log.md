@@ -242,7 +242,7 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
   - Coordinator then inspects the diff and commits, so a clean SHA exists.
   - Phase B: writer runs S-10/S-11 live at that SHA; if they pass, the 9-test core; then writes 03.
 
-### 2026-10-09 00:45-00:58 -03 - Stage 5 Phase A: correction + local validation (test-automation-writer)
+### 2026-10-09 00:45-00:54 -03 - Stage 5 Phase A: correction + local validation (test-automation-writer)
 
 - The writer stopped at its 12-turn limit with only reservation.ts changed. It was resumed once to finish.
 - Changes:
@@ -262,3 +262,32 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
   - the date generator keeps check-in on a Monday, day <= 25, 2 nights, so check-in and last night share one week row.
 - DECISIONS.md: D-018 status set to `not accepted`, original text kept, outcome appended. A `not accepted` status was added to the legend.
 - Commit c65c14c (coordinator): delivery code + DECISIONS only. Phase A evidence + run-log committed separately (next commit).
+
+### 2026-10-09 00:56-01:01 -03 - Stage 5 Phase B: live validation (test-automation-writer) + coordinator verification
+
+- Tested source:
+  - HEAD 2a515a2 (delivery commit c65c14c, 00:54:28). Delivery tree 88aca0d; cypress/ tree 37125a7.
+  - Working tree at run time: clean except the unrelated root package-lock.json (coordinator `git status` at 00:54:47).
+  - The writer's git commands were refused by the worktree guard. It recorded HEAD from the ref file (`evidence/command-output/20261009-phaseB-source-state.md`). The coordinator recomputed the hashes.
+- Command (credentials via env prefix only; collect-evidence records only `$*`):
+  - `scripts/collect-evidence.sh qa-lead-take-home phaseB-s10-s11 npm --prefix delivery/part1-test-suite run hotfix -- --spec cypress/e2e/hotfix/guest-booking.cy.ts --reporter-options mochaFile=results/junit/phaseB-s10-s11/results-[hash].xml`
+  - Started 00:56:21 -03 (after the commit). Exit status 2. Electron 138 headless, Cypress 15.5.0, Node 24.11.1.
+- Results (run 5ee8b744-7fca-49c9-9786-74dbc79f3ef9):
+
+| Test | First attempt | Retry | Final symptom |
+|---|---|---|---|
+| S-10 1280x800, inside-month initial window | failed | failed | react-hydration-418 |
+| S-11 390x844, outside-month initial window | failed | failed | react-hydration-418 |
+
+- Detail:
+  - JUnit: tests=2, failures=2, timestamp 2026-10-09T03:56:33Z. The message is the unsuppressed "Minified React error #418"; JUnit keeps only the final attempt's message.
+  - Durations 1.0-1.8 s: the failure came before calendar navigation or the drag. Inferred from timing; there are no screenshots by design.
+  - bookingObservations [] (no booking POST). Cleanup outcomes for this run: 0 lines; registry []; unresolvedCleanup 0, cleanupStatus RESOLVED. Reported separately from test results.
+  - The new calendar driver and selection proof are NOT validated live; they never executed past page load.
+- Full 9-test core NOT run: the user's gate requires S-10/S-11 to pass first.
+- Leak check: password/token=/cookie count 0 in every phase B evidence file.
+- Post-execution changes (documentation/handoff only; no code under cypress/, package files or config):
+  - README.md "Mobile coverage" paragraphs (writer), D-018 wording corrected by the coordinator.
+  - DECISIONS D-018 timestamp corrected 00:57 -> 00:54.
+  - 03-automation-implementation.md (writer; D-018 status correction requested by the coordinator).
+- BLOCKER for the user: #418 now fails the P0 booking journey before the driver runs. Restoring any allowance contradicts the user's instruction, so the coordinator will not do it without an explicit new decision.

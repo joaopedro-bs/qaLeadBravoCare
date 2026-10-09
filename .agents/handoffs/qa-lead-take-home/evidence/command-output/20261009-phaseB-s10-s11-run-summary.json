@@ -1,0 +1,60 @@
+{
+  "run": "5ee8b744-7fca-49c9-9786-74dbc79f3ef9",
+  "node": "v24.11.1",
+  "cypress": "15.5.0",
+  "specs": [
+    {
+      "spec": "cypress/e2e/hotfix/guest-booking.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Anonymous guest booking with real calendar and backend",
+            "[S-10][R-01] real booking and visible confirmation at 1280x800 desktop engine @p0 @write @hotfix"
+          ],
+          "state": "failed",
+          "finalSymptom": "react-hydration-418",
+          "attempts": [
+            {
+              "state": "failed",
+              "classification": "unknown"
+            },
+            {
+              "state": "failed",
+              "classification": "unknown"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Anonymous guest booking with real calendar and backend",
+            "[S-11][R-01] real booking and visible confirmation at 390x844 desktop engine @p0 @write @hotfix"
+          ],
+          "state": "failed",
+          "finalSymptom": "react-hydration-418",
+          "attempts": [
+            {
+              "state": "failed",
+              "classification": "unknown"
+            },
+            {
+              "state": "failed",
+              "classification": "unknown"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "tests": 2,
+    "passed": 0,
+    "failed": 2,
+    "pending": 0,
+    "skipped": 0
+  },
+  "bookingObservations": [],
+  "cleanup": [],
+  "unresolvedCleanup": 0,
+  "cleanupStatus": "RESOLVED",
+  "status": "FAIL: CORE INCOMPLETE"
+}
