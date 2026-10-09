@@ -1,0 +1,108 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: 418diag-plainchrome-posctrl
+Started: 2026-10-09 01:11:06 -03
+Command: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new --no-first-run --no-default-browser-check --user-data-dir=/Users/joaopedrobarbosa/.claude/jobs/255b32ab/tmp/chromeprof --enable-logging=stderr --v=0 --virtual-time-budget=3000 --dump-dom data:text/html,<script>console.error('POSCTRL_console');reportError(new Error('POSCTRL_reportError'))</script>
+
+## Output
+
+[60733:2415918:1009/011107.406865:ERROR:net/cert/internal/trust_store_mac.cc:380] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.407588:ERROR:net/cert/internal/trust_store_mac.cc:380] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.407627:ERROR:net/cert/internal/trust_store_mac.cc:380] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.407658:ERROR:net/cert/internal/trust_store_mac.cc:380] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.407674:ERROR:net/cert/internal/trust_store_mac.cc:380] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.412351:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.412580:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.412704:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.412901:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.412918:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.412934:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.412949:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.412963:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.412979:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415918:1009/011107.413012:ERROR:net/cert/internal/trust_store_mac.cc:807] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[60733:2415841:1009/011107.445126:INFO:components/enterprise/browser/controller/chrome_browser_cloud_management_controller.cc:241] No machine level policy manager exists.
+[60742:2415943:1009/011108.487267:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415998:1009/011108.488237:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415943:1009/011108.491155:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415998:1009/011108.493398:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415943:1009/011108.497229:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415998:1009/011108.497300:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415943:1009/011108.497471:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415998:1009/011108.497534:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415943:1009/011108.497636:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415998:1009/011108.499419:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415943:1009/011108.499562:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+[60742:2415998:1009/011108.499614:ERROR:ui/display/mac/cv_display_link_mac.mm:188] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+Trying to load the allocator multiple times. This is *not* supported.
+[60733:2415841:1009/011108.771670:INFO:CONSOLE:1] "POSCTRL_console", source: data:text/html... (1)
+[60733:2415841:1009/011108.772581:INFO:CONSOLE:1] "Uncaught Error: POSCTRL_reportError", source: data:text/html... (1)
+<html><head><script>console.error('POSCTRL_console');reportError(new Error('POSCTRL_reportError'))</script></head><body></body></html>
+[60743:2415969:1009/011108.934031:WARNING:net/extras/sqlite/sqlite_persistent_store_backend_base.cc:182] Failed to post task from FlushAndNotifyInBackground@net/extras/sqlite/sqlite_persistent_store_backend_base.cc:232 to client_task_runner_.
+[60743:2415969:1009/011108.934260:WARNING:net/extras/sqlite/sqlite_persistent_store_backend_base.cc:182] Failed to post task from FlushAndNotifyInBackground@net/extras/sqlite/sqlite_persistent_store_backend_base.cc:232 to client_task_runner_.
+
+## Exit status
+0
+
+Finished: 2026-10-09 01:11:08 -03

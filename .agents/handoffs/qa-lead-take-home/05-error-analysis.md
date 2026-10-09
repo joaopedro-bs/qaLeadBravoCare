@@ -1,6 +1,14 @@
 # Error Analysis - qa-lead-take-home
 
-Status: **NEEDS FIX**. The calendar driver has a supported `test bug` diagnosis. The original React #418 cause and impact remain `unknown`. No implementation or decision was changed, no D-018 acceptance, and no commit/publication/upload occurred.
+Status (Stage 6, 2026-10-09 01:20 -03): **NEEDS MORE EVIDENCE / USER DECISION**. React #418 has been diagnosed as runner-induced:
+- it appears under Cypress in Electron 138 and in Chrome 155;
+- it is absent in plain Chrome 155;
+- the Cypress AUT head injection was observed;
+- medium-high confidence; see "Stage 6" at the end of this document.
+
+The booking journey has not been validated, and the full suite was not run.
+
+Prior status (kept for history): **NEEDS FIX**. The calendar driver has a supported `test bug` diagnosis. The original React #418 cause and impact remain `unknown`. No implementation or decision was changed, no D-018 acceptance, and no commit/publication/upload occurred.
 
 ## Evidence inspected
 
@@ -139,3 +147,97 @@ Remove D-018 suppression unless subsequent scoped evidence and explicit decision
 ## Handoff status
 
 **NEEDS FIX -> test-automation-writer**, not READY FOR REPORT. Scope: calendar driver/selection proof and the reviewed reporting validation gaps; preserve all ownership/privacy controls. D-018 remains proposed, removal recommended. No automatic writer launch or implementation performed by this RCA.
+
+## Stage 6 - React #418 load diagnostic (2026-10-09 01:07-01:20 -03)
+
+Read-only, GET/page visits only. Nothing under `delivery/part1-test-suite` was changed, there was no `uncaught:exception` suppression (the handler records and returns nothing), and no request rewriting/stubbing, writes, bookings, credentials, installs or commits. The harness lives outside the repo at `/Users/joaopedrobarbosa/.claude/jobs/255b32ab/tmp/diag418/` (`cypress.config.js`, `support/diag.js`, `diag/load418.cy.js`, `node_modules` symlinked to the suite's pinned Cypress 15.5.0). Retries are `runMode:1`, so each attempt is recorded separately.
+
+### Established facts (with evidence)
+
+- **#418 reproduces on every attempt under Cypress, in both Electron and Chrome.** The run was 3 tests x 2 attempts per browser (exit 3 each), and each attempt raised exactly one #418.
+  - Electron 138.0.7204.251 headless: `evidence/command-output/20261009-010836-418diag-electron.txt`, `...20261009-418diag-electron-records.jsonl`, `...20261009-418diag-electron-results-a399591f8bd1a5d7d662931c98188430.xml`.
+  - Chrome 155.0.8059.39 headless: `...20261009-010958-418diag-chrome.txt`, `...20261009-418diag-chrome-records.jsonl`, `...20261009-418diag-chrome-results-f0aba2efdcf22a7a20246a455b04d3ce.xml`.
+- **The failure is page-wide, not tied to the reservation page or the calendar.** `/` (home) fails the same way. The home HTML is a statically cached Next.js page (`x-nextjs-cache: HIT`, `cache-control: s-maxage=31536000`), and it does not contain any rbc calendar markup.
+- **Full message:** `Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]=`, wrapped by Cypress as "The following error originated from your application code". The window `error` event shows `Uncaught Error: ...` from `_next/static/chunks/174b7k13ybrt2.js`, with first stack frames `rX (174b7k13ybrt2.js:1:46254)`, `iu (:1:97295)`, `sd (:1:137985)`. These are the same chunk and frames as Phase B. No `console.error` or `console.warn` was emitted before the error.
+- **Timing:** #418 fires 24-528 ms after the AUT navigation starts (`performance.now()`), with `readyState` already `complete` on the reservation page and `interactive` or `complete` on home. So it happens during initial hydration, before any test interaction. This agrees with the 1-2 s Phase B failures.
+- **The runner modifies the document.** The raw server HTML from `cy.request` has `<meta>` as the first `<head>` child and contains no "cypress" text. In the AUT document, the first `<head>` child is an inline `<script>` beginning `(()=>{"use strict";const e=window.Cypress=parent.Cypress;...`. That text matches Cypress 15.5.0's `packages/runner/dist/injection.js`, and the script was present in the head snapshot taken when the error fired. It appears in both Electron and Chrome. No body nodes carry a cypress id, class or src. The `<html>` attributes (`lang=en id=root`) and `<body>` attributes (none) are identical between server and AUT.
+- **There is no time- or locale-dependent text in the server HTML.**
+  - Reservation: the HTML contains no rbc calendar markup, no month label and no "today"; the only dates are the echoed query values 2029-02-05 and 2029-02-07.
+  - Home: no dates at all.
+  - Client timezone was America/Sao_Paulo (offset 180) in all Cypress attempts. The server `Date` header was UTC.
+- **Plain Chrome (no Cypress) does not show #418.** The same Chrome 155 binary ran headless=new with a fresh profile, `--enable-logging=stderr --v=0 --virtual-time-budget=8000`, on the same machine and therefore the same system timezone.
+  - Same reservation URL `/reservation/1?checkin=2029-02-05&checkout=2029-02-07`: 0 `INFO:CONSOLE` lines and no "Uncaught"/418 (`...20261009-011048-418diag-plainchrome-reservation.txt`). The DOM rendered the calendar with the label "October 2026".
+  - Home: 0 console lines (`...20261009-011132-418diag-plainchrome-home.txt`).
+  - Positive control: a data: page calling `console.error` and `reportError(new Error(..))` was logged as `INFO:CONSOLE ... "Uncaught Error: POSCTRL_reportError"` (`...20261009-011106-418diag-plainchrome-posctrl.txt`). This logging channel therefore does surface `reportError`-style uncaught errors, which is how #418 appears under Cypress.
+  - The earlier RCA plain-Chrome CDP run (`20261009-rca-native-pointer-final.json`, headless=new, fresh profile, `Runtime.enable` before navigation, a listener that keeps any description containing "418") also recorded no #418.
+
+### Per-attempt table
+
+Viewport is the `cy.viewport` value set before `cy.visit`. Harness limitation: the recorded `viewport` field reads `Cypress.config` (1000x660) and does not reflect `cy.viewport`. JUnit has only final attempts; the records keep both.
+
+| Run | Browser / version / headless | Viewport | Page | Attempt | #418 | ms from nav | readyState | First frame | State |
+|---|---|---|---|---|---|---|---|---|---|
+| electron | Electron 138.0.7204.251 / yes | 1280x800 | reservation | 0 | yes | 445.8 | complete | rX 174b7k13ybrt2.js:1:46254 | failed |
+| electron | Electron 138 / yes | 1280x800 | reservation | 1 | yes | 45.9 | complete | rX | failed |
+| electron | Electron 138 / yes | 390x844 | reservation | 0 | yes | 34.4 | complete | rX | failed |
+| electron | Electron 138 / yes | 390x844 | reservation | 1 | yes | 42.3 | complete | rX | failed |
+| electron | Electron 138 / yes | 1280x800 | home | 0 | yes | 141.4 | interactive | rX | failed |
+| electron | Electron 138 / yes | 1280x800 | home | 1 | yes | 43.6 | complete | rX | failed |
+| chrome | Chrome 155.0.8059.39 / yes | 1280x800 | reservation | 0 | yes | 527.7 | complete | rX | failed |
+| chrome | Chrome 155 / yes | 1280x800 | reservation | 1 | yes | 109.8 | complete | rX | failed |
+| chrome | Chrome 155 / yes | 390x844 | reservation | 0 | yes | 37.4 | complete | rX | failed |
+| chrome | Chrome 155 / yes | 390x844 | reservation | 1 | yes | 45.0 | complete | rX | failed |
+| chrome | Chrome 155 / yes | 1280x800 | home | 0 | yes | 173.7 | interactive | rX | failed |
+| chrome | Chrome 155 / yes | 1280x800 | home | 1 | yes | 24.1 | complete | rX | failed |
+| plain Chrome | Chrome 155 headless=new, no Cypress | 1280x800 | reservation | 1 load | no (0 console lines; positive control logs) | - | - | - | n/a |
+| plain Chrome | same | 1280x800 | home | 1 load | no | - | - | - | n/a |
+
+The full message is identical on all 12 Cypress attempts (quoted above).
+
+### Differences vs the plain-Chrome runs
+
+- **Runner.** The Cypress proxy injects the `window.Cypress=parent.Cypress` script as the first `<head>` child, and the AUT runs inside the runner iframe. Plain Chrome has neither.
+- **Browser.** This is not a differentiator. Chrome 155 fails under Cypress and passes without it.
+- **Timezone and locale.** These are not a differentiator, because all runs used the same machine and system timezone. Assumption: plain Chrome inherits the system timezone America/Sao_Paulo, as Cypress-Chrome reported.
+- **Viewport.** This is not a differentiator. Both 1280x800 and 390x844 fail under Cypress.
+- **Session.** All runs used a fresh profile with no cookies. Cypress recorded `cookies: []`.
+- **Node.** The diagnostic used host Node 26.5.0 for the Cypress server, while Phase B used 24.11.1. The browser-side failure is unchanged, so this does not matter here.
+
+### Hypotheses
+
+- **H-A, runner-injected markup: SUPPORTED, medium-high confidence.**
+  - For: an injected inline script sits at `<head>` child 0 in every Cypress attempt, in both browsers, and is absent from the server HTML. The same Chrome 155 binary without Cypress shows no #418, with a working positive control. The failure is page-wide, including on a statically cached page, and fires during initial hydration.
+  - Against or open: the experiment did not isolate cause. No run injected only that script into plain Chrome, and the AUT head after hydration also differs in order and missing preload links. That reordering is consistent with React discarding the SSR tree after #418, so it is effect, not cause. It is also possible that another runner factor, such as the iframe context or other proxy rewriting, is responsible.
+- **H-B, Electron 138 specific: REJECTED, high confidence.** Chrome 155 under Cypress fails the same way.
+- **H-C, timezone/locale rendering: NOT SUPPORTED, medium-high confidence.** The server HTML has no time-dependent content. The cached static home page fails too. Plain Chrome on the same machine and timezone passes. The `TZ=UTC` run was skipped because of the timebox and because the same-timezone plain-vs-Cypress control already separates the two.
+- **H-D, app defect independent of the runner: NOT SUPPORTED by evidence, medium confidence.** There are two plain-Chrome observations with no #418: the RCA CDP run and today's console run with a positive control. Real-user impact is not shown. Not covered: Safari, Firefox, mobile devices, and slow networks.
+- **H-E, test setup (viewport, cookies, consent): REJECTED, high confidence.** The error reproduces with a minimal visit-only spec, at both viewports, on home, and with no cookies. Suite code such as the driver and cleanup is not involved.
+
+### Classification
+
+**Runner-or-browser-specific, attributed to the runner (Cypress AUT document injection), not the browser.** Confidence: medium-high that it is runner-induced, medium that the injected head script specifically is the mechanism. It is not classified as an application defect, because no evidence was found outside Cypress. It is not a test setup issue.
+
+### Smallest evidence-supported next action (proposal only, not implemented)
+
+1. **Decision input for the user, not a decision.** The new evidence supports the "runner-induced" premise that D-018 lacked. If the user authorizes it, the narrow allowance from 04 D-018 points 1-5 would be justified on evidence rather than convenience:
+   - anchored `/^Minified React error #418;/` on the unwrapped message;
+   - additionally bound to `174b7k13ybrt2.js` in `err.stack`;
+   - scoped to UI specs;
+   - a ceiling of 1 per page load;
+   - a CI-visible count;
+   - an owner and expiry pending a Cypress-side fix.
+
+   Risk: it would also hide a genuine future hydration defect in the app, which is why the ceiling and plain-browser control below matter. This remains the user's decision. Suppression stays removed.
+2. **No browser or config change is supported.** Switching to `--browser chrome` does not help, since it fails identically. No verified Cypress 15.5 configuration option to disable the AUT injection was found in the time available, and none is proposed.
+3. **Optional causal confirmation, about 10 minutes.** It requires explicit user approval because it involves response modification in a diagnostic browser, outside the suite: load the page in plain Chrome with the same inert first-child `<script>` inserted into the HTML. #418 appearing there would confirm the mechanism. Alternatively, check the Cypress issue tracker or changelog for React 19 / Next.js hydration problems with AUT injection.
+
+### Not validated / not run
+
+- The **booking journey (S-10/S-11) is NOT validated.** The calendar correction is implemented but has not been exercised live, because #418 fails each test before the calendar is reached.
+- The **full suite was NOT run.** Only this load-only diagnostic and plain-Chrome page loads ran.
+
+### Time used
+
+The stage ran from 01:07:10 to about 01:20 -03 (about 13 minutes). Cypress runs took 01:08:36-01:08:52 (Electron) and 01:09:58-01:10:17 (Chrome). Plain-Chrome loads ran 01:10:48-01:11:38.
+
+**Stage 6 status: NEEDS MORE EVIDENCE** for the exact mechanism, or a **user decision** on a scoped allowance. Cause classified as runner-induced, not browser and not timezone.

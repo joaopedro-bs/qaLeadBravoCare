@@ -291,3 +291,39 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
   - DECISIONS D-018 timestamp corrected 00:57 -> 00:54.
   - 03-automation-implementation.md (writer; D-018 status correction requested by the coordinator).
 - BLOCKER for the user: #418 now fails the P0 booking journey before the driver runs. Restoring any allowance contradicts the user's instruction, so the coordinator will not do it without an explicit new decision.
+
+### 2026-10-09 01:06 -03 - Stage 6 start: React #418 read-only diagnostic (error-analyst), 15 min timebox
+
+- User authorized: read-only diagnostic, max 15 min (hard stop 01:22). No bookings, messages or other data; no suppression; harness outside the deliverable; no installs or upgrades; no commits.
+- Coordinator pre-check of the launch configuration:
+  - package.json scripts and .github/workflows/e2e.yml pass no `--browser`, so Cypress uses its default.
+  - Phase B CLI: "Browser: Electron 138 (headless)".
+  - cypress.config.ts: video/screenshots off, retries runMode 1, viewport 1280x800 default.
+- Launched error-analyst. It writes only 05-error-analysis.md and diagnostic evidence; the coordinator owns run-log.
+
+### 2026-10-09 01:07-01:14 -03 - Stage 6: React #418 read-only diagnostic (error-analyst) + coordinator verification
+
+- error-analyst hit its 8-turn limit twice and was resumed twice (coordinator messages at about 01:09 and 01:12). It finished before 01:14 (coordinator `date` 01:14). The "01:20" in 05's status/section headers is the analyst's estimate and is wrong: ACTUAL end <= 01:14. Timebox (15 min) respected.
+- Harness outside the deliverable: J/diag418 (job tmp), with a node_modules symlink to the delivery. Uncaught handler records only, no `return false`. GET page loads only. No credentials, bookings, messages, installs or upgrades. TZ=UTC run skipped.
+- Runs (evidence/command-output):
+
+| Run | Exit | #418 per attempt |
+|---|---|---|
+| Cypress 15.5.0 + Electron 138.0.7204.251 headless (`20261009-010836-418diag-electron.txt`, `...-electron-records.jsonl`, `...-electron-results-a399591f....xml`) | 3 | 6/6 attempts (reservation 1280x800, reservation 390x844, home; attempts 0 and 1 each) |
+| Cypress 15.5.0 + Chrome 155.0.8059.39 headless (`20261009-010958-418diag-chrome.txt`, `...-chrome-records.jsonl`, `...-chrome-results-f0aba2ef....xml`) | 3 | 6/6 attempts, same tests |
+| Plain Chrome 155 `--headless=new --dump-dom --enable-logging=stderr`, reservation (`...011048...`) | 0 | 0 "Uncaught" lines |
+| Plain Chrome positive control, data: URL calling reportError (`...011106...`) | 0 | 1 "Uncaught Error: POSCTRL_reportError" line, so the channel captures reportError-type errors |
+| Plain Chrome, home (`...011132...`) | 0 | 0 "Uncaught" lines |
+
+- Coordinator verification (jq/grep, independent of the analyst report):
+  - 12/12 Cypress attempts record exactly one #418 message ("Minified React error #418; ... args[]=HTML&args[]="), first attempts included. This replaces the earlier gap where only final-attempt JUnit text was available.
+  - Server-HTML `<head>` starts with `<meta charset>` and `<meta viewport>`. Under Cypress the AUT `<head>` starts with an inline script containing `window.Cypress=parent.Cypress` (runner injection), in both browsers.
+  - Plain-Chrome dumped DOM shows client-inserted `data-nscript="afterInteractive"` scripts, so client JS executed. The positive control proves the logging channel works.
+  - No password/token values in the 418diag evidence (grep exit 1). No changes under delivery/ (`git diff --stat -- delivery` empty).
+- Classification (05, verified as consistent with the evidence): runner-induced (Cypress), not browser-specific (H-B rejected), not timezone/locale (H-C not supported), not test setup (H-E rejected). App defect for real users not supported, but Safari/Firefox/mobile were not covered. Confidence medium-high. The exact mechanism is NOT isolated: there is no experiment adding only the injected script to plain Chrome.
+- Proposed next actions (none implemented):
+  - (a) User decision on a narrow, observable #418 allowance under the 04 D-018 criteria (anchored message, chunk-bound stack, UI specs only, max 1 per page load, count visible in CI, owner + expiry).
+  - (b) Optional ~10-min causal check: plain Chrome with the same inert script injected first in `<head>`. Needs approval because it modifies the response inside the diagnostic browser.
+  - No browser/config change is supported: `--browser chrome` fails identically.
+- Booking journey NOT validated; full suite NOT run. No commits (user instruction). Root package-lock.json untouched.
+- Uncommitted: 05-error-analysis.md, run-log.md, 9 new 418diag evidence files.

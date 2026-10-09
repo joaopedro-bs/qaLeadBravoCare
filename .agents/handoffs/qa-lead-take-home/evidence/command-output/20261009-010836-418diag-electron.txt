@@ -1,0 +1,140 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: 418diag-electron
+Started: 2026-10-09 01:08:36 -03
+Command: /Users/joaopedrobarbosa/Documents/techInterviewSNDB/.claude/worktrees/qa-lead-take-home/delivery/part1-test-suite/node_modules/.bin/cypress run --project /Users/joaopedrobarbosa/.claude/jobs/255b32ab/tmp/diag418 --browser electron
+
+## Output
+
+
+DevTools listening on ws://127.0.0.1:60298/devtools/browser/defdd59f-9daf-4c78-b65a-46d203a7825b
+<<<CYPRESS.STDERR.START>>>(node:55220) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+<<<CYPRESS.STDERR.END>>>Couldn't determine Mocha version
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        15.5.0                                                                         │
+  │ Browser:        Electron 138 (headless)                                                        │
+  │ Node Version:   v26.5.0 (/Users/joaopedrobarbosa/.nvm/versions/node/v26.5.0/bin/node)          │
+  │ Specs:          1 found (load418.cy.js)                                                        │
+  │ Searched:       diag/*.cy.js                                                                   │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  load418.cy.js                                                                   (1 of 1)
+[55187:1009/010843.768542:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.768578:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.768612:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.768636:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.768645:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772267:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772318:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772455:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772796:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772808:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772821:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772832:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772842:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772859:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[55187:1009/010843.772893:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        3                                                                                │
+  │ Passing:      0                                                                                │
+  │ Failing:      3                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     6 seconds                                                                        │
+  │ Spec Ran:     load418.cy.js                                                                    │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✖  load418.cy.js                            00:06        3        -        3        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✖  1 of 1 failed (100%)                     00:06        3        -        3        -        -  
+
+
+## Exit status
+3
+
+Finished: 2026-10-09 01:08:52 -03

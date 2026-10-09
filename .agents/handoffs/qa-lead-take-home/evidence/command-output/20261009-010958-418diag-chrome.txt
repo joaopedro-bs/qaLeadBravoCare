@@ -1,0 +1,65 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: 418diag-chrome
+Started: 2026-10-09 01:09:58 -03
+Command: /Users/joaopedrobarbosa/Documents/techInterviewSNDB/.claude/worktrees/qa-lead-take-home/delivery/part1-test-suite/node_modules/.bin/cypress run --project /Users/joaopedrobarbosa/.claude/jobs/255b32ab/tmp/diag418 --browser chrome
+
+## Output
+
+
+DevTools listening on ws://127.0.0.1:60529/devtools/browser/015bcac2-46fe-4fcd-b9b3-87f7646691a7
+<<<CYPRESS.STDERR.START>>>(node:57849) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+<<<CYPRESS.STDERR.END>>>Couldn't determine Mocha version
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        15.5.0                                                                         │
+  │ Browser:        Chrome 155 (headless)                                                          │
+  │ Node Version:   v26.5.0 (/Users/joaopedrobarbosa/.nvm/versions/node/v26.5.0/bin/node)          │
+  │ Specs:          1 found (load418.cy.js)                                                        │
+  │ Searched:       diag/*.cy.js                                                                   │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  load418.cy.js                                                                   (1 of 1)
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        3                                                                                │
+  │ Passing:      0                                                                                │
+  │ Failing:      3                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     6 seconds                                                                        │
+  │ Spec Ran:     load418.cy.js                                                                    │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✖  load418.cy.js                            00:06        3        -        3        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✖  1 of 1 failed (100%)                     00:06        3        -        3        -        -  
+
+
+## Exit status
+3
+
+Finished: 2026-10-09 01:10:17 -03
