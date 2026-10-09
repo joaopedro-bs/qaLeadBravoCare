@@ -204,7 +204,7 @@ Omissions and next steps
 
 ## D-018 - Observed React hydration error during UI execution
 
-- Status: **not accepted** (2026-10-09 00:57 -03). History below is kept as originally written; the outcome follows it.
+- Status: **not accepted** (2026-10-09 00:54 -03). History below is kept as originally written; the outcome follows it.
 - Original status: proposed; implemented for diagnostic/functional execution, independent review pending.
 - Evidence: the first real smoke run passed two API tests but all three UI scenarios failed with React error #418 on both attempts. A targeted diagnostic found Cypress wraps that error message.
 - Choice: continue functional assertions only for the exact `Minified React error #418;` signature, record every occurrence separately, and report functional results with application-error risks. All other uncaught errors fail normally.
