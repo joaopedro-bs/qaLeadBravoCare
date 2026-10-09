@@ -34,7 +34,7 @@ inspected, so admin endpoints beyond the list below are NOT VERIFIED.
 Form input CSS classes: `room-firstname`, `room-lastname`, `room-email`, `room-phone`.
 Validation rules (lengths, formats) are NOT visible here; server returns `errors` - contents NOT VERIFIED.
 
-## Test attributes (added 2026-10-08 ~22:58 -03, coordinator spot-check)
+## Test attributes (added 2026-10-08 ~22:52 -03, coordinator spot-check)
 
 grep `data-testid|data-cy` over the same bundles:
 - Home bundle: contact form inputs carry `data-testid` = `ContactName`, `ContactEmail`, `ContactPhone`,
