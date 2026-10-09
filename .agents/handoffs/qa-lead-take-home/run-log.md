@@ -372,3 +372,30 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
 - Post-execution changes: README.md (writer) only, documentation (`git diff --stat 0225278 -- :/delivery` = README.md only). 03 updated (writer, READY FOR REVIEW scoped to S-10/S-11; daily FAIL stated).
 - Not validated: CI, Xray, real device / Safari / iOS, calendar date selection (deferred), smoke UI under #418.
 - Timebox respected (ended 01:29 < 01:38).
+
+### 2026-10-09 01:30 -03 - Stage 8 start: independent re-review (automation-reviewer)
+
+- User brief: review the tested code and stage7 results. No edits, investigations, commits, push, publication or uploads. Update 04 only.
+- State at start: HEAD 57494c0; tested delivery code commit 0225278; post-run delivery change README only (93f7c6a); tree clean except the root package-lock.json.
+
+### 2026-10-09 01:33-01:38 -03 - Stage 8: independent re-review (automation-reviewer) + coordinator spot-check
+
+- 04-code-review.md: new "Re-review (stage 7, 2026-10-09)" section; earlier review kept as "Initial review (superseded where noted)". Reviewer changed no other file. It re-ran typecheck (clean) and test:cleanup (9/9) locally.
+- Claims a-d CONFIRMED. e CONFIRMED (only README changed under delivery/ after 0225278, doc-only in 93f7c6a), except that a clean tree at run time is not verifiable from the artifacts (no SHA in run-summary, F-04). The coordinator recorded `git status` at 01:23:47: clean except the root lockfile.
+- Verdict: APPROVE WITH NOTES for the stage 7 change set and its reporting; NOT a release approval.
+  - Reduced journey S-10/S-11: PASS WITH RISKS.
+  - Full core suite: FAIL 6/9; S-07/S-08/S-09 failed on attempt 0 and retry (#418).
+- Remaining findings:
+  - R-06 High (smoke UI red on #418; needs a separate user decision).
+  - R-01 Medium (allowance accepts #418 when the stack has no chunk frames, `stackSourceMatched === null`; never exercised in evidence, all 4 entries true).
+  - R-02 Low (wording overstates the pre-submit date check), R-03 Low (README:3 stale "remain incomplete"), R-04 Low (PASS WITH RISKS not visible in JUnit or the exit code), R-05 Low (log label).
+  - Still open: F-04, F-07, F-08, F-09, F-11.
+- Coordinator spot-check: guest-booking.cy.ts:29 `stackSourceMatched !== false` (R-01); README.md:3 stale wording (R-03); DECISIONS.md:275/285 and reservation.ts:19 wording (R-02). All confirmed in the files.
+- Coordinator accountability:
+  - R-01's null path came from the coordinator's stage-7 brief ("if the stack has no chunk frames, allow but record null"), an interpretation of the user's "where available".
+  - R-02's DECISIONS D-020 wording was written by the coordinator.
+- Minimal corrections recommended by the reviewer (not applied; no edits authorized this stage):
+  1. guest-booking.cy.ts:29 `stackSourceMatched !== false` -> `stackSourceMatched === true`, plus the matching D-019 bullet.
+  2. Wording fixes at DECISIONS.md:275/285, reservation.ts:19, README.md:3, using the exact texts in 04.
+  - Correction 1 changes test code: it needs a new commit and a rerun of S-10/S-11 to keep the tested-source claim.
+- No commits this stage (user instruction). Uncommitted: 04-code-review.md, run-log.md. The root package-lock.json is still untouched.

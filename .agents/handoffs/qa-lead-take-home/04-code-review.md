@@ -1,5 +1,136 @@
 # Automation Code Review - qa-lead-take-home
 
+## Re-review (stage 7, 2026-10-09)
+
+Reviewer: automation-reviewer (independent, read-only), stage 8. I changed no code, config or docs, ran no Cypress, made no HTTP calls, installed nothing and committed nothing. The only local commands I ran were `npm run typecheck` (tsc emitted no errors) and `npm run test:cleanup` (9 tests, 9 pass, 0 fail).
+
+### Scope
+
+- Source: HEAD `57494c0`. The delivery code under test is `0225278`. `git diff --stat 0225278 HEAD -- :/delivery` shows only `README.md`, with 3 lines added and 3 removed.
+- Files read in full or in the relevant part:
+  - `cypress/e2e/hotfix/guest-booking.cy.ts` (full)
+  - `cypress/support/pages/reservation.ts`, `support/e2e.ts`, `support/cleanup.ts`, `support/node-tasks.ts:55-70,95-173`
+  - `cypress/e2e/smoke/home.cy.ts`, `reservation-page.cy.ts`
+  - `tests/cleanup.test.mjs` (count of tests only)
+  - `DECISIONS.md` D-017 to D-020
+  - the README diff
+  - 03 "Stage 7"; 05 status and "Stage 6"; the initial review below
+- Evidence: the stage 7 files in `evidence/command-output/`, which are the two run summaries, the JUnit files, the cleanup outcomes and registries, the CLI text, and the typecheck and proof reruns from 01:22.
+
+### Claims verification (a-e)
+
+| # | Claim | Status | Evidence |
+|---|---|---|---|
+| a | The reduced S-10/S-11 passed on the first attempt in run bc081863 and in daily run 92ae02d0 | CONFIRMED | **Run bc081863:** `20261009-stage7-s10-s11-run-summary.json` has `.totals` = {tests 2, passed 2, failed 0, pending 0, skipped 0}, and `.specs[].tests[].attempts` = `["passed"]` for both S-10 and S-11, with `finalSymptom` null. The JUnit file has 0 `<failure>` elements. The CLI text shows Passing 2 / Failing 0 at lines 120-121. **Run 92ae02d0:** `20261009-stage7-daily-run-summary.json` shows S-10 and S-11 with attempts `["passed"]`. In both runs, `.bookingObservations[].attempt` is 0. |
+| b | Each test accepted exactly one React #418 | CONFIRMED | Each summary's `.allowedAppErrors` has exactly 2 entries, one for S-10 and one for S-11. Every entry has `attempt` 0, `load` 1, `messageMatched` true, `stackSourceMatched` **true**, `firstChunkFrame` `/_next/static/chunks/174b7k13ybrt2.js` and `allowed` true. No rejected entries were recorded. The CLI lines are `stage7-s10-s11.txt:111,113` and `stage7-daily.txt:132,134`. |
+| c | The full suite finished 6 passed and 3 failed, and S-07, S-08 and S-09 failed on the initial attempt and the retry | CONFIRMED (they are FAILED, not skipped or passed) | Daily `.totals` = {tests 9, passed 6, failed 3, pending 0, skipped 0} and `.status` = `"FAIL: CORE INCOMPLETE"`. S-07, S-08 and S-09 each have attempts `["failed","failed"]` and `finalSymptom` `react-hydration-418`. The JUnit files `results-ade6f761...xml` and `results-ae52b304...xml` contain 2 and 1 `<failure>` elements. The CLI shows Failing 2 at `stage7-daily.txt:179-180` and Failing 1 at `:198-199`. S-31, S-14, S-01 and S-03 have attempts `["passed"]`. |
+| d | Bookings 4, 5, 6, 7 and 8 were identity-checked, deleted with 202 and verified absent; the registries are `[]` and unresolved cleanup is 0 | CONFIRMED | **Run bc081863:** `.cleanup` records ids 4 and 5 as `deleted-and-absent` with status 202. **Run 92ae02d0:** `.cleanup` records ids 6, 7 and 8 the same way. The `*-cleanup-outcomes.jsonl` files carry the matching run ids. Both `*-cleanup-registry.json` files are `[]`. In both summaries `.unresolvedCleanup` = 0 and `.cleanupStatus` = `RESOLVED`. The identity check is established by the code path, not by a separate artifact: `deleted-and-absent` is reachable only after the identity GET matches (initial review, section 3), and the cleanup code is unchanged. Ids 4, 5, 7 and 8 are UI bookings (`.bookingObservations`); id 6 is the API lifecycle booking (S-31). |
+| e | The tested source matches the current implementation | CONFIRMED, with one part NOT VERIFIABLE | The diff from `0225278` to HEAD under `delivery/` touches only `README.md`. `cypress/`, `package.json`, the configs and `tests/` are unchanged. The README change came in `93f7c6a` and is documentation only: the "pending execution" markers became results, and line 65 was relabelled "Earlier". `63e0b5c` and `57494c0` change handoffs only. The runs started at 01:24:15 and 01:25:01, after `0225278` was committed at 01:23:46. NOT VERIFIABLE from the artifacts: that the working tree was clean at execution time. `run-summary.json` records no source SHA (`.run`/keys; F-04), so this rests on 03's statement. The current uncommitted files are `run-log.md` and the root `package-lock.json`, and neither is under `delivery/`. |
+
+### Focus 1: #418 allowance when no chunk frame is identified
+
+- **Code.** At `guest-booking.cy.ts:28`, `stackSourceMatched = frames.length ? stack.includes(ALLOWED_STACK_SOURCE) : null`. At `:29`, `allowed = messageMatched && stackSourceMatched !== false && matchesThisLoad === 0`. If `err.stack` contains no `/_next/static/chunks/` frame, any error whose message contains the #418 text is accepted on the first occurrence in a page load.
+- **Assessment.** The literal authorization was "match the exact observed message and stack source where available". The phrase "where available" makes null acceptance defensible as an interpretation. Even so, the stack source is the only check on origin. Treating "no identifiable origin" as allowed widens acceptance from "this Next.js chunk" to "anything that throws this text": an inline script, a third-party script, a stack-less re-throw, or a wrapped error whose stack was lost. That is the masking direction D-019 itself warns about. The safe default for an allowance is fail-closed.
+- **Evidence.** The null path was **never exercised**. All 4 `allowedAppErrors` entries across both runs have `stackSourceMatched: true`, so the evidence already collected does not depend on it.
+- **Minimum correction** (one line, `guest-booking.cy.ts:29`): replace `stackSourceMatched !== false` with `stackSourceMatched === true`. Then update the D-019 bullet "any application chunk frame in the stack is ..." to "the stack must contain the `/_next/static/chunks/174b7k13ybrt2.js` frame".
+- **Optional tightening.** `stack.includes(...)` accepts the allowed chunk anywhere in the stack, even when the first chunk frame is a different chunk. `frames[0] === ALLOWED_STACK_SOURCE` would match the observed signature exactly. This is not required.
+- **Severity:** Medium. It does not block the evidence already collected. I recommend the fix before the allowance is relied on again (R-01).
+
+### Focus 2: what is verified before submission, and what at each later stage
+
+What the code actually verifies at each stage:
+
+| Stage | Verified | Evidence |
+|---|---|---|
+| (i) Before submit | Stay length (2 nights) and price/total only. Any 2-night window priced the same would pass. The exact dates are **not** verified. | `reservation.ts:21-28` (`assertPriceSummary`) and `guest-booking.cy.ts:55-56,71` |
+| (ii) Submitted request | Exact dates | `guest-booking.cy.ts:94`, label `'URL-preselected submitted dates'` |
+| (iii) 201 response echo | Exact dates | `:103`, label `'real echoed dates'` |
+| (iv) Confirmation UI | Exact date range text | `:105` |
+
+Wording review:
+- **Accurate:** the test titles, the assertion labels at `:94` and `:103`, README:38 ("pre-submit price summary"), README:73 ("requires the booking card to show `£{roomPrice} x 2 nights` and a Total ...; ... dates equal to the target" on the request), and 03:15.
+- **Overclaims** (R-02):
+  - `DECISIONS.md:275`, "Before submitting, they verify what the page displays for those dates: ..."
+    - Change it to: "Before submitting, they verify only the stay length and price the page displays: "£{price} x 2 nights" and the total, computed from the room's API price. This does not identify which dates are selected."
+  - `DECISIONS.md:285`, "Before submitting, the dates themselves are checked only indirectly, through the nights count and totals."
+    - Change it to: "Before submitting, the exact dates are not checked; the nights count and total establish only duration and price. The exact dates are asserted on the submitted request, the 201 response echo and the confirmation card."
+  - `cypress/support/pages/reservation.ts:19`, code comment "Pre-submit proof that the booking card priced the URL dates:".
+    - Change it to: "Pre-submit check of stay length and price only (not the exact dates):".
+
+### Other checks
+
+- **Reduced scope labelling.** Nothing claims calendar-selection coverage or Safari/iOS validation. README:39 and D-020 mark calendar interaction as DEFERRED. README:75, D-007 and 03:73 state that 390x844 is desktop-engine coverage only and not Safari/iOS. The calendar wording at 03:131 sits in the superseded section. **Stale wording (R-03):** README:3 still says "The two booking UI scenarios remain incomplete after execution", which contradicts README:38/73.
+- **Allowance scope.** The allowance is registered only in `guest-booking.cy.ts:19-37`, test-scoped through `cy.on` and called at `:68` inside each `it`.
+  - `support/e2e.ts:3` has no global handler, and a grep of `cypress/` for `uncaught` or `Cypress.on(` finds no other handler.
+  - `smoke/home.cy.ts` and `smoke/reservation-page.cy.ts` have none either. The daily run proves this: S-07, S-08 and S-09 failed on #418.
+  - Extending the allowance to smoke needs a separate user decision.
+  - The ceiling is one match per page load, with `window:before:load` resetting the counter (`:22`).
+  - Every uncaught error is recorded (`:31`), and the records are flushed in the spec's `afterEach` (`:41-45`).
+- **Observation-only intercept.** At `:57-67` there are no `req.body` writes, no `reply`, no stub and no `force`. The witness is created in the intercept (`cleanup.ts:8-12`) and drained in the global `afterEach` (`e2e.ts:4-8`). Intact.
+- **Register before assert.** At `:79-84`, `registerBooking` runs for any 2xx response or numeric id before any `expect`, and the observation is recorded before the assertions (`:85-89`). Intact.
+- **Identity-checked cleanup.** `node-tasks.ts` is unchanged since `0225278`, and the claim-d outcomes are consistent with it. Intact.
+
+### Earlier findings: status
+
+| ID | Status | Evidence |
+|---|---|---|
+| F-01 (P0 booking never passed) | PARTIALLY RESOLVED | S-10/S-11 passed on the first attempt in two live runs, with the 201 and the "Booking Confirmed" card asserted (claim a). The scope is **reduced**: dates are URL-preselected, calendar selection is deferred, and the run depended on the temporary #418 allowance. The verdict is PASS WITH RISKS, not full journey coverage. |
+| F-02 (non-discriminating Selected check) | SUPERSEDED | The calendar driver and the `.rbc-event` Selected check were removed (`reservation.ts:1-35`). Calendar coverage is DEFERRED (D-020). |
+| F-03 (committed source never executed live) | RESOLVED for delivery code | `0225278` was executed in bc081863 and 92ae02d0, and only README changed afterwards (claim e). The clean-tree caveat depends on F-04. |
+| F-04 (no source SHA in run-summary) | OPEN | The run-summary keys are `allowedAppErrors, bookingObservations, cleanup, cleanupStatus, cypress, node, run, specs, status, totals, unresolvedCleanup`, with no SHA (`node-tasks.ts:170-173`). |
+| F-05 (global, uncapped, invisible tolerance) | SUPERSEDED by D-019 | Test-scoped, booking-only, capped at one per load, printed in the CLI (`node-tasks.ts:108`) and shown as `PASS WITH RISKS` in the run-summary. Residual: JUnit and the exit code still look like a clean pass (R-04). |
+| F-06 (observation not attributable) | RESOLVED | `guest-booking.cy.ts:85-86` adds `test` and `attempt`, and both appear in `.bookingObservations`. |
+| F-07 (DOM dump in a gate test; README "initial URL dates") | OPEN | The dump is still at `smoke/reservation-page.cy.ts:9-20`. README:37 still says "initial URL dates", but S-09 has no date assertion. |
+| F-08 (dedup creates a spurious null obligation) | OPEN | `node-tasks.ts:62` is unchanged. Not observed in the evidence; it fails safe. |
+| F-09 (CI fail-fast relies on a `CI` env var) | OPEN | `data.ts:38` is unchanged. |
+| F-10 (body-targeted drag events) | SUPERSEDED | The drag driver was removed. |
+| F-11 (root `package-lock.json` modified) | OPEN | It is still uncommitted (`git status`). It is not in any delivery commit. |
+| D-018 section (accept with changes 1-5) | SUPERSEDED by the D-018 rejection and D-019 | Change 1 (source-bound): done, except the null path (R-01). Change 2 (scope): done, narrower than proposed (booking spec only). Change 3 (ceiling): done (1 per load). Change 4 (CI visibility): partial, in the CLI and run-summary but not in JUnit or the exit code (R-04). Change 5 (expiry): a removal condition is documented, but D-019 states there is no ticket or owner. |
+
+### Remaining findings (ordered by severity)
+
+| ID | Severity | Category | File:line | Evidence | Minimum correction |
+|---|---|---|---|---|---|
+| R-06 | High | INCOMPLETE COVERAGE (not a code defect) | `smoke/home.cy.ts`, `smoke/reservation-page.cy.ts` | The daily core is 6/9. S-07, S-08 and S-09 failed on both attempts with `react-hydration-418` (claim c). Smoke UI coverage, which includes the PR gate, is red. | No code change without a user decision. Either keep reporting it as FAIL, or the user separately decides whether to extend a D-019-style allowance to smoke. |
+| R-01 | Medium | INCOMPLETE COVERAGE (origin guard; not blocking for collected evidence) | `cypress/e2e/hotfix/guest-booking.cy.ts:28-29` | `stackSourceMatched === null` (no chunk frames) is accepted. The path was never exercised: all 4 entries have `true`. | `:29` `stackSourceMatched !== false` → `stackSourceMatched === true`, plus the D-019 bullet wording. |
+| R-02 | Low | OPTIONAL IMPROVEMENT (documentation accuracy) | `DECISIONS.md:275,285`; `cypress/support/pages/reservation.ts:19` | The text implies the dates are verified, directly or indirectly, before submission. The check covers duration and price only. | Replace the text as quoted in Focus 2. |
+| R-03 | Low | OPTIONAL IMPROVEMENT (documentation accuracy) | `README.md:3` | "The two booking UI scenarios remain incomplete after execution" is stale and contradicts README:38/73. | Replace it with: "The two booking UI scenarios pass in a reduced, URL-preselected journey under a temporary React #418 allowance (PASS WITH RISKS); calendar selection is deferred, and the smoke UI scenarios fail on React #418." |
+| R-04 | Low | OPTIONAL IMPROVEMENT (CI visibility) | `cypress/support/node-tasks.ts:108,166-173` | Run bc081863 exited 0 and its JUnit has 0 failures and no marker. `PASS WITH RISKS` is visible only in the CLI line and `run-summary.json`. | Document that CI must read `run-summary.json .status`, or add a JUnit property later. Not required now. |
+| R-05 | Low | OPTIONAL IMPROVEMENT | `cypress/support/node-tasks.ts:108` with `guest-booking.cy.ts:31` | Every uncaught error is recorded, including non-#418 errors, but the CLI line always prints "React #418". A rejected non-#418 error would be mislabelled. The test still fails correctly. Not observed. | Print `messageMatched` in the line, or label it "app error". |
+| F-04, F-07, F-08, F-09, F-11 | Medium/Low as originally rated | as before | see table above | Unchanged | As in the initial review |
+
+### Outcomes (kept separate)
+
+- **Reduced journey (S-10/S-11): PASS WITH RISKS.** Both tests passed on the first attempt in two runs, with real 201 responses, exact dates in the request, the echo and the confirmation, and cleanup resolved. The risks are:
+  - one allowed #418 per test;
+  - the null-stack acceptance gap (R-01, not exercised);
+  - the exact dates are not verified before submit;
+  - calendar selection is DEFERRED.
+- **Full core suite: FAIL, 6/9.** S-07, S-08 and S-09 failed on #418 on the initial attempt and the retry (`92ae02d0`, status `FAIL: CORE INCOMPLETE`).
+- **NOT VERIFIED:** CI (Jenkins, Bitbucket and GitHub Actions), Xray import, and real devices, Safari or iOS. 390x844 is desktop-engine coverage only.
+
+### Verdict
+
+**APPROVE WITH NOTES** for the stage 7 change set and its reporting. This is not a release approval: the daily core is FAIL.
+
+Justification:
+- Claims a-e are confirmed against the artifacts. The only unverifiable part is the clean tree at execution, because no SHA is recorded.
+- The allowance is test-scoped, booking-only, capped and reported, and every business assertion, the register-before-assert order and the identity-checked cleanup are intact.
+- README and 03 report the 6/9 FAIL and the reduced scope honestly.
+- No finding blocks the evidence already collected. R-01 is a real fail-open in the origin guard, but the collected runs never used it, and it is within a literal reading of "where available".
+- If the user reads "stack source where available" as requiring a match, R-01 becomes a change request before any further run.
+
+### Minimal corrections (non-blocking; recommended before the final report or the next run)
+
+1. R-01: `guest-booking.cy.ts:29` `stackSourceMatched !== false` → `stackSourceMatched === true`. Align the D-019 bullet. Then run `typecheck` and `test:cleanup`. A live rerun is needed only if the evidence is to cover the corrected source.
+2. R-02 and R-03: apply the three wording replacements in Focus 2 and the README:3 replacement. These are documentation and a comment only.
+
+There are no feature additions. Smoke #418 handling (R-06) awaits a user decision.
+
+---
+
+## Initial review (superseded where noted)
+
 Reviewer: automation-reviewer (independent, read-only). Date: 2026-10-09.
 Constraints honoured: no code/config/doc changes, no Cypress execution, no HTTP, no install, no commit.
 
