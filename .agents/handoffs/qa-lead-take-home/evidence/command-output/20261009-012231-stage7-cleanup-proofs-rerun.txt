@@ -1,0 +1,50 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: stage7-cleanup-proofs-rerun
+Started: 2026-10-09 01:22:31 -03
+Command: npm --prefix delivery/part1-test-suite run test:cleanup
+
+## Output
+
+
+> restful-booker-qa-foundation@1.0.0 test:cleanup
+> node --experimental-strip-types --test tests/cleanup.test.mjs
+
+[cleanup] id=7 outcome=already-absent status=404
+[cleanup] id=7 outcome=identity-mismatch-no-delete status=200
+[cleanup] id=7 outcome=identity-mismatch-no-delete status=200
+[cleanup] id=7 outcome=identity-unverified-no-delete status=401
+[cleanup] id=7 outcome=delete-failed status=500
+[cleanup] id=7 outcome=deleted-and-absent status=202
+[cleanup] id=7 outcome=identity-unverified-no-delete status=0
+[cleanup] id=unknown outcome=missing-id-obligation status=n/a
+[cleanup] id=7 outcome=already-absent status=404
+[allowed app error] React #418 test=spec > S-10 attempt=0 load=1 stackSourceMatched=true
+[cleanup] id=7 outcome=already-absent status=404
+(node:65694) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/joaopedrobarbosa/Documents/techInterviewSNDB/.claude/worktrees/qa-lead-take-home/delivery/part1-test-suite/cypress/support/node-tasks.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/joaopedrobarbosa/Documents/techInterviewSNDB/.claude/worktrees/qa-lead-take-home/delivery/part1-test-suite/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ missing record clears obligation without DELETE or reset classification (26.6405ms)
+✔ reused ID with different identity is never deleted and remains unresolved (1.791083ms)
+✔ GET returning another ID with matching fields cannot authorize deletion (1.203625ms)
+✔ unverifiable identity and failed deletion retain separate obligations (1.285416ms)
+✔ failed cleanup returns separately rather than replacing a test failure (1.361833ms)
+✔ matching identity permits DELETE and clears only after verified absence (1.398166ms)
+✔ accepted create without ID remains an obligation and never triggers guessed deletion (1.157667ms)
+✔ an allowed React #418 occurrence downgrades an all-pass run to PASS WITH RISKS (1.947792ms)
+✔ failed tests keep FAIL primary outcome even when cleanup is resolved (1.333542ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 142.914041
+
+## Exit status
+0
+
+Finished: 2026-10-09 01:22:31 -03

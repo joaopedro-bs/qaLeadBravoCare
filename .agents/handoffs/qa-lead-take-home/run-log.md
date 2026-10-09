@@ -327,3 +327,16 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
   - No browser/config change is supported: `--browser chrome` fails identically.
 - Booking journey NOT validated; full suite NOT run. No commits (user instruction). Root package-lock.json untouched.
 - Uncommitted: 05-error-analysis.md, run-log.md, 9 new 418diag evidence files.
+
+### 2026-10-09 01:18 -03 - Stage 7 start: reduced booking journey + scoped #418 allowance (20-min timebox, hard stop 01:38)
+
+- User decisions:
+  - Reduce S-10/S-11 to a URL-preselected journey; calendar interaction is deferred coverage.
+  - Stop the calendar and hydration investigations.
+  - Authorize a temporary, narrowly scoped #418 allowance for the booking tests only: exact message + stack source, max 1 per page load, every occurrence persisted, fail on other or extra errors, documented in DECISIONS, no invented ticket/owner.
+  - Run typecheck, safety checks and the 2 reduced tests. Run the full core only if they pass and time remains. Local commits allowed.
+- Coordinator read-only bundle check (22:44 capture): before submit, the booking card shows "£{roomPrice} x {nights} nights", total £{roomPrice*nights+40} (cleaning £25 + service £15). The dates themselves are not shown as text outside the calendar. Confirmation shows `<strong>{checkin} - {checkout}</strong>`.
+  - Pre-submit date verification = nights count + totals (room price from the API) + URL query.
+  - Exact dates asserted on request, response and confirmation.
+  - Calendar month navigation is NOT used (no calendar driving).
+- Committed stage-6 artifacts (05, evidence, run-log) before starting.

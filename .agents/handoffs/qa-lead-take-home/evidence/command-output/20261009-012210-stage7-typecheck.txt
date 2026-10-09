@@ -1,0 +1,19 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: stage7-typecheck
+Started: 2026-10-09 01:22:10 -03
+Command: npm --prefix delivery/part1-test-suite run typecheck
+
+## Output
+
+
+> restful-booker-qa-foundation@1.0.0 typecheck
+> tsc --noEmit
+
+cypress/support/pages/reservation.ts(26,22): error TS18048: '$row' is possibly 'undefined'.
+
+## Exit status
+2
+
+Finished: 2026-10-09 01:22:12 -03
