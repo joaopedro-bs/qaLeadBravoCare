@@ -18,6 +18,11 @@ not part of this published repository.
 | D-003 | Specification | Read-only inspection of the live demo before any test design | accepted |
 | D-004 | Setup | No push or publication without explicit human approval | accepted |
 | D-005 | Setup | Report human working time separately from AI-agent runtime | accepted |
+| D-006 | Specification | Three suite tiers (hotfix smoke, daily, pre-release), split into read-only and write tests | proposed |
+| D-007 | Specification | iPhone: emulated viewport in automation, plus manual checks on a real device; the gap is stated plainly | proposed |
+| D-008 | Specification | Xray traceability through scenario and requirement IDs in test titles, plus JUnit XML | proposed |
+| D-009 | Specification | Rules for shared, resettable demo data | proposed |
+| D-010 | Specification | No Cucumber layer and no load testing in the foundation | proposed |
 
 ---
 
@@ -145,3 +150,137 @@ Choice and rationale
 
 Consequences and limitations
 - Human time depends on the candidate's own reports at each review checkpoint.
+
+## D-006 - Suite tiers and read-only/write split
+
+- Timestamp: 2026-10-08 23:00 -03
+- Stage: Specification
+- Status: proposed
+
+Context and evidence
+- Releases ship every two weeks, with hotfixes in between, and the suite runs once a day (assignment).
+- Release testing is the current bottleneck (assignment, Part 3).
+- The demo is shared, so any test that writes data adds risk for other users and makes failures less deterministic.
+
+Alternatives considered
+- One suite that runs everything on every trigger.
+- Tiers defined only by priority.
+
+Choice and rationale
+- Three tiers:
+  - **Hotfix smoke:** P0 read-only tests (room list contract, booking list rejected without auth, home page renders rooms on desktop and at iPhone size, reservation page loads), plus admin login once it is approved. Target under 3 minutes, so it can run on demand.
+  - **Daily scheduled:** all automated P0 and P1 tests on desktop and at iPhone viewport. Write tests join once creating data on the demo is approved.
+  - **Pre-release:** the daily set plus automated P2 tests and manual exploratory charters.
+- Tests are tagged `@p0/@p1/@p2` and `@readonly/@write`.
+
+Consequences and limitations
+- A hotfix check alone does not prove that a booking can still be made end to end, because the booking test writes data. The release checklist must say so.
+
+Omissions and next steps
+- The architecture stage maps the tiers to CI triggers.
+
+## D-007 - iPhone coverage
+
+- Timestamp: 2026-10-08 23:00 -03
+- Stage: Specification
+- Status: proposed
+
+Context and evidence
+- Most users are on iPhone (assignment).
+- The site sets `<meta name="viewport" content="width=device-width, initial-scale=1"/>` (observed in the home page HTML), so a responsive layout is expected.
+
+Alternatives considered
+1. Desktop-only automation.
+2. Cypress experimental WebKit.
+3. A device cloud running real iOS Safari.
+4. Switching to a tool with WebKit device profiles (see D-002).
+
+Choice and rationale
+- P0 guest journeys run at an iPhone-sized viewport with an iOS user agent in every daily run.
+- A short manual exploratory pass on a real iPhone in Safari (browse, choose dates, book, contact) happens before each release.
+- WebKit and a device cloud are listed as next steps.
+
+Consequences and limitations
+- This is layout emulation in a desktop browser engine, not iOS Safari. Touch input, the on-screen keyboard and Safari-specific behaviour are not covered by automation. Reports must say "iPhone viewport", not "iPhone".
+
+Omissions and next steps
+- Confirm the iOS version split and the budget for a device cloud.
+
+## D-008 - Xray traceability
+
+- Timestamp: 2026-10-08 23:00 -03
+- Stage: Specification
+- Status: proposed
+
+Context and evidence
+- Results are tracked in Jira (Xray), according to the assignment.
+- The Xray configuration (test type, import route, existing keys) is unknown.
+
+Alternatives considered
+- An Xray-specific reporter from the start.
+- Cucumber with Xray Cucumber tests.
+
+Choice and rationale
+- Each test title carries its scenario and requirement IDs, for example `[S-10][R-01] guest books a stay`.
+- Each spec writes JUnit XML. This keeps the chain requirement -> scenario -> test -> execution visible today, and an import can be added later.
+- The assumption that Xray ingests JUnit XML is NOT VERIFIED.
+
+Consequences and limitations
+- The scenario IDs need to be mapped to Xray test keys once the Xray setup is known.
+
+Omissions and next steps
+- Ask how Xray is configured before wiring an import.
+
+## D-009 - Shared demo data rules
+
+- Timestamp: 2026-10-08 23:00 -03
+- Stage: Specification
+- Status: proposed
+
+Context and evidence
+- The demo is shared and can be reset at any time (assignment).
+- At capture time it held 3 rooms, and room 1 had one "Unavailable" range. These values can change at any moment.
+
+Choice and rationale
+- Created data:
+  - Every record a test creates carries a short run tag.
+  - Synthetic contact data only.
+  - Tests find their own records by that tag.
+- Assertions:
+  - Never assert global counts, seed values or other people's records.
+  - Expected values are read from the API at run time.
+- Bookings:
+  - Use random far-future date windows.
+  - Before booking, check the room's unavailability report.
+- Cleanup and reruns:
+  - Cleanup is best-effort and idempotent: data that has already gone counts as success.
+  - Tests run one at a time, with at most one retry.
+  - A failure caused by data disappearing mid-run is classified as an environment issue, not a product bug.
+- Global writes: branding is never changed by automation.
+
+Consequences and limitations
+- Some failures will still come from the environment. The cleanup method depends on admin endpoints that have not been observed yet.
+
+Omissions and next steps
+- A dedicated test environment would remove this whole class of flakiness. That is the main recommendation.
+
+## D-010 - Deferred: Cucumber layer and load testing
+
+- Timestamp: 2026-10-08 23:00 -03
+- Stage: Specification
+- Status: proposed
+
+Context and evidence
+- The tests are maintained by two developers and a junior QA.
+- Part 1 has 3-4 hours.
+- The target is a shared public demo behind Cloudflare (response headers).
+
+Choice and rationale
+- Plain Cypress specs with readable titles. Gherkin is used only as wording, with no Cucumber runtime.
+- No load testing against a shared public service, since it would be abusive and would not reflect the real product.
+
+Consequences and limitations
+- If Xray uses Cucumber test types, a BDD layer may be added later.
+
+Omissions and next steps
+- Add load testing on a dedicated environment, starting with the room list and booking endpoints.
