@@ -242,3 +242,12 @@ Scope: review findings R-01, R-02/R-03 and R-05 from 04. Local checks only: no l
 - Smoke specs are untouched, and no allowance was added to them.
 - Validation: typecheck exit 0 (`evidence/command-output/20261009-014618-final-typecheck.txt`); cleanup proofs 9 pass, 0 fail, exit 0 (`evidence/command-output/20261009-014620-final-cleanup-proofs.txt`).
 - NOT RUN: the live S-10/S-11 rerun at the corrected revision. The live evidence covers `0225278` only.
+
+## Final corrections, live (1e88fab)
+
+Status: the reduced S-10/S-11 journey passed WITH RISKS at the corrected revision. The full core suite was not rerun (it last ran as `92ae02d0` at `0225278`, with 6 passed and 3 failed).
+
+- Run `e4d0dccd-c4a1-46c6-ad5e-1a00c16ea921` exited 0 at HEAD `c059590`, delivery commit `1e88fab`, delivery tree `fd04f159...`, cypress tree `24ee1aca...`. The tree was clean apart from the root `package-lock.json`.
+- S-10 and S-11 each passed on the first attempt (`["passed"]`, no retry). Each logged one allowed #418, with messageMatched true, stackSourceMatched true, load 1 and attempt 0. No rejected entries were recorded.
+- Bookings 4 and 5 returned 201 with the submitted dates equal to the target (2028-12-04 to 2028-12-06). Both were deleted with 202 and verified absent. The registry is `[]` and unresolved cleanup is 0.
+- Details and evidence paths are in `evidence/notes/20261009-0004-execution-manifest.md`, section "Final corrected revision (1e88fab)".

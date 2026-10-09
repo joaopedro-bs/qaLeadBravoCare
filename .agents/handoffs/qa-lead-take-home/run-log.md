@@ -399,3 +399,27 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
   2. Wording fixes at DECISIONS.md:275/285, reservation.ts:19, README.md:3, using the exact texts in 04.
   - Correction 1 changes test code: it needs a new commit and a rerun of S-10/S-11 to keep the tested-source claim.
 - No commits this stage (user instruction). Uncommitted: 04-code-review.md, run-log.md. The root package-lock.json is still untouched.
+
+### 2026-10-09 01:44-01:50 -03 - Stage 9: final authorized corrections R-01/R-02/R-03/R-05 (test-automation-writer) + coordinator verification
+
+- Coordinator committed the stage 8 re-review first (2f52e57) so the tested source would be clean.
+- Phase A (writer, 01:45-01:46):
+  - guest-booking.cy.ts: allowance requires `stackSourceMatched === true`; a missing or different origin fails (R-01).
+  - node-tasks.ts: neutral CLI label `[browser error] allowed=.. messageMatched=.. stackSourceMatched=..` (R-05).
+  - reservation.ts:19: comment only (R-02).
+  - DECISIONS D-019 bullet + D-020 :275/:285 wording (R-01/R-02). README:3 (R-03), plus README:77 for consistency with the new rule and label.
+  - Smoke specs untouched; no allowance outside the booking spec.
+  - final-typecheck exit 0 (`20261009-014618-final-typecheck.txt`); final-cleanup-proofs 9/9 exit 0 (`20261009-014620-final-cleanup-proofs.txt`).
+- Coordinator inspected the diff (scope matches the authorization) and committed: 1e88fab (delivery), c059590 (03 + local evidence).
+- TESTED SOURCE: HEAD c059590 (delivery commit 1e88fab), delivery tree fd04f15, cypress tree 24ee1ac. Clean except the root package-lock.json (`git status` 01:47:26).
+- Command (credentials via env prefix only): `scripts/collect-evidence.sh qa-lead-take-home final-s10-s11 npm --prefix delivery/part1-test-suite run hotfix -- --spec cypress/e2e/hotfix/guest-booking.cy.ts --reporter-options mochaFile=results/junit/final-s10-s11/results-[hash].xml`. Started 01:47:52. Exit 0.
+- Result, run e4d0dccd-c4a1-46c6-ad5e-1a00c16ea921: PASS WITH RISKS. Totals 2/2/0/0/0. S-10 attempts ["passed"], S-11 attempts ["passed"]: first attempt, no retries.
+- Accepted errors: 2. Each: attempt 0, load 1, messageMatched true, stackSourceMatched true, chunk 174b7k13ybrt2.js, allowed true. CLI `[browser error]` lines at final-s10-s11.txt:111,113. No rejected entries.
+- Bookings: S-10 201 id 4 (04:48:09Z); S-11 201 id 5 (04:48:19Z). Submitted == expected 2028-12-04..06 in both.
+  - Both tests drew the same random window. This is consistent because id 4 was deleted in S-10's afterEach before S-11 created id 5. Not investigated (user: no diagnostic loop).
+- Cleanup: id 4 and id 5 deleted-and-absent 202; registry []; unresolved 0; RESOLVED.
+- Leak grep over the final-s10-s11 evidence: 0 matches.
+- Full core suite NOT rerun at 1e88fab. The changes touch only the booking-spec allowance condition and a log label in a task used only by that spec. Last full core: run 92ae02d0 at 0225278, 6 passed / 3 failed (S-07/S-08/S-09 on #418). Stated as such in the manifest, 03 and README.
+- Post-run doc change: README.md line 3 (writer replaced the "pending execution" line with the observed result). `git diff --stat 1e88fab -- :/delivery` = README.md only.
+- Manifest: notes/20261009-0004-execution-manifest.md, section "Final corrected revision (1e88fab)".
+- Timebox respected (01:44:54-01:50, limit 01:59).
