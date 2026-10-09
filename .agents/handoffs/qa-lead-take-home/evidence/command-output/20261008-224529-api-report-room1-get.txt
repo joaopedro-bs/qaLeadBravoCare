@@ -1,0 +1,28 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: api-report-room1-get
+Started: 2026-10-08 22:45:29 -03
+Command: curl -sS -i https://automationintesting.online/api/report/room/1
+
+## Output
+
+HTTP/2 200 
+date: Fri, 09 Oct 2026 01:45:30 GMT
+content-type: application/json
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+vary: Accept-Encoding
+x-railway-request-id: KipkSbYfRRSzxhhkezItjw
+x-railway-edge: gru1
+x-hikari-trace: gru1.jrt2
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=r3IYBZe1k46vPGOi0F60Nu2FCFme6JTbbIdf%2FRrVYv96CW9bveFwc7wptVywU%2FMJmtq54NWylDR6e3Wp9DYufj6C6qnuklTdkTvrrjI9hfPlybF35uMrxkNwBlc%2Fyq8RTqot%2BAeTvAkixYQjkQ%3D%3D"}]}
+cf-ray: a479b4c9ff9fb67a-GIG
+alt-svc: h3=":443"; ma=86400
+
+{"report":[{"end":"2026-02-05","start":"2026-02-01","title":"Unavailable"}]}
+## Exit status
+0
+
+Finished: 2026-10-08 22:45:30 -03

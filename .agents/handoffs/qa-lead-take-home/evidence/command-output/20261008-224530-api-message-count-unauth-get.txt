@@ -1,0 +1,28 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: api-message-count-unauth-get
+Started: 2026-10-08 22:45:30 -03
+Command: curl -sS -i https://automationintesting.online/api/message/count
+
+## Output
+
+HTTP/2 200 
+date: Fri, 09 Oct 2026 01:45:30 GMT
+content-type: application/json
+server: cloudflare
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+x-railway-request-id: DzYGA1X9TqCRV9MVaP71AA
+x-railway-edge: gru1
+x-hikari-trace: gru1.jrt2
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=uKWkmOHeKNsQg5XwVEqZeM1rMtVU0Z8bKQipPnDyCeRq02Oe1bl25M6DSLYqQ5NWr5GwEskDo%2F8wy3skR5GbY2uU8x9ZzlHQQkkruIM9GQbiWZH61mq5RxEinibdZwz24hioFL5uiiihihCCow%3D%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-ray: a479b4ccff1564ae-GIG
+alt-svc: h3=":443"; ma=86400
+
+{"count":3}
+## Exit status
+0
+
+Finished: 2026-10-08 22:45:30 -03

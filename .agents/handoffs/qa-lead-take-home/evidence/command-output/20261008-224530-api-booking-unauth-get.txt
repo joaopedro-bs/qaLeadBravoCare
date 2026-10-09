@@ -1,0 +1,28 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: api-booking-unauth-get
+Started: 2026-10-08 22:45:30 -03
+Command: curl -sS -i https://automationintesting.online/api/booking
+
+## Output
+
+HTTP/2 401 
+date: Fri, 09 Oct 2026 01:45:31 GMT
+content-type: application/json
+server: cloudflare
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+x-railway-request-id: Zocm1566QX2kAthbBT7zVQ
+x-railway-edge: gru1
+x-hikari-trace: gru1.jrt2
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=JvGH6VdzGc5q5ml%2BNWgZMM%2BdGKoqzLpjgH%2BwTLXdQN6XC44Q0IljstHv%2BKK1A7ZVL8F%2BJuVZVQO%2BVzIB8aZO6iTcw2qZU40hH7G8IRmifQpiVFENGLZNBWRj5hr6rw4Dc1JS86QH3DmEO4ZXNQ%3D%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-ray: a479b4cfb9ec5796-GIG
+alt-svc: h3=":443"; ma=86400
+
+{"error":"Authentication required"}
+## Exit status
+0
+
+Finished: 2026-10-08 22:45:31 -03

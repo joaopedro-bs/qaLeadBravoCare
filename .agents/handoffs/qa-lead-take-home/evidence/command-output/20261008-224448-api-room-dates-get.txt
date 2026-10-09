@@ -1,0 +1,28 @@
+# Command Evidence
+
+Work item: qa-lead-take-home
+Label: api-room-dates-get
+Started: 2026-10-08 22:44:48 -03
+Command: curl -sS -i https://automationintesting.online/api/room?checkin=2026-12-01&checkout=2026-12-03
+
+## Output
+
+HTTP/2 200 
+date: Fri, 09 Oct 2026 01:44:48 GMT
+content-type: application/json
+server: cloudflare
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+x-railway-request-id: eJeGhJbgShiOi4WxozsQ6Q
+x-railway-edge: gru1
+x-hikari-trace: gru1.jrt2
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=FfOvlOc5URcR8lG%2FCsjUXDHUtDv9dNJu8DErD%2BPI8X89y0LPRPTB2BcX2Lnjm9G0UjD6fnG4Tr2T8j1YjZ8i0uZgrM687kDg%2B9QhIWzlAvMhCZwPAtzfnmR9UzTBHTHPyv1zb3m8vwLqOTUwYg%3D%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-ray: a479b3c6ad54a660-GIG
+alt-svc: h3=":443"; ma=86400
+
+{"rooms":[{"accessible":true,"description":"Aenean porttitor mauris sit amet lacinia molestie. In posuere accumsan aliquet. Maecenas sit amet nisl massa. Interdum et malesuada fames ac ante.","features":["TV","WiFi","Safe"],"image":"/images/room1.jpg","roomName":"101","roomPrice":100,"roomid":1,"type":"Single"},{"accessible":true,"description":"Vestibulum sollicitudin, lectus ac mollis consequat, lorem orci ultrices tellus, eleifend euismod tortor dui egestas erat. Phasellus et ipsum nisl. ","features":["TV","Radio","Safe"],"image":"/images/room2.jpg","roomName":"102","roomPrice":150,"roomid":2,"type":"Double"},{"accessible":true,"description":"Etiam metus metus, fringilla ac sagittis id, consequat vel neque. Nunc commodo quis nisl nec posuere. Etiam at accumsan ex. ","features":["Radio","WiFi","Safe"],"image":"/images/room3.jpg","roomName":"103","roomPrice":225,"roomid":3,"type":"Suite"}]}
+## Exit status
+0
+
+Finished: 2026-10-08 22:44:48 -03
