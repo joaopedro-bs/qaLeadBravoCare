@@ -7,7 +7,7 @@ This is my decision log for the Restful Booker Platform test suite foundation. I
 - consequences and limits;
 - what I left out and what I would do next.
 
-Status: `proposed` (my recommendation, still under review), `accepted`, `superseded`.
+Status: `proposed` (my recommendation, still under review), `accepted`, `superseded`, `not accepted` (reviewed and declined; kept for history).
 
 Evidence is summarised inline: it comes from live requests I made against https://automationintesting.online on 2026-10-08. The demo is shared and resets, so the values quoted here are snapshots, not oracles.
 
@@ -31,7 +31,7 @@ D-001, D-004 and D-005 were about my working setup (where to keep the work, when
 | D-015 | Exact version pins with a compatibility gate | accepted |
 | D-016 | Report the two security-relevant findings instead of encoding them as tests | accepted |
 | D-017 | Real calendar and visible success UI booking oracle | accepted |
-| D-018 | Narrow handling of observed React hydration #418, with visible risks | proposed |
+| D-018 | Narrow handling of observed React hydration #418, with visible risks | not accepted (handler removed) |
 
 ---
 
@@ -204,9 +204,16 @@ Omissions and next steps
 
 ## D-018 - Observed React hydration error during UI execution
 
-- Status: proposed; implemented for diagnostic/functional execution, independent review pending.
+- Status: **not accepted** (2026-10-09 00:57 -03). History below is kept as originally written; the outcome follows it.
+- Original status: proposed; implemented for diagnostic/functional execution, independent review pending.
 - Evidence: the first real smoke run passed two API tests but all three UI scenarios failed with React error #418 on both attempts. A targeted diagnostic found Cypress wraps that error message.
 - Choice: continue functional assertions only for the exact `Minified React error #418;` signature, record every occurrence separately, and report functional results with application-error risks. All other uncaught errors fail normally.
 - Alternatives: blanket exception suppression; claiming the app is clean; abandoning all UI diagnostics. I preserve the original failed execution and its retries.
 - Limits: root cause and user impact are unknown; this narrow handling is a reviewer focus area. It does not establish a clean application runtime or an unqualified PASS.
 - Next: reproduce hydration outside Cypress and inspect SSR/client differences with developers.
+- Outcome (2026-10-09):
+  - Independent review: the handler was a global substring match with no ceiling, and it was invisible in JUnit and CI results.
+  - Root-cause analysis: the cause and user impact of #418 are still unknown. It did not appear in a separate run with real pointer input in Chrome outside Cypress. That does not show it is harmless inside Cypress.
+  - I found no evidence that justifies tolerating it, so I removed the `uncaught:exception` handler and the symptom counting. React #418, like any other application error, now fails the test that hits it, and the failure is visible in JUnit and in the CLI.
+  - If #418 now fails UI tests, I report those failures as they are. I will not restore suppression to get a green run.
+  - Next: reproduce #418 in the same Cypress/Electron runtime with passive timing capture, and review the server/client render differences with developers. Any future tolerance needs its own evidence, a narrow scope, visible reporting and an explicit decision.

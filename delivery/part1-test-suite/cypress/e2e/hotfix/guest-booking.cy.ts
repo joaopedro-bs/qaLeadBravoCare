@@ -5,7 +5,9 @@ import type { BookingIdentity } from '../../support/api-types';
 
 describe('Anonymous guest booking with real calendar and backend', () => {
   requireWriteCredentials();
-  for (const [id, width, height] of [['S-10', 1280, 800], ['S-11', 390, 844]] as const) {
+  // S-10 starts with the URL Selected event visible in the target month; S-11 starts with it outside.
+  for (const [id, width, height, placement] of [['S-10', 1280, 800, 'inside-target-month'],
+    ['S-11', 390, 844, 'outside-target-month']] as const) {
     it(`[${id}][R-01] real booking and visible confirmation at ${width}x${height} desktop engine @p0 @write @hotfix`, () => {
       cy.viewport(width, height);
       cy.clearAllCookies({ log: false });
@@ -22,8 +24,8 @@ describe('Anonymous guest booking with real calendar and backend', () => {
           });
           // Observation only: no req.body assignments, reply(), stubs or business-field rewriting.
         }).as('booking');
-        cy.visit(reservationUrl(room.roomid, dates));
-        selectDates(dates);
+        cy.visit(reservationUrl(room.roomid, dates, placement));
+        selectDates(dates, placement);
         openForm();
         fillGuest(payload);
         cy.getCookie('token', { log: false }).should('be.null');
@@ -38,7 +40,9 @@ describe('Anonymous guest booking with real calendar and backend', () => {
                 depositpaid: request.depositpaid, bookingdates: { ...request.bookingdates } } }, { log: false })
             : cy.wrap(null, { log: false });
           return registration.then(() => {
-            return cy.task('recordBookingObservation', { status: response?.statusCode ?? 0,
+            return cy.task('recordBookingObservation', { test: Cypress.currentTest.titlePath,
+              attempt: Cypress.currentRetry, observedAt: new Date().toISOString(), initialWindow: placement,
+              status: response?.statusCode ?? 0,
               expectedDates: dates, submittedDates: request.bookingdates,
               bookingid: response?.body.bookingid ?? null }, { log: false }).then(() => {
             expect(request.roomid, 'selected room').to.eq(room.roomid);

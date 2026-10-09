@@ -13,7 +13,6 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
   let registry: Entry[] = fs.existsSync(registryFile)
     ? JSON.parse(fs.readFileSync(registryFile, 'utf8')) as Entry[] : [];
   const outcomes: CleanupOutcome[] = [];
-  const browserSymptoms: { react418: number; test?: string; attempt?: number }[] = [];
   const bookingObservations: unknown[] = [];
   let token: string | undefined;
   const base = config.baseUrl!;
@@ -94,15 +93,9 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
     return record(entry, deletion.status === 202 ? 'deleted-and-absent' : 'already-absent', deletion.status);
   }
   on('task', {
-    recordBookingObservation(observation: { status: number; expectedDates: unknown; submittedDates: unknown; bookingid: number | null }) {
+    recordBookingObservation(observation: { test: string[]; attempt: number; observedAt: string; initialWindow: string;
+      status: number; expectedDates: unknown; submittedDates: unknown; bookingid: number | null }) {
       bookingObservations.push(observation);
-      return null;
-    },
-    recordBrowserSymptoms(symptoms: { react418: number; test?: string; attempt?: number }) {
-      if (symptoms.react418) {
-        browserSymptoms.push(symptoms);
-        console.log(`[browser symptom] React #418 occurrences=${symptoms.react418}; cause unknown; functional coverage has risks`);
-      }
       return null;
     },
     credentialsAvailable() { const c = credentials(); return !!(c.username && c.password); },
@@ -143,9 +136,11 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
   const failureSymptom = (message: string | undefined) => {
     if (!message) return undefined;
     if (message.includes('real calendar submitted dates')) return 'submitted-dates-mismatch';
-    if (message.includes('cy.trigger()') && message.includes('hidden from view')) return 'pointer-target-hidden';
-    if (message.includes('cy.trigger()') && message.includes('covered by another element')) return 'pointer-target-covered';
-    if (message.includes('Selected') && message.includes('.rbc-event')) return 'calendar-selection-not-visible';
+    if (message.includes('[native-pointer]')) return 'native-pointer-input-failed';
+    if (message.includes('[calendar-hit-target]')) return 'calendar-hit-target-mismatch';
+    if (message.includes('[calendar-geometry]')) return 'calendar-geometry-unstable';
+    if (message.includes('[calendar-precondition]')) return 'calendar-precondition-failed';
+    if (message.includes('[calendar-selection]')) return 'calendar-selection-not-target';
     if (message.includes('Minified React error #418')) return 'react-hydration-418';
     return 'failure-detail-withheld-for-privacy';
   };
@@ -163,10 +158,10 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
       : !totals ? 'UNVERIFIED TEST OUTCOME'
       : totals.failed ? 'FAIL: CORE INCOMPLETE'
       : totals.pending || totals.skipped ? 'INCOMPLETE: UNEXECUTED TESTS'
-      : browserSymptoms.length || cleanupProblems ? 'PASS WITH RISKS' : 'PASS';
+      : cleanupProblems ? 'PASS WITH RISKS' : 'PASS';
     fs.writeFileSync(path.join(dir, 'run-summary.json'), JSON.stringify({ run, node: process.version,
       cypress: 'cypressVersion' in results ? results.cypressVersion : null,
-      specs, totals, browserSymptoms, bookingObservations, cleanup: outcomes, unresolvedCleanup: registry.length,
+      specs, totals, bookingObservations, cleanup: outcomes, unresolvedCleanup: registry.length,
       cleanupStatus: registry.length ? 'UNRESOLVED' : 'RESOLVED', status }, null, 2));
     if (registry.length) throw new Error(`UNRESOLVED CLEANUP: ${registry.length} obligation(s); inspect results/cleanup-registry.json. Original test results are retained.`);
   });
