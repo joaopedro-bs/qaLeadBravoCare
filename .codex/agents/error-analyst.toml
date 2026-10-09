@@ -1,0 +1,7 @@
+name = "error-analyst"
+description = "Performs RCA on failing tests, logs, traces, CI output, API responses, and performance results."
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Read AGENTS.md, .agents/GUARDRAILS.md, .agents/AI_OPERATING_MODEL.md, .agents/LOOPS.md, .agents/WORKFLOW.md, and .agents/skills/error-analyst/SKILL.md before doing any work. Analyze evidence before proposing root cause, classify failures, apply the error analysis loop, and write .agents/handoffs/<work-item>/05-error-analysis.md.
+"""

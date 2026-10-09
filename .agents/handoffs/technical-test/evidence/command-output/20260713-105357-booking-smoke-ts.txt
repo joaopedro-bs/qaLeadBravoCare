@@ -1,0 +1,31 @@
+$ node --experimental-strip-types --test demo/booking.smoke.test.ts
+# host: v22.22.3 | date: 2026-07-13T13:53:57Z
+
+TAP version 13
+# Subtest: POST /booking cria reserva e retorna contrato valido
+ok 1 - POST /booking cria reserva e retorna contrato valido
+  ---
+  duration_ms: 832.768292
+  type: 'test'
+  ...
+# Subtest: GET /booking/{id} retorna a reserva persistida
+ok 2 - GET /booking/{id} retorna a reserva persistida
+  ---
+  duration_ms: 509.590083
+  type: 'test'
+  ...
+# Subtest: GET /booking/{invalido} retorna 404 (caminho negativo)
+ok 3 - GET /booking/{invalido} retorna 404 (caminho negativo)
+  ---
+  duration_ms: 156.484125
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1796.911876
