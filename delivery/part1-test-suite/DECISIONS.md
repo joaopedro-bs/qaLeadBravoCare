@@ -148,12 +148,21 @@ Choice and rationale
   - human working time, as reported by the candidate.
 - Only the human working time is reported as time spent.
 
+Alternatives considered
+- Report total elapsed session time.
+- Report AI-agent runtime as time spent.
+- Both would misstate the human effort the assignment asks about.
+
 Consequences and limitations
 - Human time depends on the candidate's own reports at each review checkpoint.
 
+Omissions and next steps
+- Ask for human time at each stage checkpoint.
+- Put the per-part totals in the final report.
+
 ## D-006 - Suite tiers and read-only/write split
 
-- Timestamp: 2026-10-08 23:00 -03
+- Timestamp: 2026-10-08 22:52 -03
 - Stage: Specification
 - Status: proposed
 
@@ -181,7 +190,7 @@ Omissions and next steps
 
 ## D-007 - iPhone coverage
 
-- Timestamp: 2026-10-08 23:00 -03
+- Timestamp: 2026-10-08 22:52 -03
 - Stage: Specification
 - Status: proposed
 
@@ -208,7 +217,7 @@ Omissions and next steps
 
 ## D-008 - Xray traceability
 
-- Timestamp: 2026-10-08 23:00 -03
+- Timestamp: 2026-10-08 22:52 -03
 - Stage: Specification
 - Status: proposed
 
@@ -233,13 +242,18 @@ Omissions and next steps
 
 ## D-009 - Shared demo data rules
 
-- Timestamp: 2026-10-08 23:00 -03
+- Timestamp: 2026-10-08 22:52 -03
 - Stage: Specification
 - Status: proposed
 
 Context and evidence
 - The demo is shared and can be reset at any time (assignment).
 - At capture time it held 3 rooms, and room 1 had one "Unavailable" range. These values can change at any moment.
+
+Alternatives considered
+1. Assert on the known seed values (3 rooms, fixed prices). Simple, but it breaks as soon as someone else edits the demo or it resets.
+2. Seed a known fixture state before each run. That means global writes to a shared demo, and a reset or another user can undo it.
+3. Stub the backend in UI tests. Deterministic, but it would not prove the integration.
 
 Choice and rationale
 - Created data:
@@ -266,7 +280,7 @@ Omissions and next steps
 
 ## D-010 - Deferred: Cucumber layer and load testing
 
-- Timestamp: 2026-10-08 23:00 -03
+- Timestamp: 2026-10-08 22:52 -03
 - Stage: Specification
 - Status: proposed
 
@@ -274,6 +288,10 @@ Context and evidence
 - The tests are maintained by two developers and a junior QA.
 - Part 1 has 3-4 hours.
 - The target is a shared public demo behind Cloudflare (response headers).
+
+Alternatives considered
+1. A Cucumber preprocessor from the start, so Gherkin maps directly to Xray Cucumber tests. It adds a layer of step definitions for a junior QA to maintain, before we know Xray needs it.
+2. k6 or JMeter against the demo, to measure response times.
 
 Choice and rationale
 - Plain Cypress specs with readable titles. Gherkin is used only as wording, with no Cucumber runtime.
