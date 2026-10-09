@@ -1,5 +1,7 @@
 # Restful Booker QA foundation
 
+Author: João Barbosa Martins
+
 Cypress + TypeScript checks for https://automationintesting.online, a shared, resettable demo. Nine core scenarios are implemented for public contracts, guest browsing, reservation form, booking at two viewports, validation and the guest-to-admin API boundary. The two booking UI scenarios pass in a reduced, URL-preselected journey under a temporary React #418 allowance (PASS WITH RISKS, one allowed #418 per test, at tested revision `0225278`); the nights count and price prove duration and pricing, not the exact dates, which are asserted in the request, the 201 response and the confirmation. Calendar selection is deferred (untested). The full core suite FAILED at tested revision `0225278` (run `92ae02d0`): 6 passed, 3 failed (S-07/S-08/S-09 on React #418). Final targeted S-10/S-11 rerun at the corrected revision `1e88fab` (run `e4d0dccd`): both passed on the first attempt, each with one allowed #418 (stack source matched), and both bookings were deleted and verified absent, so the run status is **PASS WITH RISKS**; the full core suite was not rerun at this revision. No backend stubs or request-field rewrites are used.
 
 ## Run locally
@@ -90,4 +92,4 @@ Deferred: admin UI login, contact messages, room CRUD, availability-filter seman
 
 Manual pre-release charter (unexecuted): on a real iPhone Safari, select booking dates, interact with the keyboard, submit a synthetic booking and contact message under approved identity-checked cleanup. Separate authorization charter: agree expected admin protection, message-count visibility and token revocation with Product/Security before probing further.
 
-AI assisted implementation and evidence summarization. Commands and live responses were inspected locally; independent automation review remains pending. Human working time has not been supplied; agent wall-clock is not reported as human effort.
+This work was developed collaboratively by me with Claude and Codex as supporting tools, not as an independently produced AI deliverable. I remained human-in-the-loop through scope decisions, approvals and iterative feedback, and human-on-the-loop through supervision of execution, evidence and risks. AI supported analysis, drafting, implementation and review where applicable; I retain responsibility for the conclusions and submission. Final human review and approval have been completed. Commands and live responses were inspected, and independent AI-assisted automation reviews are recorded in the handoffs. Part 1 took approximately 4 hours through the final independent verification, based on my confirmed estimate and corroborating overnight logs. Agent wall-clock is not reported as active human effort.

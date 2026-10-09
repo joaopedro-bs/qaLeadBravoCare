@@ -1,5 +1,7 @@
 # DECISIONS
 
+Author: João Barbosa Martins
+
 This is my decision log for the Restful Booker Platform test suite foundation. I write each entry when I make the decision and keep superseded entries. Each entry records:
 - context and evidence;
 - the alternatives I weighed;
