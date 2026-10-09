@@ -14,6 +14,9 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
     ? JSON.parse(fs.readFileSync(registryFile, 'utf8')) as Entry[] : [];
   const outcomes: CleanupOutcome[] = [];
   const bookingObservations: unknown[] = [];
+  type AllowedAppError = { test: string[]; attempt: number; load: number; at: string; messageMatched: boolean;
+    stackSourceMatched: boolean | null; firstChunkFrame: string | null; allowed: boolean };
+  const allowedAppErrors: AllowedAppError[] = [];
   let token: string | undefined;
   const base = config.baseUrl!;
   const persist = () => {
@@ -93,9 +96,18 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
     return record(entry, deletion.status === 202 ? 'deleted-and-absent' : 'already-absent', deletion.status);
   }
   on('task', {
-    recordBookingObservation(observation: { test: string[]; attempt: number; observedAt: string; initialWindow: string;
+    recordBookingObservation(observation: { test: string[]; attempt: number; observedAt: string; initialWindow: 'url-preselected';
       status: number; expectedDates: unknown; submittedDates: unknown; bookingid: number | null }) {
       bookingObservations.push(observation);
+      return null;
+    },
+    // Temporary React #418 allowance records (guest-booking spec only). Rejected occurrences are kept too.
+    recordAllowedAppErrors(entries: AllowedAppError[]) {
+      for (const e of Array.isArray(entries) ? entries : []) {
+        allowedAppErrors.push(e);
+        console.log(`[${e.allowed ? 'allowed' : 'rejected'} app error] React #418 test=${(e.test ?? []).join(' > ')} ` +
+          `attempt=${e.attempt} load=${e.load} stackSourceMatched=${e.stackSourceMatched}`);
+      }
       return null;
     },
     credentialsAvailable() { const c = credentials(); return !!(c.username && c.password); },
@@ -135,12 +147,8 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
   const specs: unknown[] = [];
   const failureSymptom = (message: string | undefined) => {
     if (!message) return undefined;
-    if (message.includes('real calendar submitted dates')) return 'submitted-dates-mismatch';
-    if (message.includes('[native-pointer]')) return 'native-pointer-input-failed';
-    if (message.includes('[calendar-hit-target]')) return 'calendar-hit-target-mismatch';
-    if (message.includes('[calendar-geometry]')) return 'calendar-geometry-unstable';
-    if (message.includes('[calendar-precondition]')) return 'calendar-precondition-failed';
-    if (message.includes('[calendar-selection]')) return 'calendar-selection-not-target';
+    if (message.includes('URL-preselected submitted dates')) return 'submitted-dates-mismatch';
+    if (message.includes('[price-summary]') || message.includes(' nights')) return 'price-summary-mismatch';
     if (message.includes('Minified React error #418')) return 'react-hydration-418';
     return 'failure-detail-withheld-for-privacy';
   };
@@ -158,10 +166,10 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
       : !totals ? 'UNVERIFIED TEST OUTCOME'
       : totals.failed ? 'FAIL: CORE INCOMPLETE'
       : totals.pending || totals.skipped ? 'INCOMPLETE: UNEXECUTED TESTS'
-      : cleanupProblems ? 'PASS WITH RISKS' : 'PASS';
+      : cleanupProblems || allowedAppErrors.length > 0 ? 'PASS WITH RISKS' : 'PASS';
     fs.writeFileSync(path.join(dir, 'run-summary.json'), JSON.stringify({ run, node: process.version,
       cypress: 'cypressVersion' in results ? results.cypressVersion : null,
-      specs, totals, bookingObservations, cleanup: outcomes, unresolvedCleanup: registry.length,
+      specs, totals, bookingObservations, allowedAppErrors, cleanup: outcomes, unresolvedCleanup: registry.length,
       cleanupStatus: registry.length ? 'UNRESOLVED' : 'RESOLVED', status }, null, 2));
     if (registry.length) throw new Error(`UNRESOLVED CLEANUP: ${registry.length} obligation(s); inspect results/cleanup-registry.json. Original test results are retained.`);
   });

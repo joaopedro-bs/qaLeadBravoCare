@@ -86,6 +86,17 @@ test('accepted create without ID remains an obligation and never triggers guesse
   assert.equal(h.registry().length, 2);
   assert.equal(h.calls.some(c => c.method === 'DELETE'), false);
 });
+test('an allowed React #418 occurrence downgrades an all-pass run to PASS WITH RISKS', async t => {
+  const h = harness(t, [{ status: 404 }]);
+  await h.handlers.task.cleanupBooking(7);
+  h.handlers.task.recordAllowedAppErrors([{ test: ['spec', 'S-10'], attempt: 0, load: 1, at: '2029-01-01T00:00:00.000Z',
+    messageMatched: true, stackSourceMatched: true, firstChunkFrame: '/_next/static/chunks/174b7k13ybrt2.js', allowed: true }]);
+  h.handlers['after:run']({ cypressVersion: 'unit-proof', totalTests: 1, totalPassed: 1,
+    totalFailed: 0, totalPending: 0, totalSkipped: 0 });
+  assert.equal(h.summary().status, 'PASS WITH RISKS');
+  assert.equal(h.summary().allowedAppErrors.length, 1);
+  assert.equal(h.summary().cleanupStatus, 'RESOLVED');
+});
 test('failed tests keep FAIL primary outcome even when cleanup is resolved', async t => {
   const h = harness(t, [{ status: 404 }]);
   await h.handlers.task.cleanupBooking(7);
