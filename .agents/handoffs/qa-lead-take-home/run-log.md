@@ -230,3 +230,35 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
 - Known post-live ID guards, summary precedence/status and metadata/symptom changes retain local-only validation; exact historical working-tree diff is unavailable. No CI/Xray/device proof.
 - 05-error-analysis.md written NEEDS FIX; next authorized owner test-automation-writer, not automatically launched. No04/DECISIONS/delivery changes, commits, pushes, publication or uploads. Rootpackage-lock preserved.
 - Diagnostic journal bounds03:28:06.955Z..03:34:43.910Z (6m36.955s); reading/reporting additional agent wall-clock. Human working time and remaining six-hour human budget NOT YET PROVIDED. Remote investigation stopped after final cleanup.
+
+### 2026-10-09 00:43 -03 - Stage 5 start: authorized correction + validation (Claude coordinator)
+
+- Context: 05-error-analysis (NEEDS FIX) and the RCA evidence were produced by another session. This coordinator inspected 05's classification, timeline, D-018 and acceptance-check sections before briefing.
+- Commit 2d82b97 (coordinator): 04-code-review, 05-error-analysis, RCA journals/notes, run-log. Pre-commit leak check: check-no-secrets.sh hits were env-var reads and synthetic test values only; grep for credential/token/cookie values found none in the RCA files.
+- Tree after commit: clean except the unrelated root package-lock.json (untouched).
+- Coordinator read-only check: the confirmation card in the captured reservation bundle (22:44 capture) renders `<strong>{checkin} - {checkout}</strong>` from client booking state after "Booking Confirmed", then "Return home". The existing spec line 59 already asserts it. Live confirmation is still required.
+- Plan:
+  - Phase A: test-automation-writer code changes + local checks only. No live run, no commit.
+  - Coordinator then inspects the diff and commits, so a clean SHA exists.
+  - Phase B: writer runs S-10/S-11 live at that SHA; if they pass, the 9-test core; then writes 03.
+
+### 2026-10-09 00:45-00:58 -03 - Stage 5 Phase A: correction + local validation (test-automation-writer)
+
+- The writer stopped at its 12-turn limit with only reservation.ts changed. It was resumed once to finish.
+- Changes:
+  - reservation.ts: native CDP pointer drag on the calendar cells (AUT iframe offset/scale), hit-target and trusted-event asserts, exact selection proof.
+  - guest-booking.cy.ts: S-10 inside-month / S-11 outside-month initial window; observation records title/attempt/time.
+  - e2e.ts: #418 handler removed.
+  - node-tasks.ts: symptom counting and the symptom-only PASS WITH RISKS branch removed; tagged failure labels.
+- No new dependency, no live run, no commit by the writer. Edit helper script kept outside the repo (/tmp/qa-phaseA-scripts).
+- Local validation:
+  - phaseA-typecheck exit 0 (`evidence/command-output/20261009-005245-phaseA-typecheck.txt`).
+  - phaseA-cleanup-proofs exit 0, pass 8 fail 0 (`...20261009-005247-phaseA-cleanup-proofs.txt`).
+- Coordinator inspection:
+  - the diff matches the brief;
+  - grep finds no `uncaught:exception` handler, `force: true`, request-body assignment or `reply(`;
+  - business assertions (request room/dates, 201, echo, Booking Confirmed + strong dates + Return home) unchanged;
+  - cleanup functions unchanged;
+  - the date generator keeps check-in on a Monday, day <= 25, 2 nights, so check-in and last night share one week row.
+- DECISIONS.md: D-018 status set to `not accepted`, original text kept, outcome appended. A `not accepted` status was added to the legend.
+- Commit c65c14c (coordinator): delivery code + DECISIONS only. Phase A evidence + run-log committed separately (next commit).
