@@ -1,5 +1,81 @@
 # Automation Implementation - qa-lead-take-home
 
+## Stage 7 - reduced booking journey
+
+Status: **READY FOR REVIEW**. Scoped to S-10/S-11. In the targeted run, both tests passed on the first attempt under the temporary #418 allowance, and that run's status was `PASS WITH RISKS`. The full daily run is **FAIL: CORE INCOMPLETE**: smoke UI S-07/S-08/S-09 failed on #418, and they have no allowance by user scope.
+
+### Tested source
+- HEAD `63e0b5c` (delivery commit `0225278`). Delivery tree `54d9e8bc962211cc8e58892b1579645ce7254cc3`, cypress tree `bc72923941f0765e28db1a71bd5a04de5601f11e`.
+- The working tree was clean except the unrelated root `package-lock.json`.
+- After execution, the delivery tree changed only in README (documentation): the two "pending execution" markers were replaced with the observed results, and the older "Latest local daily run" sentence was relabelled "Earlier ... (before Stage 7)".
+
+### Changes (user-authorized scope)
+- `cypress/e2e/hotfix/guest-booking.cy.ts`
+  - Reduced journey: URL-preselected dates (the target dates are in the query string), and the calendar is not driven.
+  - Steps: `openForm()`, then pre-submit `assertPriceSummary(roomPrice, 2)`, then `fillGuest`, then submit.
+  - The intercept is observation-only and unchanged. All business assertions are kept. The titles are renamed.
+  - Temporary #418 allowance, test-scoped with `cy.on`:
+    - The message must contain `Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]=`.
+    - If the stack has any `/_next/static/chunks/` frame, it must contain `/_next/static/chunks/174b7k13ybrt2.js`.
+    - At most one match per page load (`window:before:load` resets the counter).
+    - Any other error, or an extra match, fails the test.
+    - Each occurrence is recorded with `recordAllowedAppErrors` in `afterEach`.
+- `cypress/support/pages/reservation.ts`
+  - Removed the CDP/drag/geometry driver; git history keeps it.
+  - `reservationUrl(roomid, dates)` now passes the target dates directly.
+  - Added `assertPriceSummary`: `£{price} x {n} nights` and `Total £{price*n+40}`.
+- `cypress/support/node-tasks.ts`
+  - New `recordAllowedAppErrors` task, which prints to the CLI and persists `allowedAppErrors` in run-summary.
+  - Any recorded occurrence turns an otherwise passing run into `PASS WITH RISKS`. FAIL precedence is unchanged, and `cleanupStatus` stays separate.
+- `tests/cleanup.test.mjs`: one new proof, "an allowed #418 occurrence yields PASS WITH RISKS, not PASS".
+- Cleanup behaviour is unchanged: identity GET before DELETE, verify 404, ID guard, registry. No request rewriting, stubs, state setting or `force`.
+
+### Commands and exit codes (evidence in `evidence/command-output/`)
+| Command | Exit | Evidence |
+|---|---|---|
+| typecheck | 2 | `20261009-012210-stage7-typecheck.txt` (TS18048 in reservation.ts) |
+| cleanup proofs | 0 | `20261009-012212-stage7-cleanup-proofs.txt` (9/9) |
+| typecheck rerun after fix | 0 | `20261009-012230-stage7-typecheck-rerun.txt` |
+| cleanup proofs rerun | 0 | `20261009-012231-stage7-cleanup-proofs-rerun.txt` (9/9) |
+| `run hotfix -- --spec cypress/e2e/hotfix/guest-booking.cy.ts` | 0 | `20261009-012415-stage7-s10-s11.txt` and `20261009-stage7-s10-s11-{run-summary.json,cleanup-registry.json,cleanup-outcomes.jsonl,junit.xml}` |
+| `run daily` | 3 | `20261009-012501-stage7-daily.txt` and `20261009-stage7-daily-{run-summary.json,cleanup-registry.json,cleanup-outcomes.jsonl}`, `20261009-stage7-daily-junit/` |
+
+Credentials were supplied only as an environment prefix on the command line. A grep of the stage7 evidence for `password`, `token=`, `Set-Cookie` and the synthetic token found no matches.
+
+### Results (per-attempt data from run-summary, not JUnit)
+**S-10/S-11 run `bc081863-b368-43f7-a964-398a402bf964`:** 2/2 passed. Status `PASS WITH RISKS`, cleanup RESOLVED, 0 unresolved.
+
+| Test | Attempts | Status | ID | Submitted dates |
+|---|---|---|---|---|
+| S-10 | passed on the first attempt, no retry | 201 | 4 | 2029-05-14..2029-05-16 (equal to expected) |
+| S-11 | passed on the first attempt, no retry | 201 | 5 | 2029-07-16..2029-07-18 (equal to expected) |
+
+- `allowedAppErrors`: 2 entries, one per test, all with attempt 0, load 1, `stackSourceMatched=true`, firstChunkFrame `174b7k13ybrt2.js`, `allowed=true`.
+- Cleanup: id 4 and id 5 were both `deleted-and-absent` (202). The registry is `[]`.
+
+**Daily run `92ae02d0-b871-4924-8826-3d0bfe85b283`:** 6 passed, 3 failed. Status `FAIL: CORE INCOMPLETE`, cleanup RESOLVED, 0 unresolved.
+
+| Test | Result | Detail |
+|---|---|---|
+| S-31, S-14 | passed on the first attempt | |
+| S-10 | passed on the first attempt | 201, id 7, 2028-10-23..2028-10-25 |
+| S-11 | passed on the first attempt | 201, id 8, 2029-06-04..2029-06-06 |
+| S-01, S-03 | passed on the first attempt | |
+| S-07, S-08, S-09 | failed on the initial attempt and the retry | finalSymptom `react-hydration-418`; no allowance outside the booking spec, by scope |
+
+- `allowedAppErrors`: 2 entries (S-10 and S-11), same shape as in the S-10/S-11 run.
+- Cleanup: ids 6, 7 and 8 were all `deleted-and-absent` (202). The registry is `[]`.
+
+### Deferred and not validated
+- Calendar interaction (drag selection) is **DEFERRED coverage**.
+- The #418 allowance is temporary. Diagnostics suggest it is runner-induced, but the mechanism is not isolated, and this does not prove the app is defect-free.
+- Smoke UI coverage stays blocked by #418.
+- Not validated: CI (Jenkins/Bitbucket/GitHub), Xray import, real device, Safari, iOS. 390x844 is a desktop-engine viewport only.
+
+---
+
+## Previous stage (superseded by Stage 7)
+
 Status: **BLOCKED**. The live S-10/S-11 run failed 0/2 on both attempts because of the unsuppressed application error React #418. Following Step 3, the full daily core was not run. The calendar driver and selection proof have still not been validated live.
 
 ## Upstream handoffs consumed

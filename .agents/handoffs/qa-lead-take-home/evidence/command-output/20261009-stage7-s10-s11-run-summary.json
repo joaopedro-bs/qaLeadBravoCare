@@ -1,0 +1,130 @@
+{
+  "run": "bc081863-b368-43f7-a964-398a402bf964",
+  "node": "v24.11.1",
+  "cypress": "15.5.0",
+  "specs": [
+    {
+      "spec": "cypress/e2e/hotfix/guest-booking.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Anonymous guest booking with URL-preselected dates and real backend",
+            "[S-10][R-01] guest books URL-preselected dates and sees confirmation at 1280x800 desktop engine @p0 @write @hotfix"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Anonymous guest booking with URL-preselected dates and real backend",
+            "[S-11][R-01][R-08] guest books URL-preselected dates and sees confirmation at 390x844 desktop engine @p0 @write @hotfix"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "tests": 2,
+    "passed": 2,
+    "failed": 0,
+    "pending": 0,
+    "skipped": 0
+  },
+  "bookingObservations": [
+    {
+      "test": [
+        "Anonymous guest booking with URL-preselected dates and real backend",
+        "[S-10][R-01] guest books URL-preselected dates and sees confirmation at 1280x800 desktop engine @p0 @write @hotfix"
+      ],
+      "attempt": 0,
+      "observedAt": "2026-10-09T04:24:34.007Z",
+      "initialWindow": "url-preselected",
+      "status": 201,
+      "expectedDates": {
+        "checkin": "2029-05-14",
+        "checkout": "2029-05-16"
+      },
+      "submittedDates": {
+        "checkin": "2029-05-14",
+        "checkout": "2029-05-16"
+      },
+      "bookingid": 4
+    },
+    {
+      "test": [
+        "Anonymous guest booking with URL-preselected dates and real backend",
+        "[S-11][R-01][R-08] guest books URL-preselected dates and sees confirmation at 390x844 desktop engine @p0 @write @hotfix"
+      ],
+      "attempt": 0,
+      "observedAt": "2026-10-09T04:24:39.614Z",
+      "initialWindow": "url-preselected",
+      "status": 201,
+      "expectedDates": {
+        "checkin": "2029-07-16",
+        "checkout": "2029-07-18"
+      },
+      "submittedDates": {
+        "checkin": "2029-07-16",
+        "checkout": "2029-07-18"
+      },
+      "bookingid": 5
+    }
+  ],
+  "allowedAppErrors": [
+    {
+      "test": [
+        "Anonymous guest booking with URL-preselected dates and real backend",
+        "[S-10][R-01] guest books URL-preselected dates and sees confirmation at 1280x800 desktop engine @p0 @write @hotfix"
+      ],
+      "attempt": 0,
+      "load": 1,
+      "at": "2026-10-09T04:24:31.836Z",
+      "messageMatched": true,
+      "stackSourceMatched": true,
+      "firstChunkFrame": "/_next/static/chunks/174b7k13ybrt2.js",
+      "allowed": true
+    },
+    {
+      "test": [
+        "Anonymous guest booking with URL-preselected dates and real backend",
+        "[S-11][R-01][R-08] guest books URL-preselected dates and sees confirmation at 390x844 desktop engine @p0 @write @hotfix"
+      ],
+      "attempt": 0,
+      "load": 1,
+      "at": "2026-10-09T04:24:37.488Z",
+      "messageMatched": true,
+      "stackSourceMatched": true,
+      "firstChunkFrame": "/_next/static/chunks/174b7k13ybrt2.js",
+      "allowed": true
+    }
+  ],
+  "cleanup": [
+    {
+      "bookingid": 4,
+      "marker": "qanebnmwtf",
+      "outcome": "deleted-and-absent",
+      "status": 202,
+      "classification": "not-applicable"
+    },
+    {
+      "bookingid": 5,
+      "marker": "qafessrcyw",
+      "outcome": "deleted-and-absent",
+      "status": 202,
+      "classification": "not-applicable"
+    }
+  ],
+  "unresolvedCleanup": 0,
+  "cleanupStatus": "RESOLVED",
+  "status": "PASS WITH RISKS"
+}

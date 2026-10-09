@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="2.437" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-10-09T04:25:39" tests="0" file="cypress/e2e/smoke/reservation-page.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Reservation page" timestamp="2026-10-09T04:25:39" tests="1" time="2.436" failures="1">
+    <testcase name="Reservation page [S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke" time="1.216" classname="[S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke">
+      <failure message="The following error originated from your application code, not from Cypress.
+
+  &gt; Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&amp;args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+https://on.cypress.io/uncaught-exception-from-application" type="Error"><![CDATA[Error: The following error originated from your application code, not from Cypress.
+
+  > Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+
+When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
+
+This behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.
+
+https://on.cypress.io/uncaught-exception-from-application
+    at rX (https://automationintesting.online/_next/static/chunks/174b7k13ybrt2.js:1:46254)
+    at iu (https://automationintesting.online/_next/static/chunks/174b7k13ybrt2.js:1:97295)
+    at sd (https://automationintesting.online/_next/static/chunks/174b7k13ybrt2.js:1:137985)
+    at <unknown> (https://automationintesting.online/_next/static/chunks/174b7k13ybrt2.js:1:132871)
+    at se (https://automationintesting.online/_next/static/chunks/174b7k13ybrt2.js:1:132972)
+    at s$ (https://automationintesting.online/_next/static/chunks/174b7k13ybrt2.js:1:159536)
+    at MessagePort.O (https://automationintesting.online/_next/static/chunks/174b7k13ybrt2.js:1:7701)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,259 @@
+{
+  "run": "92ae02d0-b871-4924-8826-3d0bfe85b283",
+  "node": "v24.11.1",
+  "cypress": "15.5.0",
+  "specs": [
+    {
+      "spec": "cypress/e2e/daily/booking-api.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Guest to administrative API lifecycle",
+            "[S-31][S-12][S-15][R-01][R-02][R-03] create, overlap, admin visibility, report and owned deletion @p0 @write @daily"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Guest to administrative API lifecycle",
+            "[S-14][R-01][R-03] invalid fields return observed validation rules @p1 @write @daily"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/hotfix/guest-booking.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Anonymous guest booking with URL-preselected dates and real backend",
+            "[S-10][R-01] guest books URL-preselected dates and sees confirmation at 1280x800 desktop engine @p0 @write @hotfix"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Anonymous guest booking with URL-preselected dates and real backend",
+            "[S-11][R-01][R-08] guest books URL-preselected dates and sees confirmation at 390x844 desktop engine @p0 @write @hotfix"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/smoke/api-contracts.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Read-only API contracts",
+            "[S-01][R-01][R-03] room list has the observed contract @p0 @readonly @smoke"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Read-only API contracts",
+            "[S-03][R-02][R-03] anonymous booking list is rejected @p0 @readonly @smoke"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/smoke/home.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Guest home",
+            "[S-07][R-01] rooms and booking entry at 1280x800 desktop engine @p0 @readonly @smoke"
+          ],
+          "state": "failed",
+          "finalSymptom": "react-hydration-418",
+          "attempts": [
+            {
+              "state": "failed",
+              "classification": "unknown"
+            },
+            {
+              "state": "failed",
+              "classification": "unknown"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Guest home",
+            "[S-08][R-01] rooms and booking entry at 390x844 desktop engine @p0 @readonly @smoke"
+          ],
+          "state": "failed",
+          "finalSymptom": "react-hydration-418",
+          "attempts": [
+            {
+              "state": "failed",
+              "classification": "unknown"
+            },
+            {
+              "state": "failed",
+              "classification": "unknown"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/smoke/reservation-page.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Reservation page",
+            "[S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke"
+          ],
+          "state": "failed",
+          "finalSymptom": "react-hydration-418",
+          "attempts": [
+            {
+              "state": "failed",
+              "classification": "unknown"
+            },
+            {
+              "state": "failed",
+              "classification": "unknown"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "tests": 9,
+    "passed": 6,
+    "failed": 3,
+    "pending": 0,
+    "skipped": 0
+  },
+  "bookingObservations": [
+    {
+      "test": [
+        "Anonymous guest booking with URL-preselected dates and real backend",
+        "[S-10][R-01] guest books URL-preselected dates and sees confirmation at 1280x800 desktop engine @p0 @write @hotfix"
+      ],
+      "attempt": 0,
+      "observedAt": "2026-10-09T04:25:24.176Z",
+      "initialWindow": "url-preselected",
+      "status": 201,
+      "expectedDates": {
+        "checkin": "2028-10-23",
+        "checkout": "2028-10-25"
+      },
+      "submittedDates": {
+        "checkin": "2028-10-23",
+        "checkout": "2028-10-25"
+      },
+      "bookingid": 7
+    },
+    {
+      "test": [
+        "Anonymous guest booking with URL-preselected dates and real backend",
+        "[S-11][R-01][R-08] guest books URL-preselected dates and sees confirmation at 390x844 desktop engine @p0 @write @hotfix"
+      ],
+      "attempt": 0,
+      "observedAt": "2026-10-09T04:25:28.631Z",
+      "initialWindow": "url-preselected",
+      "status": 201,
+      "expectedDates": {
+        "checkin": "2029-06-04",
+        "checkout": "2029-06-06"
+      },
+      "submittedDates": {
+        "checkin": "2029-06-04",
+        "checkout": "2029-06-06"
+      },
+      "bookingid": 8
+    }
+  ],
+  "allowedAppErrors": [
+    {
+      "test": [
+        "Anonymous guest booking with URL-preselected dates and real backend",
+        "[S-10][R-01] guest books URL-preselected dates and sees confirmation at 1280x800 desktop engine @p0 @write @hotfix"
+      ],
+      "attempt": 0,
+      "load": 1,
+      "at": "2026-10-09T04:25:22.075Z",
+      "messageMatched": true,
+      "stackSourceMatched": true,
+      "firstChunkFrame": "/_next/static/chunks/174b7k13ybrt2.js",
+      "allowed": true
+    },
+    {
+      "test": [
+        "Anonymous guest booking with URL-preselected dates and real backend",
+        "[S-11][R-01][R-08] guest books URL-preselected dates and sees confirmation at 390x844 desktop engine @p0 @write @hotfix"
+      ],
+      "attempt": 0,
+      "load": 1,
+      "at": "2026-10-09T04:25:26.570Z",
+      "messageMatched": true,
+      "stackSourceMatched": true,
+      "firstChunkFrame": "/_next/static/chunks/174b7k13ybrt2.js",
+      "allowed": true
+    }
+  ],
+  "cleanup": [
+    {
+      "bookingid": 6,
+      "marker": "qaajujkonj",
+      "outcome": "deleted-and-absent",
+      "status": 202,
+      "classification": "not-applicable"
+    },
+    {
+      "bookingid": 7,
+      "marker": "qatwtncomw",
+      "outcome": "deleted-and-absent",
+      "status": 202,
+      "classification": "not-applicable"
+    },
+    {
+      "bookingid": 8,
+      "marker": "qaocjgwywr",
+      "outcome": "deleted-and-absent",
+      "status": 202,
+      "classification": "not-applicable"
+    }
+  ],
+  "unresolvedCleanup": 0,
+  "cleanupStatus": "RESOLVED",
+  "status": "FAIL: CORE INCOMPLETE"
+}

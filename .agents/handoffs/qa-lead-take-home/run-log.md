@@ -340,3 +340,35 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
   - Exact dates asserted on request, response and confirmation.
   - Calendar month navigation is NOT used (no calendar driving).
 - Committed stage-6 artifacts (05, evidence, run-log) before starting.
+
+### 2026-10-09 01:19-01:29 -03 - Stage 7: reduced booking journey + scoped #418 allowance (test-automation-writer) + coordinator verification
+
+- Phase A (writer, 01:19-01:22):
+  - reduced S-10/S-11 (URL-preselected dates, price summary, form, observation-only intercept, unchanged business/confirmation assertions);
+  - calendar drag driver removed;
+  - test-scoped #418 allowance in guest-booking.cy.ts only;
+  - allowedAppErrors persisted plus PASS WITH RISKS;
+  - +1 local proof; README.
+  - Validation: typecheck exit 2 (TS18048), fixed, rerun exit 0. Cleanup proofs 9/9 exit 0 (evidence `20261009-0122*-stage7-*`).
+- Coordinator:
+  - DECISIONS: D-019 allowance (hypothesis, scope, masking risk, removal condition, no invented ticket/owner) and D-020 reduced journey (calendar deferred); D-017 marked superseded with history kept.
+  - Grep: `uncaught:exception` handler only in guest-booking.cy.ts (cy.on, test-scoped); none global.
+  - Commits 0225278 (delivery) and 63e0b5c (evidence/run-log).
+- TESTED SOURCE: HEAD 63e0b5c (delivery commit 0225278), delivery tree 54d9e8b, cypress tree bc72923. Clean except the unrelated root package-lock.json.
+- Live runs (credentials via env prefix only; Electron 138 headless, Cypress 15.5.0):
+
+| Run | Started | Exit | Result | First attempt / retry |
+|---|---|---|---|---|
+| stage7-s10-s11 (bc081863) | 01:24:15 | 0 | 2/2 passed, PASS WITH RISKS | S-10 passed 1st; S-11 passed 1st; no retries |
+| stage7-daily (92ae02d0) | 01:25:01 | 3 | 6 passed / 3 failed, FAIL: CORE INCOMPLETE | S-31, S-14, S-10, S-11, S-01, S-03 passed 1st. S-07, S-08, S-09 failed 1st AND retry (react-hydration-418; no allowance in smoke, per user scope) |
+
+- Booking observations:
+  - s10-s11: S-10 201 id 4, S-11 201 id 5.
+  - daily: S-10 201 id 7, S-11 201 id 8.
+  - submitted dates == expected in all 4.
+- Allowed #418: exactly 1 per test (attempt 0, load 1, stackSourceMatched true, allowed true) in both runs. Printed in the CLI and persisted in run-summary.
+- Cleanup: ids 4, 5 (s10-s11) and 6 (S-31 API), 7, 8 (daily) all deleted-and-absent 202. Registries []; unresolved 0; cleanupStatus RESOLVED.
+- Leak grep (password/token=) over the stage7 evidence: no matches.
+- Post-execution changes: README.md (writer) only, documentation (`git diff --stat 0225278 -- :/delivery` = README.md only). 03 updated (writer, READY FOR REVIEW scoped to S-10/S-11; daily FAIL stated).
+- Not validated: CI, Xray, real device / Safari / iOS, calendar date selection (deferred), smoke UI under #418.
+- Timebox respected (ended 01:29 < 01:38).

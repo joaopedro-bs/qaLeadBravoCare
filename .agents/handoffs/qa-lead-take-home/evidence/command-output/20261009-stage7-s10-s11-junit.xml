@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="10.752" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-10-09T04:24:30" tests="0" file="cypress/e2e/hotfix/guest-booking.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Anonymous guest booking with URL-preselected dates and real backend" timestamp="2026-10-09T04:24:30" tests="2" time="10.750" failures="0">
+    <testcase name="Anonymous guest booking with URL-preselected dates and real backend [S-10][R-01] guest books URL-preselected dates and sees confirmation at 1280x800 desktop engine @p0 @write @hotfix" time="3.898" classname="[S-10][R-01] guest books URL-preselected dates and sees confirmation at 1280x800 desktop engine @p0 @write @hotfix">
+    </testcase>
+    <testcase name="Anonymous guest booking with URL-preselected dates and real backend [S-11][R-01][R-08] guest books URL-preselected dates and sees confirmation at 390x844 desktop engine @p0 @write @hotfix" time="3.363" classname="[S-11][R-01][R-08] guest books URL-preselected dates and sees confirmation at 390x844 desktop engine @p0 @write @hotfix">
+    </testcase>
+  </testsuite>
+</testsuites>
