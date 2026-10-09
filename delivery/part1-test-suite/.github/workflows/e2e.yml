@@ -1,0 +1,60 @@
+name: Booking quality gates
+on:
+  pull_request:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: Cumulative test tier
+        required: true
+        default: hotfix
+        type: choice
+        options: [smoke, hotfix, daily]
+
+permissions:
+  contents: read
+concurrency:
+  group: e2e-shared-demo
+  cancel-in-progress: false
+
+jobs:
+  e2e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.11.1'
+          cache: npm
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run test:cleanup
+      - name: Execute approved tier
+        env:
+          TEST_TIER: ${{ github.event_name == 'schedule' && 'daily' || github.event_name == 'pull_request' && 'smoke' || inputs.tier }}
+          BASE_URL: ${{ vars.BASE_URL || 'https://automationintesting.online' }}
+          CYPRESS_ADMIN_USER: ${{ github.event_name != 'pull_request' && secrets.ADMIN_USER || '' }}
+          CYPRESS_ADMIN_PASSWORD: ${{ github.event_name != 'pull_request' && secrets.ADMIN_PASSWORD || '' }}
+        run: |
+          case "$TEST_TIER" in
+            smoke|hotfix|daily) npm run "$TEST_TIER" ;;
+            *) echo "Invalid tier"; exit 2 ;;
+          esac
+      - name: Upload narrowly scoped results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: booking-test-results-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            results/junit/**/*.xml
+            results/run-summary.json
+            results/cleanup-outcomes.jsonl
+          # No registry, cookies, credentials, raw API bodies, screenshots, or video.

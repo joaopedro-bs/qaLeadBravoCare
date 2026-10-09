@@ -1,304 +1,212 @@
 # DECISIONS
 
-Decision log for the Restful Booker Platform test suite foundation (Part 1 of the QA Lead take-home exercise).
-Entries are written when the decision is made, not reconstructed at the end. Superseded entries are kept and marked.
+This is my decision log for the Restful Booker Platform test suite foundation. I write each entry when I make the decision and keep superseded entries. Each entry records:
+- context and evidence;
+- the alternatives I weighed;
+- what I chose and why;
+- consequences and limits;
+- what I left out and what I would do next.
 
-Status values: `proposed` (awaiting confirmation), `accepted`, `superseded`.
+Status: `proposed` (my recommendation, still under review), `accepted`, `superseded`.
 
-Evidence notes: this file is meant to be read on its own. Evidence is summarised inline. Paths under
-`.agents/handoffs/...` refer to the internal working area where raw evidence is kept; that area is
-not part of this published repository.
+Evidence is summarised inline: it comes from live requests I made against https://automationintesting.online on 2026-10-08. The demo is shared and resets, so the values quoted here are snapshots, not oracles.
+
+D-001, D-004 and D-005 were about my working setup (where to keep the work, when to publish, how to track my time), not about the suite. I keep them in my working notes.
 
 ## Summary
 
-| ID | Stage | Decision | Status |
-|---|---|---|---|
-| D-001 | Setup | Build the suite in its own self-contained directory, extractable as the public repository | proposed |
-| D-002 | Setup | Cypress + TypeScript | accepted |
-| D-003 | Specification | Read-only inspection of the live demo before any test design | accepted |
-| D-004 | Setup | No push or publication without explicit human approval | accepted |
-| D-005 | Setup | Report human working time separately from AI-agent runtime | accepted |
-| D-006 | Specification | Three suite tiers (hotfix smoke, daily, pre-release), split into read-only and write tests | proposed |
-| D-007 | Specification | iPhone: emulated viewport in automation, plus manual checks on a real device; the gap is stated plainly | proposed |
-| D-008 | Specification | Xray traceability through scenario and requirement IDs in test titles, plus JUnit XML | proposed |
-| D-009 | Specification | Rules for shared, resettable demo data | proposed |
-| D-010 | Specification | No Cucumber layer and no load testing in the foundation | proposed |
+| ID | Decision | Status |
+|---|---|---|
+| D-002 | Cypress + TypeScript | accepted |
+| D-003 | Read the app before designing tests; then targeted contract discovery with tagged data | accepted |
+| D-006 | Three suite tiers, split into read-only and write tests | accepted |
+| D-007 | iPhone: emulated viewport in automation, manual pass on a real iPhone | accepted |
+| D-008 | Xray traceability through IDs in test titles, plus JUnit XML | accepted |
+| D-009 | Rules for shared, resettable demo data | accepted |
+| D-010 | No Cucumber layer and no load testing in the foundation | accepted |
+| D-011 | Choose tiers by spec folder, not a tag-filter plugin | accepted |
+| D-012 | Node-only admin auth; credentials only from env | accepted |
+| D-013 | GitHub Actions as the reference pipeline; Bitbucket/Jenkins mapping documented | accepted |
+| D-014 | Cypress built-in JUnit reporter, one XML per spec | accepted |
+| D-015 | Exact version pins with a compatibility gate | accepted |
+| D-016 | Report the two security-relevant findings instead of encoding them as tests | accepted |
+| D-017 | Real calendar and visible success UI booking oracle | accepted |
+| D-018 | Narrow handling of observed React hydration #418, with visible risks | proposed |
 
 ---
 
-## D-001 - Self-contained delivery directory
-
-- Timestamp: 2026-10-08 22:47 -03
-- Stage: Setup
-- Status: proposed
-
-Context and evidence
-- The exercise asks for a public Git repository with an unsquashed commit history (assignment PDF, "What to send").
-- The working environment also holds internal agent configuration and notes from earlier, unrelated work. Those must not be published.
-
-Alternatives considered
-1. Separate Git repository outside the working environment. Clean history from the start. However, it sits outside the working environment, so the review workflow cannot track it.
-2. Separate repository nested inside the working environment. Clean history, but the outer repository does not track it. If the working copy is cleaned up, the work can be lost.
-3. **Tracked subdirectory `delivery/part1-test-suite/`, extracted later with `git subtree split --prefix=delivery/part1-test-suite`.** The extracted history contains only commits that touched this directory, in their original order.
-
-Choice and rationale
-- Option 3. It keeps one source of truth during the work and still produces a real, unsquashed history for the public repository.
-
-Consequences and limitations
-- Commit discipline is required:
-  - A commit never mixes suite files with internal notes.
-  - Suite commit messages are written for an external reader.
-- The extraction step must be run and checked before publishing. Publishing is a separate, human-approved step (D-004).
-
-Omissions and next steps
-- Confirm this layout with the candidate before the first suite commit.
-- Parts 2 and 3 are uploaded as documents rather than to this repository, so they will be drafted in sibling directories under `delivery/`.
-
 ## D-002 - Cypress + TypeScript
 
-- Timestamp: 2026-10-08 22:47 -03
+- Timestamp: 2026-10-08 22:47 -03 (wording updated 23:06)
 - Stage: Setup
 - Status: accepted
 
 Context and evidence
-- The assignment says "We use Cypress, but you can use another tool."
-- The team's automation contributors are two developers and one junior QA, so familiar tooling and type safety lower the cost of keeping the suite up.
+- The assignment says the team uses Cypress, and allows another tool.
+- The tests will be written by two developers and a junior QA.
 
 Alternatives considered
-- Playwright, which has native WebKit and mobile device profiles relevant to iPhone users.
-- Plain API runners such as Postman/Newman.
+- Playwright. It has WebKit and mobile device profiles, which matters for iPhone users.
+- Postman/Newman for the API layer.
 
 Choice and rationale
-- Cypress + TypeScript, matching the team's existing tool. A foundation in a different tool would need migration and retraining before it pays off.
-- API checks use `cy.request()`, so one runner and one report cover both UI and API.
+- I use Cypress with TypeScript. Starting in the team's own tool means no migration and no retraining before the suite pays off, and types help a junior contributor.
+- API checks use `cy.request()`, so one runner and one report cover both the UI and the API.
 
 Consequences and limitations
-- Cypress emulates a mobile viewport and user agent in desktop browsers; it does not run iOS Safari.
-- iPhone coverage from this suite is therefore partial. The gap and how to close it are covered in the test specification and in later decisions.
+- Cypress runs desktop browser engines. A mobile viewport is emulation, not iOS Safari (see D-007).
 
 Omissions and next steps
-- Decide the WebKit/real-device strategy during architecture.
+- If iPhone-specific defects start escaping, revisit WebKit or real-device coverage.
 
-## D-003 - Read-only inspection before test design
+## D-003 - Inspect first, then targeted contract discovery
 
-- Timestamp: 2026-10-08 22:47 -03
-- Stage: Specification
+- Timestamp: 2026-10-08 22:47 -03 (extended 23:05)
+- Stage: Specification -> Architecture
 - Status: accepted
 
 Context and evidence
-- The app is a shared public demo; data created there can be changed or removed by other users, and it can be reset at any time (assignment PDF).
-- Unauthenticated GET requests on 2026-10-08 returned:
-  - `GET /api/room`: 200, JSON with a `rooms` array (3 rooms at capture time).
-  - `GET /api/branding`: 200.
-  - `GET /api/report/room/1`: 200, a list of "Unavailable" date ranges.
-  - `GET /api/booking`: 401 `{"error":"Authentication required"}`.
-  - `GET /api/message/count`: 200 `{"count":3}`, which needed no authentication.
-- The front-end JavaScript references these endpoints: `/api/booking` (POST), `/api/message` (POST), `/api/auth/login`, `/api/auth/validate`, `/api/auth/logout`, `/api/room`, `/api/room/{id}`, `/api/branding`, `/api/report/room/{id}` and `/api/message/count`.
-- Internal evidence (not published): `.agents/handoffs/qa-lead-take-home/evidence/`.
+- The demo is shared and can be reset at any time.
+- I did not want to assume API contracts. This app is not the older "restful-booker" API, and its paths, auth and payloads differ.
 
 Alternatives considered
-- Log into the admin panel and create bookings and messages straight away, to learn the full contracts.
+- Write tests straight from documentation or from memory of similar apps.
+- Explore freely with the admin account.
 
 Choice and rationale
-- The specification is based only on the assignment text, public pages and unauthenticated GET responses. API contracts and business rules are not assumed. Anything not observed is recorded as an assumption or an open question.
+- First, read-only: public pages, unauthenticated GETs, and the API paths that appear in the site's JavaScript.
+- Then targeted discovery with the admin account, read from environment variables:
+  - one synthetic booking and one synthetic message, each tagged with a unique run ID;
+  - both deleted afterwards, and the deletions verified;
+  - no rooms created, and no other records touched.
+- Observed contracts:
+  - Login returns a token in JSON. Sent back as a `token` cookie, it authorises admin reads.
+  - Creating a booking returns 201 with `bookingid`.
+  - The same room and dates again returns 409.
+  - An invalid booking returns 400 with `{"errors":[...]}`. Rules: first name 3-18 characters, last name 3-30, phone 11-21, a valid email.
+  - Deleting a booking returns 202, and a later GET returns 404.
+  - Creating a message returns 200 `{"success":true}`.
+  - An invalid message returns 400 with a bare array of messages. This error shape differs from bookings.
 
 Consequences and limitations
-- Admin journeys, and the request and response contracts for writes, are not verified at this stage.
+- My tests assert these observed contracts. If the product changes them on purpose, the tests will flag it, which is the intent.
+- Two findings worth raising with the team. Neither is confirmed as a bug, because I don't know the intended behaviour:
+  - The unread-message count endpoint answers without login.
+  - Logout returns success, but the same token still validates and still reads bookings.
 
 Omissions and next steps
-- Authenticated and write-path exploration needs explicit approval, and will use uniquely tagged test data.
+- I did not explore room create/edit or the branding endpoints. Room writes affect every demo user, and branding is a global setting.
 
-## D-004 - No publication without explicit approval
+## D-006 - Cumulative suite tiers (revised)
 
-- Timestamp: 2026-10-08 22:47 -03
-- Stage: Setup
-- Status: accepted
+- Status: accepted after implementation approval and mandatory revisions.
+- Context: fortnightly releases, hotfixes and a daily scheduled suite need distinct gates. A read-only run does not establish that booking works.
+- Choice: smoke = five GET-only scenarios in `smoke/`; hotfix = smoke plus the real booking journey at 1280x800 and 390x844 (S-10/S-11); daily = all nine core scenarios. Pre-release = daily plus a planned manual real-iPhone pass, currently unverified.
+- Alternative: run every scenario on every PR; I avoid shared-demo writes and secrets on PR runs.
+- Consequences: hotfix intends two bookings, daily three; retry attempts can add records and remain visible. Missing credentials make CI write tiers fail; local write tests are explicitly unexecuted. Unresolved cleanup blocks an unqualified PASS.
+- Next: expand from the nine-test subset only after core execution and budget assessment.
 
-Context and evidence
-- The assignment asks for a public repository and uploads to a shared folder, but publishing is an outward-facing, hard-to-reverse action.
+## D-007 - 390x844 desktop-engine coverage (revised)
 
-Alternatives considered
-- Push as work progresses.
+- Status: accepted after mandatory revision.
+- Context: most users are on iPhone; the inspected app declares a responsive viewport meta tag.
+- Choice: home and booking run at 390x844 in a desktop engine. I omit iOS user-agent spoofing because inspected behavior does not require it.
+- Alternatives: desktop only; experimental WebKit; a real-device cloud. Viewport tests fit the foundation timebox but do not settle device risks.
+- Limits: this does not validate Safari/iOS, touch, the iOS keyboard or in-app browsers. Real-device validation is unexecuted and unverified.
+- Next: a manual real-iPhone Safari booking/contact charter before release, then decide device coverage from usage data and budget.
 
-Choice and rationale
-- Commits stay local until the candidate reviews them and approves publishing.
+## D-008 - Traceability and JUnit (revised)
 
-Consequences and limitations
-- The public repository is created late. The commit history is still preserved (D-001).
+- Status: accepted after mandatory revision.
+- Choice: titles use `[S-xx][R-yy] behavior @pN @readonly|@write @lowest-tier`; Cypress's built-in JUnit reporter writes `results/junit/results-[hash].xml`. README maps requirements, scenarios, files and local execution.
+- Alternative: Xray-specific or Cucumber reporting before its configuration is known.
+- Limits: Xray import, test-key mapping and real integration remain unverified. JUnit final status alone can hide retries; separate sanitized attempt and cleanup summaries preserve them.
+- Next: agree Xray test type/import route with the team before implementing import.
 
-Omissions and next steps
-- At publication time:
-  1. Run a secret scan.
-  2. Extract the history.
-  3. Check that the extracted history contains only suite files.
-  4. Publish.
+## D-009 - Shared-demo identity and cleanup (revised)
 
-## D-005 - Time accounting
+- Status: accepted after mandatory revisions.
+- Evidence: creation returns an ID, but a resettable demo may reuse it. A deliberate identical room/date overlap returned 409 in discovery; that does not explain every future 409.
+- Choice: synthetic `example.com` data; marker = `qa` plus eight lowercase letters; live room catalogue; random windows two to three years ahead. One report read and up to 20 in-memory candidates with a one-day buffer (end inclusivity unknown). No counts, seed oracles, room/branding writes or tag-pattern sweeps.
+- Ownership: persist ID, exact marker, room, names, deposit flag and dates before assertions. Before every delete, authenticated GET must still match all identifying fields. 404 means already absent, without claiming its cause. A mismatch or unverifiable identity means no deletion and a retained cleanup obligation.
+- Outcomes: a small Node registry and separate outcome journal survive assertion failures and local run restarts. Cleanup HTTP failures never replace the original test failure or silently clear obligations. The after-run summary includes unresolved entries and exits unsuccessfully while any remain. Prior-run obligations require manual identity-checked recovery; no automatic historical sweep.
+- Classification: record 404/409 symptoms; causes stay `unknown` unless supported. Run retries are capped at one and all attempts are recorded.
+- Tradeoff: read-before-delete is not atomic. No ETag/conditional-delete contract was observed, so a change between verification and DELETE remains a shared-demo race risk.
+- Next: dedicated test environment and a conditional-delete contract; keep interrupted-run registry files for accountable manual recovery.
 
-- Timestamp: 2026-10-08 22:47 -03
-- Stage: Setup
-- Status: accepted
+## D-010 - No Cucumber or load foundation
 
-Context and evidence
-- The assignment asks for about 6 hours in total (Part 1: 3-4 h; Parts 2 and 3: 1-2 h) and asks how long was spent on each part.
+- Status: accepted by implementation approval.
+- Choice: readable Cypress tests without step definitions; no load testing on the shared service. No GraphQL endpoint was observed; `cy.request` and small privacy-preserving Node tasks cover REST in one runner.
+- Alternatives: Cucumber, Newman, JMeter now. They add maintenance or unsafe shared-service traffic without required behavior.
+- Next: revisit BDD if Xray requires it; load testing only on a dedicated environment.
 
-Choice and rationale
-- The internal run log records two things:
-  - wall-clock timestamps for each stage, labelled as agent runtime;
-  - human working time, as reported by the candidate.
-- Only the human working time is reported as time spent.
+## D-011 - Tier selection by folder
 
-Alternatives considered
-- Report total elapsed session time.
-- Report AI-agent runtime as time spent.
-- Both would misstate the human effort the assignment asks about.
+- Status: accepted by implementation approval.
+- Choice: cumulative folder globs in npm scripts; no tag-filter dependency. Smoke folder has no remote writes.
+- Alternative: `@cypress/grep`; unnecessary for nine tests.
+- Limit: moving tiers means moving files; priority tags are metadata only.
+- Next: reconsider filtering when the suite grows.
 
-Consequences and limitations
-- Human time depends on the candidate's own reports at each review checkpoint.
+## D-012 - Node-only admin authentication (revised)
 
-Omissions and next steps
-- Ask for human time at each stage checkpoint.
-- Put the per-part totals in the final report.
+- Status: accepted after mandatory revisions.
+- Evidence: login returns a token, cookie transport authorizes admin reads, and validate requires the token in its body.
+- Choice: small Cypress Node tasks perform admin login/validation and authenticated verification/cleanup; the token stays in a Node closure. Credentials come only from process environment or CI secrets. Guest journeys remain anonymous throughout the UI; administration happens later in Node.
+- Alternative: browser `cy.session` auth with `log:false`. I avoid it here because Cypress transport errors can print credential/cookie bodies despite command-log suppression.
+- Privacy: task transport errors return sanitized status-only symptoms. Credential env imports are removed before browser config is returned. No raw other-user records leave Node. Screenshots/videos are disabled to avoid private application or command-panel capture; CI uploads only JUnit and sanitized summaries/outcomes, never the registry or raw media.
+- Limits: UI admin login is deferred; transport status 0 has unknown cause until diagnosed. Missing credentials skip write scenarios locally and fail them in CI.
+- Next: admin login UI coverage after the approved core and budget assessment.
 
-## D-006 - Suite tiers and read-only/write split
+## D-013 - GitHub Actions reference pipeline
 
-- Timestamp: 2026-10-08 22:52 -03
-- Stage: Specification
-- Status: proposed
+- Status: accepted by implementation approval.
+- Choice: PR smoke/typecheck without secrets; daily UTC schedule for daily; dispatch choice of smoke/hotfix/daily. Repository concurrency serializes shared-demo runs. Narrow artifact upload paths exclude raw private state.
+- Alternatives: Bitbucket Pipelines or Jenkins first; npm tier scripts keep their mapping simple (README).
+- Limit: workflow activates only when this delivery directory becomes a repository root; configured CI is not executed CI. CI results are unverified.
+- Next: execute the pipeline only after separately authorized publication; no Xray upload until configured and authorized.
 
-Context and evidence
-- Releases ship every two weeks, with hotfixes in between, and the suite runs once a day (assignment).
-- Release testing is the current bottleneck (assignment, Part 3).
-- The demo is shared, so any test that writes data adds risk for other users and makes failures less deterministic.
+## D-014 - Cypress built-in JUnit
 
-Alternatives considered
-- One suite that runs everything on every trigger.
-- Tiers defined only by priority.
+- Status: accepted by implementation approval.
+- Choice: one XML per spec, no extra reporting dependency; pair with sanitized run/cleanup/attempt summaries.
+- Alternatives: Mochawesome or an Xray-specific reporter before requirements are known.
+- Limits: no HTML report; Xray ingestion unverified.
+- Next: add a stakeholder HTML view only if needed.
 
-Choice and rationale
-- Three tiers:
-  - **Hotfix smoke:** P0 read-only tests (room list contract, booking list rejected without auth, home page renders rooms on desktop and at iPhone size, reservation page loads), plus admin login once it is approved. Target under 3 minutes, so it can run on demand.
-  - **Daily scheduled:** all automated P0 and P1 tests on desktop and at iPhone viewport. Write tests join once creating data on the demo is approved.
-  - **Pre-release:** the daily set plus automated P2 tests and manual exploratory charters.
-- Tests are tagged `@p0/@p1/@p2` and `@readonly/@write`.
+## D-015 - Compatible exact pins (revised)
 
-Consequences and limitations
-- A hotfix check alone does not prove that a booking can still be made end to end, because the booking test writes data. The release checklist must say so.
+- Status: accepted after compatibility execution.
+- Evidence: Cypress 15.5.0 registry engines are `^20.1.0 || ^22.0.0 || >=24.0.0`. Initial Node 24.10.0 install failed because its Darwin ARM binary package was absent; targeted registry inspection confirmed 24.11.1 exists.
+- Choice: Cypress 15.5.0, TypeScript 5.9.3, `@types/node` 24.10.0, Node 24.11.1 LTS. Exact dependencies and lockfile; Node local dev dependency makes npm scripts use the CI runtime without changing the host installation.
+- Alternatives: unverified newest TypeScript 7/Cypress 16; drifting version ranges; host Node 26. I choose the established compiler line and LTS runtime.
+- Proof: typecheck succeeded and actual S-01/S-03 spec execution passed 2/2 on Electron 138, Cypress 15.5.0, Node 24.11.1.
+- Tradeoff: packaged Node adds installation size. CI execution remains unverified.
+- Next: deliberate version upgrades with typecheck and a real spec compatibility gate.
 
-Omissions and next steps
-- The architecture stage maps the tiers to CI triggers.
+## D-016 - Findings remain observations
 
-## D-007 - iPhone coverage
+- Status: accepted by implementation approval.
+- Evidence from authorized discovery: unread-message count answers anonymously; a logged-out token still validates and reads bookings. Product intent is unknown.
+- Choice: document these in README and decision log for team discussion; do not bless them with passing tests or permanently red gates.
+- Alternatives: a failing or ticket-linked pending test.
+- Limits: observations are snapshots; not retested here and not confirmed product bugs.
+- Next: establish intended security behavior, then write ticket-linked tests.
 
-- Timestamp: 2026-10-08 22:52 -03
-- Stage: Specification
-- Status: proposed
+## D-017 - Full real UI booking oracle (revised)
 
-Context and evidence
-- Most users are on iPhone (assignment).
-- The site sets `<meta name="viewport" content="width=device-width, initial-scale=1"/>` (observed in the home page HTML), so a responsive layout is expected.
+- Status: accepted after mandatory revision.
+- Choice: inspect actual date-selection behavior, drive the real calendar, observe the unchanged booking request/real response, and assert inspected visible success. Intercepts never rewrite dates or any business fields.
+- Alternatives: network-only assertions; request-date rewriting; guessed success text. None satisfies full UI E2E here.
+- Limit: if real selection/confirmation cannot be completed within the timebox, report S-10/S-11 blocked or incomplete. API S-31 remains separate backend evidence.
+- Next: ask developers for stable test attributes on calendar and reservation controls.
 
-Alternatives considered
-1. Desktop-only automation.
-2. Cypress experimental WebKit.
-3. A device cloud running real iOS Safari.
-4. Switching to a tool with WebKit device profiles (see D-002).
+## D-018 - Observed React hydration error during UI execution
 
-Choice and rationale
-- P0 guest journeys run at an iPhone-sized viewport with an iOS user agent in every daily run.
-- A short manual exploratory pass on a real iPhone in Safari (browse, choose dates, book, contact) happens before each release.
-- WebKit and a device cloud are listed as next steps.
-
-Consequences and limitations
-- This is layout emulation in a desktop browser engine, not iOS Safari. Touch input, the on-screen keyboard and Safari-specific behaviour are not covered by automation. Reports must say "iPhone viewport", not "iPhone".
-
-Omissions and next steps
-- Confirm the iOS version split and the budget for a device cloud.
-
-## D-008 - Xray traceability
-
-- Timestamp: 2026-10-08 22:52 -03
-- Stage: Specification
-- Status: proposed
-
-Context and evidence
-- Results are tracked in Jira (Xray), according to the assignment.
-- The Xray configuration (test type, import route, existing keys) is unknown.
-
-Alternatives considered
-- An Xray-specific reporter from the start.
-- Cucumber with Xray Cucumber tests.
-
-Choice and rationale
-- Each test title carries its scenario and requirement IDs, for example `[S-10][R-01] guest books a stay`.
-- Each spec writes JUnit XML. This keeps the chain requirement -> scenario -> test -> execution visible today, and an import can be added later.
-- The assumption that Xray ingests JUnit XML is NOT VERIFIED.
-
-Consequences and limitations
-- The scenario IDs need to be mapped to Xray test keys once the Xray setup is known.
-
-Omissions and next steps
-- Ask how Xray is configured before wiring an import.
-
-## D-009 - Shared demo data rules
-
-- Timestamp: 2026-10-08 22:52 -03
-- Stage: Specification
-- Status: proposed
-
-Context and evidence
-- The demo is shared and can be reset at any time (assignment).
-- At capture time it held 3 rooms, and room 1 had one "Unavailable" range. These values can change at any moment.
-
-Alternatives considered
-1. Assert on the known seed values (3 rooms, fixed prices). Simple, but it breaks as soon as someone else edits the demo or it resets.
-2. Seed a known fixture state before each run. That means global writes to a shared demo, and a reset or another user can undo it.
-3. Stub the backend in UI tests. Deterministic, but it would not prove the integration.
-
-Choice and rationale
-- Created data:
-  - Every record a test creates carries a short run tag.
-  - Synthetic contact data only.
-  - Tests find their own records by that tag.
-- Assertions:
-  - Never assert global counts, seed values or other people's records.
-  - Expected values are read from the API at run time.
-- Bookings:
-  - Use random far-future date windows.
-  - Before booking, check the room's unavailability report.
-- Cleanup and reruns:
-  - Cleanup is best-effort and idempotent: data that has already gone counts as success.
-  - Tests run one at a time, with at most one retry.
-  - A failure caused by data disappearing mid-run is classified as an environment issue, not a product bug.
-- Global writes: branding is never changed by automation.
-
-Consequences and limitations
-- Some failures will still come from the environment. The cleanup method depends on admin endpoints that have not been observed yet.
-
-Omissions and next steps
-- A dedicated test environment would remove this whole class of flakiness. That is the main recommendation.
-
-## D-010 - Deferred: Cucumber layer and load testing
-
-- Timestamp: 2026-10-08 22:52 -03
-- Stage: Specification
-- Status: proposed
-
-Context and evidence
-- The tests are maintained by two developers and a junior QA.
-- Part 1 has 3-4 hours.
-- The target is a shared public demo behind Cloudflare (response headers).
-
-Alternatives considered
-1. A Cucumber preprocessor from the start, so Gherkin maps directly to Xray Cucumber tests. It adds a layer of step definitions for a junior QA to maintain, before we know Xray needs it.
-2. k6 or JMeter against the demo, to measure response times.
-
-Choice and rationale
-- Plain Cypress specs with readable titles. Gherkin is used only as wording, with no Cucumber runtime.
-- No load testing against a shared public service, since it would be abusive and would not reflect the real product.
-
-Consequences and limitations
-- If Xray uses Cucumber test types, a BDD layer may be added later.
-
-Omissions and next steps
-- Add load testing on a dedicated environment, starting with the room list and booking endpoints.
+- Status: proposed; implemented for diagnostic/functional execution, independent review pending.
+- Evidence: the first real smoke run passed two API tests but all three UI scenarios failed with React error #418 on both attempts. A targeted diagnostic found Cypress wraps that error message.
+- Choice: continue functional assertions only for the exact `Minified React error #418;` signature, record every occurrence separately, and report functional results with application-error risks. All other uncaught errors fail normally.
+- Alternatives: blanket exception suppression; claiming the app is clean; abandoning all UI diagnostics. I preserve the original failed execution and its retries.
+- Limits: root cause and user impact are unknown; this narrow handling is a reviewer focus area. It does not establish a clean application runtime or an unqualified PASS.
+- Next: reproduce hydration outside Cypress and inspect SSR/client differences with developers.
