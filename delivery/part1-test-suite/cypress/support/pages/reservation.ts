@@ -16,7 +16,7 @@ export function openForm() {
 
 const normalize = (text: string) => text.replace(/\s+/g, ' ').trim();
 
-// Pre-submit proof that the booking card priced the URL dates: "£{price} x {nights} nights" and
+// Pre-submit check of stay length and price only (not the exact dates): "£{price} x {nights} nights" and
 // Total "£{price*nights+40}" (fixed fees, per the app bundle). Fails if this structure is absent.
 export function assertPriceSummary(roomPrice: number, nights: number) {
   const total = roomPrice * nights + 40;

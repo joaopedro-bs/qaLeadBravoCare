@@ -242,7 +242,7 @@ Alternatives considered
 Choice and rationale
 - Only the two booking tests (S-10/S-11) register the allowance, scoped to each test. It applies when all of the following hold:
   - the message contains exactly `Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]=`;
-  - any application chunk frame in the stack is `/_next/static/chunks/174b7k13ybrt2.js`;
+  - the stack must contain an application chunk frame and it must be `/_next/static/chunks/174b7k13ybrt2.js`; a missing or different stack origin fails the test;
   - it is the first such error in that page load.
 - Any other error, or a second #418 in the same page load, still fails the test.
 - Every allowed occurrence is written to the run summary and printed in the CLI. A run with one is reported as `PASS WITH RISKS`, never as a clean `PASS`.
@@ -272,7 +272,7 @@ Alternatives considered
 - Assert the booking only at API level.
 
 Choice and rationale
-- S-10 (1280x800) and S-11 (390x844) open the reservation page with the target dates in the URL. Before submitting, they verify what the page displays for those dates: "£{price} x 2 nights" and the total, computed from the room's API price. The page shows no date text outside the calendar.
+- S-10 (1280x800) and S-11 (390x844) open the reservation page with the target dates in the URL. Before submitting, they verify only the stay length and price the page displays: "£{price} x 2 nights" and the total, computed from the room's API price. This does not identify which dates are selected. The page shows no date text outside the calendar.
 - They then fill the guest form through the UI and observe the real booking request without changing it.
 - They assert:
   - the request has the intended room, guest fields and exact dates;
@@ -282,7 +282,7 @@ Choice and rationale
 
 Consequences and limitations
 - Selecting dates in the calendar is **deferred coverage**: a broken calendar picker would not be caught.
-- Before submitting, the dates themselves are checked only indirectly, through the nights count and totals. The exact dates are asserted on the request, the response and the confirmation.
+- Before submitting, the exact dates are not checked; the nights count and total establish only duration and price. The exact dates are asserted on the submitted request, the 201 response echo and the confirmation card.
 
 Omissions and next steps
 - Add calendar selection coverage once developers provide stable test attributes on the calendar, or with a real-pointer tool agreed by the team.

@@ -105,8 +105,8 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
     recordAllowedAppErrors(entries: AllowedAppError[]) {
       for (const e of Array.isArray(entries) ? entries : []) {
         allowedAppErrors.push(e);
-        console.log(`[${e.allowed ? 'allowed' : 'rejected'} app error] React #418 test=${(e.test ?? []).join(' > ')} ` +
-          `attempt=${e.attempt} load=${e.load} stackSourceMatched=${e.stackSourceMatched}`);
+        console.log(`[browser error] allowed=${e.allowed} messageMatched=${e.messageMatched} ` +
+          `stackSourceMatched=${e.stackSourceMatched} test=${(e.test ?? []).join(' > ')} attempt=${e.attempt} load=${e.load}`);
       }
       return null;
     },

@@ -26,12 +26,13 @@ function allowOneReact418PerLoad() {
     const frames = stack.match(CHUNK_FRAME) ?? [];
     const messageMatched = message.includes(ALLOWED_MESSAGE);
     const stackSourceMatched = frames.length ? stack.includes(ALLOWED_STACK_SOURCE) : null;
-    const allowed = messageMatched && stackSourceMatched !== false && matchesThisLoad === 0;
+    // Fail-closed: the stack must contain an app chunk frame and it must be the allowed chunk (null/false fail).
+    const allowed = messageMatched && stackSourceMatched === true && matchesThisLoad === 0;
     if (messageMatched) matchesThisLoad++;
     records.push({ test: Cypress.currentTest.titlePath, attempt: Cypress.currentRetry, load: loads,
       at: new Date().toISOString(), messageMatched, stackSourceMatched, firstChunkFrame: frames[0] ?? null, allowed });
     if (allowed) return false;
-    // Any other error, a non-matching stack source or a second match in the same load fails the test.
+    // Any other error, a missing or non-matching stack source or a second match in the same load fails the test.
     return undefined;
   });
 }
