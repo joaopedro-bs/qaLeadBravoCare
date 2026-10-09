@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="7.938" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-10-09T02:58:26" tests="0" file="cypress/e2e/daily/booking-api.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Guest to administrative API lifecycle" timestamp="2026-10-09T02:58:26" tests="2" time="7.936" failures="0">
+    <testcase name="Guest to administrative API lifecycle [S-31][S-12][S-15][R-01][R-02][R-03] create, overlap, admin visibility, report and owned deletion @p0 @write @daily" time="6.673" classname="[S-31][S-12][S-15][R-01][R-02][R-03] create, overlap, admin visibility, report and owned deletion @p0 @write @daily">
+    </testcase>
+    <testcase name="Guest to administrative API lifecycle [S-14][R-01][R-03] invalid fields return observed validation rules @p1 @write @daily" time="1.081" classname="[S-14][R-01][R-03] invalid fields return observed validation rules @p1 @write @daily">
+    </testcase>
+  </testsuite>
+</testsuites>

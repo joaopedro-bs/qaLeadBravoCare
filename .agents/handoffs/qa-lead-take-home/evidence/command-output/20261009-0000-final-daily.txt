@@ -1,0 +1,226 @@
+Command: npm run daily -- --reporter-options mochaFile=results/junit/final-daily/results-[hash].xml
+
+> restful-booker-qa-foundation@1.0.0 daily
+> cypress run --spec 'cypress/e2e/**/*.cy.ts' --reporter-options mochaFile=results/junit/final-daily/results-[hash].xml
+
+
+DevTools listening on ws://127.0.0.1:52592/devtools/browser/aab78a0b-a83d-4771-b3b6-e0d1e7a1ceb5
+Couldn't determine Mocha version
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        15.5.0                                                                         │
+  │ Browser:        Electron 138 (headless)                                                        │
+  │ Node Version:   v24.11.1 (/Users/joaopedrobarbosa/Documents/techInterviewSNDB/.claude/worktree │
+  │                 s/qa-lead-take-home/delivery/part1-test-suite/node_modules/node/bin/node)      │
+  │ Specs:          5 found (daily/booking-api.cy.ts, smoke/api-contracts.cy.ts, smoke/home.cy.ts, │
+  │                  smoke/reservation-page.cy.ts, hotfix/guest-booking.cy.ts)                     │
+  │ Searched:       cypress/e2e/**/*.cy.ts                                                         │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  daily/booking-api.cy.ts                                                         (1 of 5)
+[11540:1008/235823.891123:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.891184:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.891224:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.891249:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.891261:ERROR:net/cert/internal/trust_store_mac.cc:384] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.895873:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.895931:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.896128:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.896873:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.896886:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.896900:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.896912:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.896922:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.896935:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[11540:1008/235823.896968:ERROR:net/cert/internal/trust_store_mac.cc:817] Error parsing certificate:
+ERROR: The policy qualifiers SEQUENCE is empty
+ERROR: Failed parsing policy qualifiers
+ERROR: Failed parsing certificate policies
+
+[cleanup] id=4 outcome=deleted-and-absent status=202
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        2                                                                                │
+  │ Passing:      2                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     7 seconds                                                                        │
+  │ Spec Ran:     daily/booking-api.cy.ts                                                          │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  smoke/api-contracts.cy.ts                                                       (2 of 5)
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        2                                                                                │
+  │ Passing:      2                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     0 seconds                                                                        │
+  │ Spec Ran:     smoke/api-contracts.cy.ts                                                        │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  smoke/home.cy.ts                                                                (3 of 5)
+[browser symptom] React #418 occurrences=2; cause unknown; functional coverage has risks
+[browser symptom] React #418 occurrences=2; cause unknown; functional coverage has risks
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        2                                                                                │
+  │ Passing:      2                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     4 seconds                                                                        │
+  │ Spec Ran:     smoke/home.cy.ts                                                                 │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  smoke/reservation-page.cy.ts                                                    (4 of 5)
+[browser symptom] React #418 occurrences=1; cause unknown; functional coverage has risks
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        1                                                                                │
+  │ Passing:      1                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     3 seconds                                                                        │
+  │ Spec Ran:     smoke/reservation-page.cy.ts                                                     │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  hotfix/guest-booking.cy.ts                                                      (5 of 5)
+[browser symptom] React #418 occurrences=1; cause unknown; functional coverage has risks
+[browser symptom] React #418 occurrences=1; cause unknown; functional coverage has risks
+[browser symptom] React #418 occurrences=1; cause unknown; functional coverage has risks
+[browser symptom] React #418 occurrences=1; cause unknown; functional coverage has risks
+[cleanup] id=6 outcome=deleted-and-absent status=202
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        2                                                                                │
+  │ Passing:      0                                                                                │
+  │ Failing:      2                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     50 seconds                                                                       │
+  │ Spec Ran:     hotfix/guest-booking.cy.ts                                                       │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+================================================================================
+
+  (Run Finished)
+Opening `/dev/tty` failed (6): Device not configured
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  daily/booking-api.cy.ts                  00:07        2        2        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✔  smoke/api-contracts.cy.ts                725ms        2        2        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✔  smoke/home.cy.ts                         00:04        2        2        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✔  smoke/reservation-page.cy.ts             00:03        1        1        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✖  hotfix/guest-booking.cy.ts               00:50        2        -        2        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✖  1 of 5 failed (20%)                      01:06        9        7        2        -        -  
+
+
+Exit: 2

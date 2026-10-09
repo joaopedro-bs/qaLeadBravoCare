@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="29.273" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-10-09T02:50:20" tests="0" file="cypress/e2e/smoke/reservation-page.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Reservation page" timestamp="2026-10-09T02:50:20" tests="1" time="29.271" failures="1">
+    <testcase name="Reservation page [S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke" time="15.068" classname="[S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke">
+      <failure message="Timed out retrying after 10000ms: `cy.trigger()` failed because this element:
+
+`&lt;div class=&quot;rbc-day-bg&quot;&gt;&lt;/div&gt;`
+
+is being covered by another element:
+
+`&lt;div class=&quot;rbc-event-content&quot; title=&quot;Selected&quot;&gt;Selected&lt;/div&gt;`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with" type="CypressError"><![CDATA[CypressError: Timed out retrying after 10000ms: `cy.trigger()` failed because this element:
+
+`<div class="rbc-day-bg"></div>`
+
+is being covered by another element:
+
+`<div class="rbc-event-content" title="Selected">Selected</div>`
+
+Fix this problem, or use {force: true} to disable error checking.
+
+https://on.cypress.io/element-cannot-be-interacted-with
+    at ensureIsDescendent (https://automationintesting.online/__cypress/runner/cypress_runner.js:114621:68)
+    at ensureDescendents (https://automationintesting.online/__cypress/runner/cypress_runner.js:114672:5)
+    at ensureDescendentsAndScroll (https://automationintesting.online/__cypress/runner/cypress_runner.js:114678:14)
+    at ensureElIsNotCovered (https://automationintesting.online/__cypress/runner/cypress_runner.js:114809:5)
+    at runAllChecks (https://automationintesting.online/__cypress/runner/cypress_runner.js:115008:52)
+    at retryActionability (https://automationintesting.online/__cypress/runner/cypress_runner.js:115045:16)
+    at tryCatcher (https://automationintesting.online/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (https://automationintesting.online/__cypress/runner/cypress_runner.js:4285:29)
+    at whenStable (https://automationintesting.online/__cypress/runner/cypress_runner.js:151252:68)
+    at <unknown> (https://automationintesting.online/__cypress/runner/cypress_runner.js:151193:14)
+    at tryCatcher (https://automationintesting.online/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (https://automationintesting.online/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (https://automationintesting.online/__cypress/runner/cypress_runner.js:1546:18)
+    at Promise._settlePromise0 (https://automationintesting.online/__cypress/runner/cypress_runner.js:1591:10)
+    at Promise._settlePromises (https://automationintesting.online/__cypress/runner/cypress_runner.js:1671:18)
+    at Promise._fulfill (https://automationintesting.online/__cypress/runner/cypress_runner.js:1615:18)
+    at <unknown> (https://automationintesting.online/__cypress/runner/cypress_runner.js:5420:46)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

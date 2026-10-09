@@ -1,0 +1,219 @@
+{
+  "run": "cdd7962f-e251-4728-afc3-7d68f9a419d8",
+  "node": "v24.11.1",
+  "cypress": "15.5.0",
+  "specs": [
+    {
+      "spec": "cypress/e2e/daily/booking-api.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Guest to administrative API lifecycle",
+            "[S-31][S-12][S-15][R-01][R-02][R-03] create, overlap, admin visibility, report and owned deletion @p0 @write @daily"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Guest to administrative API lifecycle",
+            "[S-14][R-01][R-03] invalid fields return observed validation rules @p1 @write @daily"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/smoke/api-contracts.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Read-only API contracts",
+            "[S-01][R-01][R-03] room list has the observed contract @p0 @readonly @smoke"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Read-only API contracts",
+            "[S-03][R-02][R-03] anonymous booking list is rejected @p0 @readonly @smoke"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/smoke/home.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Guest home",
+            "[S-07][R-01] rooms and booking entry at 1280x800 desktop engine @p0 @readonly @smoke"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Guest home",
+            "[S-08][R-01] rooms and booking entry at 390x844 desktop engine @p0 @readonly @smoke"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/smoke/reservation-page.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Reservation page",
+            "[S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/hotfix/guest-booking.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Anonymous guest booking with real calendar and backend",
+            "[S-10][R-01] real booking and visible confirmation at 1280x800 desktop engine @p0 @write @hotfix"
+          ],
+          "state": "failed",
+          "attempts": [
+            {
+              "state": "failed",
+              "classification": "unknown"
+            },
+            {
+              "state": "failed",
+              "classification": "unknown"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Anonymous guest booking with real calendar and backend",
+            "[S-11][R-01] real booking and visible confirmation at 390x844 desktop engine @p0 @write @hotfix"
+          ],
+          "state": "failed",
+          "attempts": [
+            {
+              "state": "failed",
+              "classification": "unknown"
+            },
+            {
+              "state": "failed",
+              "classification": "unknown"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "browserSymptoms": [
+    {
+      "react418": 2,
+      "test": "Guest home [S-07][R-01] rooms and booking entry at 1280x800 desktop engine @p0 @readonly @smoke",
+      "attempt": 0
+    },
+    {
+      "react418": 2,
+      "test": "Guest home [S-08][R-01] rooms and booking entry at 390x844 desktop engine @p0 @readonly @smoke",
+      "attempt": 0
+    },
+    {
+      "react418": 1,
+      "test": "Reservation page [S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke",
+      "attempt": 0
+    },
+    {
+      "react418": 1,
+      "test": "Anonymous guest booking with real calendar and backend [S-10][R-01] real booking and visible confirmation at 1280x800 desktop engine @p0 @write @hotfix",
+      "attempt": 0
+    },
+    {
+      "react418": 1,
+      "test": "Anonymous guest booking with real calendar and backend [S-10][R-01] real booking and visible confirmation at 1280x800 desktop engine @p0 @write @hotfix",
+      "attempt": 1
+    },
+    {
+      "react418": 1,
+      "test": "Anonymous guest booking with real calendar and backend [S-11][R-01] real booking and visible confirmation at 390x844 desktop engine @p0 @write @hotfix",
+      "attempt": 0
+    },
+    {
+      "react418": 1,
+      "test": "Anonymous guest booking with real calendar and backend [S-11][R-01] real booking and visible confirmation at 390x844 desktop engine @p0 @write @hotfix",
+      "attempt": 1
+    }
+  ],
+  "bookingObservations": [
+    {
+      "status": 201,
+      "expectedDates": {
+        "checkin": "2029-02-12",
+        "checkout": "2029-02-14"
+      },
+      "submittedDates": {
+        "checkin": "2029-01-29",
+        "checkout": "2029-01-31"
+      },
+      "bookingid": 6
+    }
+  ],
+  "cleanup": [
+    {
+      "bookingid": 4,
+      "marker": "qagpyddhlq",
+      "outcome": "deleted-and-absent",
+      "status": 202,
+      "classification": "not-applicable"
+    },
+    {
+      "bookingid": 6,
+      "marker": "qaovndgcjy",
+      "outcome": "deleted-and-absent",
+      "status": 202,
+      "classification": "not-applicable"
+    }
+  ],
+  "unresolvedCleanup": 0,
+  "status": "FUNCTIONAL RESULTS WITH RISKS; inspect symptoms and cleanup history"
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="45.584" tests="2" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-10-09T02:38:51" tests="0" file="cypress/e2e/smoke/home.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Guest home" timestamp="2026-10-09T02:38:51" tests="2" time="45.582" failures="2">
+    <testcase name="Guest home [S-07][R-01] rooms and booking entry at 1280x800 desktop engine @p0 @readonly @smoke" time="11.214" classname="[S-07][R-01] rooms and booking entry at 1280x800 desktop engine @p0 @readonly @smoke">
+      <failure message="Timed out retrying after 10000ms: Expected to find content: &apos;101&apos; within the selector: &apos;h5&apos; but never did." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find content: '101' within the selector: 'h5' but never did.
+    at eval (webpack://restful-booker-qa-foundation/./cypress/e2e/smoke/home.cy.ts:10:70)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://restful-booker-qa-foundation/./cypress/e2e/smoke/home.cy.ts:10:21)
+    at getRet (https://automationintesting.online/__cypress/runner/cypress_runner.js:122243:20)
+    at tryCatcher (https://automationintesting.online/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (https://automationintesting.online/__cypress/runner/cypress_runner.js:4285:29)
+    at Context.thenFn (https://automationintesting.online/__cypress/runner/cypress_runner.js:122254:66)
+    at Context.then (https://automationintesting.online/__cypress/runner/cypress_runner.js:122505:21)
+    at wrapped (https://automationintesting.online/__cypress/runner/cypress_runner.js:145577:19)]]></failure>
+    </testcase>
+    <testcase name="Guest home [S-08][R-01] rooms and booking entry at 390x844 desktop engine @p0 @readonly @smoke" time="10.932" classname="[S-08][R-01] rooms and booking entry at 390x844 desktop engine @p0 @readonly @smoke">
+      <failure message="Timed out retrying after 10000ms: Expected to find content: &apos;101&apos; within the selector: &apos;h5&apos; but never did." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find content: '101' within the selector: 'h5' but never did.
+    at eval (webpack://restful-booker-qa-foundation/./cypress/e2e/smoke/home.cy.ts:10:70)
+at Array.forEach (<anonymous>)
+    at Context.eval (webpack://restful-booker-qa-foundation/./cypress/e2e/smoke/home.cy.ts:10:21)
+    at getRet (https://automationintesting.online/__cypress/runner/cypress_runner.js:122243:20)
+    at tryCatcher (https://automationintesting.online/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (https://automationintesting.online/__cypress/runner/cypress_runner.js:4285:29)
+    at Context.thenFn (https://automationintesting.online/__cypress/runner/cypress_runner.js:122254:66)
+    at Context.then (https://automationintesting.online/__cypress/runner/cypress_runner.js:122505:21)
+    at wrapped (https://automationintesting.online/__cypress/runner/cypress_runner.js:145577:19)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

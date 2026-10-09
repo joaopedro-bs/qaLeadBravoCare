@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="1.861" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-10-09T02:34:50" tests="0" file="cypress/e2e/smoke/api-contracts.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Read-only API contracts" timestamp="2026-10-09T02:34:50" tests="2" time="1.861" failures="0">
+    <testcase name="Read-only API contracts [S-01][R-01][R-03] room list has the observed contract @p0 @readonly @smoke" time="1.234" classname="[S-01][R-01][R-03] room list has the observed contract @p0 @readonly @smoke">
+    </testcase>
+    <testcase name="Read-only API contracts [S-03][R-02][R-03] anonymous booking list is rejected @p0 @readonly @smoke" time="0.341" classname="[S-03][R-02][R-03] anonymous booking list is rejected @p0 @readonly @smoke">
+    </testcase>
+  </testsuite>
+</testsuites>

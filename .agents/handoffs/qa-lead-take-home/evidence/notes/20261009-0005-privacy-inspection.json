@@ -1,0 +1,7 @@
+{
+  "files_inspected": 124,
+  "actual_assignment_password_matches": [],
+  "literal_assignment_username_in_auth_json_matches": [],
+  "scope": "literal auth/env credential value contexts in delivery source and work-item evidence; runtime node_modules/results excluded; no credential values emitted",
+  "limitations": "Generic admin role/path wording is not a credential disclosure. Tokens are kept Node-only; this value check cannot establish all privacy properties."
+}

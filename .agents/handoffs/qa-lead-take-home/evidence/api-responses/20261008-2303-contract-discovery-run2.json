@@ -1,0 +1,319 @@
+{
+  "tag": "qabnbvjzvo",
+  "startedAt": "2026-10-09T02:03:46.783Z",
+  "redaction": "credentials, token/cookie values and other users' field values removed; other users' records summarised as key/type only",
+  "steps": [
+    {
+      "label": "login",
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "requestBody": {
+        "username": "[REDACTED]",
+        "password": "[REDACTED]"
+      },
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "token": "[REDACTED]"
+      }
+    },
+    {
+      "label": "validate",
+      "method": "POST",
+      "path": "/api/auth/validate",
+      "authenticated": true,
+      "requestBody": {
+        "token": "[REDACTED]"
+      },
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "valid": true
+      }
+    },
+    {
+      "label": "rooms",
+      "method": "GET",
+      "path": "/api/room",
+      "authenticated": false,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "roomsCount": 3,
+        "itemShape": {
+          "accessible": "boolean",
+          "description": "string",
+          "features": [
+            "string"
+          ],
+          "image": "string",
+          "roomName": "string",
+          "roomPrice": "number",
+          "roomid": "number",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "label": "report-before",
+      "method": "GET",
+      "path": "/api/report/room/2",
+      "authenticated": false,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "count": 2,
+        "itemShape": {
+          "end": "string",
+          "start": "string",
+          "title": "string"
+        }
+      }
+    },
+    {
+      "label": "booking-create",
+      "method": "POST",
+      "path": "/api/booking",
+      "authenticated": false,
+      "requestBody": {
+        "roomid": 2,
+        "firstname": "Qatest",
+        "lastname": "qabnbvjzvo",
+        "email": "qabnbvjzvo@example.com",
+        "phone": "07000000000",
+        "depositpaid": false,
+        "bookingdates": {
+          "checkin": "2028-11-28",
+          "checkout": "2028-11-30"
+        }
+      },
+      "status": 201,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "bookingdates": {
+          "checkin": "2028-11-28",
+          "checkout": "2028-11-30"
+        },
+        "bookingid": 5,
+        "depositpaid": false,
+        "firstname": "Qatest",
+        "lastname": "qabnbvjzvo",
+        "roomid": 2
+      }
+    },
+    {
+      "label": "booking-overlap",
+      "method": "POST",
+      "path": "/api/booking",
+      "authenticated": false,
+      "requestBody": {
+        "roomid": 2,
+        "firstname": "Qatest",
+        "lastname": "qabnbvjzvob",
+        "email": "qabnbvjzvob@example.com",
+        "phone": "07000000001",
+        "depositpaid": false,
+        "bookingdates": {
+          "checkin": "2028-11-28",
+          "checkout": "2028-11-30"
+        }
+      },
+      "status": 409,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "error": "Failed to create booking"
+      }
+    },
+    {
+      "label": "report-after",
+      "method": "GET",
+      "path": "/api/report/room/2",
+      "authenticated": false,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "count": 3,
+        "containsOwnWindow": true,
+        "itemShape": {
+          "end": "string",
+          "start": "string",
+          "title": "string"
+        }
+      }
+    },
+    {
+      "label": "booking-list-auth",
+      "method": "GET",
+      "path": "/api/booking?roomid=2",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "topLevelKeys": [
+          "bookings"
+        ],
+        "itemCount": 3,
+        "itemShape": {
+          "bookingdates": {
+            "checkin": "string",
+            "checkout": "string"
+          },
+          "bookingid": "number",
+          "depositpaid": "boolean",
+          "firstname": "string",
+          "lastname": "string",
+          "roomid": "number"
+        },
+        "own": [
+          {
+            "bookingdates": {
+              "checkin": "2028-11-28",
+              "checkout": "2028-11-30"
+            },
+            "bookingid": 5,
+            "depositpaid": false,
+            "firstname": "Qatest",
+            "lastname": "qabnbvjzvo",
+            "roomid": 2
+          }
+        ]
+      }
+    },
+    {
+      "label": "booking-get-own",
+      "method": "GET",
+      "path": "/api/booking/5",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "bookingdates": {
+          "checkin": "2028-11-28",
+          "checkout": "2028-11-30"
+        },
+        "bookingid": 5,
+        "depositpaid": false,
+        "firstname": "Qatest",
+        "lastname": "qabnbvjzvo",
+        "roomid": 2
+      }
+    },
+    {
+      "label": "booking-delete-own",
+      "method": "DELETE",
+      "path": "/api/booking/5",
+      "authenticated": true,
+      "status": 202,
+      "contentType": null,
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": ""
+    },
+    {
+      "label": "booking-get-after-delete",
+      "method": "GET",
+      "path": "/api/booking/5",
+      "authenticated": true,
+      "status": 404,
+      "contentType": null,
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": ""
+    },
+    {
+      "label": "booking-list-after-delete",
+      "method": "GET",
+      "path": "/api/booking?roomid=2",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "ownRemaining": 0
+      }
+    },
+    {
+      "label": "logout",
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "authenticated": true,
+      "requestBody": {
+        "token": "[REDACTED]"
+      },
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "success": true
+      }
+    },
+    {
+      "label": "validate-after-logout",
+      "method": "POST",
+      "path": "/api/auth/validate",
+      "authenticated": false,
+      "requestBody": {
+        "token": "[REDACTED]"
+      },
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "valid": true
+      }
+    },
+    {
+      "label": "booking-list-after-logout",
+      "method": "GET",
+      "path": "/api/booking?roomid=2",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "topLevelKeys": [
+          "bookings"
+        ]
+      }
+    }
+  ],
+  "authTransport": "token in JSON body, sent back as cookie \"token\" (hypothesis)",
+  "chosen": {
+    "roomid": 2,
+    "checkin": "2028-11-28",
+    "checkout": "2028-11-30"
+  },
+  "ownership": {
+    "bookings": [
+      5
+    ],
+    "messages": [],
+    "deleted": [
+      "b5"
+    ]
+  },
+  "finishedAt": "2026-10-09T02:03:51.996Z"
+}

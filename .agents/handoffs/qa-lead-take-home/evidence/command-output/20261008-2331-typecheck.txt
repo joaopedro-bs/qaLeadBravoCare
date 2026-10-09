@@ -1,0 +1,10 @@
+Command: npm run typecheck
+
+> restful-booker-qa-foundation@1.0.0 typecheck
+> tsc --noEmit
+
+cypress/e2e/smoke/reservation-page.cy.ts(11,30): error TS2558: Expected 0 type arguments, but got 1.
+cypress/e2e/smoke/reservation-page.cy.ts(11,87): error TS2339: Property 'type' does not exist on type 'HTMLBodyElement'.
+cypress/e2e/smoke/reservation-page.cy.ts(11,128): error TS2339: Property 'placeholder' does not exist on type 'HTMLBodyElement'.
+
+Exit: 2

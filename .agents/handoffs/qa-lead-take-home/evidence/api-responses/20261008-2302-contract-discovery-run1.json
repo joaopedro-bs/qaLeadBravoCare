@@ -1,0 +1,390 @@
+{
+  "tag": "qablso3vk8",
+  "startedAt": "2026-10-09T02:02:35.235Z",
+  "redaction": "credentials, token/cookie values and other users' field values removed; other users' records summarised as key/type only",
+  "steps": [
+    {
+      "label": "login",
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "requestBody": {
+        "username": "[REDACTED]",
+        "password": "[REDACTED]"
+      },
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "token": "[REDACTED]"
+      }
+    },
+    {
+      "label": "validate",
+      "method": "POST",
+      "path": "/api/auth/validate",
+      "authenticated": true,
+      "requestBody": {},
+      "status": 401,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "error": "No token provided"
+      }
+    },
+    {
+      "label": "rooms",
+      "method": "GET",
+      "path": "/api/room",
+      "authenticated": false,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "roomsCount": 3,
+        "itemShape": {
+          "accessible": "boolean",
+          "description": "string",
+          "features": [
+            "string"
+          ],
+          "image": "string",
+          "roomName": "string",
+          "roomPrice": "number",
+          "roomid": "number",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "label": "report-before",
+      "method": "GET",
+      "path": "/api/report/room/1",
+      "authenticated": false,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "count": 1,
+        "itemShape": {
+          "end": "string",
+          "start": "string",
+          "title": "string"
+        }
+      }
+    },
+    {
+      "label": "booking-invalid",
+      "method": "POST",
+      "path": "/api/booking",
+      "authenticated": false,
+      "requestBody": {
+        "roomid": 1,
+        "firstname": "",
+        "lastname": "",
+        "depositpaid": false,
+        "email": "not-an-email",
+        "phone": "1",
+        "bookingdates": {
+          "checkin": "2029-08-24",
+          "checkout": "2029-08-22"
+        }
+      },
+      "status": 400,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "errors": [
+          "size must be between 3 and 18",
+          "size must be between 3 and 30",
+          "size must be between 11 and 21",
+          "Firstname should not be blank",
+          "must be a well-formed email address",
+          "Lastname should not be blank"
+        ]
+      }
+    },
+    {
+      "label": "booking-create",
+      "method": "POST",
+      "path": "/api/booking",
+      "authenticated": false,
+      "requestBody": {
+        "roomid": 1,
+        "firstname": "Qa",
+        "lastname": "qablso3vk8",
+        "email": "qablso3vk8@example.com",
+        "phone": "07000000000",
+        "depositpaid": false,
+        "bookingdates": {
+          "checkin": "2029-08-22",
+          "checkout": "2029-08-24"
+        }
+      },
+      "status": 400,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "errors": [
+          "size must be between 3 and 18"
+        ]
+      }
+    },
+    {
+      "label": "booking-overlap",
+      "method": "POST",
+      "path": "/api/booking",
+      "authenticated": false,
+      "requestBody": {
+        "roomid": 1,
+        "firstname": "Qa",
+        "lastname": "qablso3vk8b",
+        "email": "qablso3vk8b@example.com",
+        "phone": "07000000001",
+        "depositpaid": false,
+        "bookingdates": {
+          "checkin": "2029-08-22",
+          "checkout": "2029-08-24"
+        }
+      },
+      "status": 400,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "errors": [
+          "size must be between 3 and 18"
+        ]
+      }
+    },
+    {
+      "label": "report-after",
+      "method": "GET",
+      "path": "/api/report/room/1",
+      "authenticated": false,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "count": 1,
+        "containsOwnWindow": false,
+        "itemShape": {
+          "end": "string",
+          "start": "string",
+          "title": "string"
+        }
+      }
+    },
+    {
+      "label": "booking-list-auth",
+      "method": "GET",
+      "path": "/api/booking?roomid=1",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "topLevelKeys": [
+          "bookings"
+        ],
+        "itemCount": 1,
+        "itemShape": {
+          "bookingdates": {
+            "checkin": "string",
+            "checkout": "string"
+          },
+          "bookingid": "number",
+          "depositpaid": "boolean",
+          "firstname": "string",
+          "lastname": "string",
+          "roomid": "number"
+        },
+        "own": []
+      }
+    },
+    {
+      "label": "message-invalid",
+      "method": "POST",
+      "path": "/api/message",
+      "authenticated": false,
+      "requestBody": {
+        "name": "",
+        "email": "x",
+        "phone": "1",
+        "subject": "",
+        "description": ""
+      },
+      "status": 400,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": [
+        "Subject may not be blank",
+        "Name may not be blank",
+        "Phone must be between 11 and 21 characters.",
+        "Message may not be blank",
+        "Message must be between 20 and 2000 characters.",
+        "Subject must be between 5 and 100 characters.",
+        "must be a well-formed email address"
+      ]
+    },
+    {
+      "label": "message-create",
+      "method": "POST",
+      "path": "/api/message",
+      "authenticated": false,
+      "requestBody": {
+        "name": "Qa qablso3vk8",
+        "email": "qablso3vk8@example.com",
+        "phone": "07000000000",
+        "subject": "Test qablso3vk8",
+        "description": "Synthetic contract-discovery message qablso3vk8, safe to ignore."
+      },
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "success": true
+      }
+    },
+    {
+      "label": "message-list-auth",
+      "method": "GET",
+      "path": "/api/message",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "topLevelKeys": [
+          "messages"
+        ],
+        "itemCount": 3,
+        "itemShape": {
+          "id": "number",
+          "name": "string",
+          "read": "boolean",
+          "subject": "string"
+        },
+        "own": [
+          {
+            "id": 3,
+            "name": "Qa qablso3vk8",
+            "read": false,
+            "subject": "Test qablso3vk8"
+          }
+        ]
+      }
+    },
+    {
+      "label": "message-get-own",
+      "method": "GET",
+      "path": "/api/message/3",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "description": "Synthetic contract-discovery message qablso3vk8, safe to ignore.",
+        "email": "qablso3vk8@example.com",
+        "messageid": 3,
+        "name": "Qa qablso3vk8",
+        "phone": "07000000000",
+        "subject": "Test qablso3vk8"
+      }
+    },
+    {
+      "label": "message-delete-own",
+      "method": "DELETE",
+      "path": "/api/message/3",
+      "authenticated": true,
+      "status": 202,
+      "contentType": null,
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": ""
+    },
+    {
+      "label": "message-list-after-delete",
+      "method": "GET",
+      "path": "/api/message",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "ownRemaining": 0
+      }
+    },
+    {
+      "label": "booking-list-after-delete",
+      "method": "GET",
+      "path": "/api/booking?roomid=1",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "ownRemaining": 0
+      }
+    },
+    {
+      "label": "logout",
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "authenticated": true,
+      "requestBody": {},
+      "status": 400,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "message": "Token is required"
+      }
+    },
+    {
+      "label": "booking-list-after-logout",
+      "method": "GET",
+      "path": "/api/booking?roomid=1",
+      "authenticated": true,
+      "status": 200,
+      "contentType": "application/json",
+      "setCookieNames": [],
+      "setCookieAttributes": [],
+      "response": {
+        "topLevelKeys": [
+          "bookings"
+        ]
+      }
+    }
+  ],
+  "authTransport": "token in JSON body, sent back as cookie \"token\" (hypothesis)",
+  "chosen": {
+    "roomid": 1,
+    "checkin": "2029-08-22",
+    "checkout": "2029-08-24"
+  },
+  "ownership": {
+    "bookings": [],
+    "messages": [
+      3
+    ],
+    "deleted": [
+      "m3"
+    ]
+  },
+  "finishedAt": "2026-10-09T02:02:47.326Z"
+}

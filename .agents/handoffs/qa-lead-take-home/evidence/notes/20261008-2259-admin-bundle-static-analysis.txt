@@ -1,0 +1,14 @@
+ROUTE /admin/rooms -> 200
+  CHUNK /_next/static/chunks/0yekx964af3a..js
+    method POST
+  CHUNK /_next/static/chunks/12p9-8~91l3_4.js
+    fetch "/api/auth/logout" ,{method:"POST",headers:{"Content-Type":"application/json"}
+    fetch "/api/auth/validate" ,{method:"POST",headers:{"Content-Type":"application/json"}
+    fetch "/api/message/count" ,{cache:"no-store",headers:{Pragma:"no-cache","Cache-Control":"no-cache"}
+    literal /api/auth/logout
+    literal /api/auth/validate
+    literal /api/message/count
+    method POST
+ROUTE /admin/message -> 200
+ROUTE /admin/report -> 200
+ROUTE /admin/branding -> 200

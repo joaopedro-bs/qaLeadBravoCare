@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="23.226" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-10-09T02:43:39" tests="0" file="cypress/e2e/smoke/reservation-page.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Reservation page" timestamp="2026-10-09T02:43:39" tests="1" time="23.225" failures="1">
+    <testcase name="Reservation page [S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke" time="11.610" classname="[S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke">
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `.rbc-calendar`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `.rbc-calendar`, but never found it.
+    at Context.eval (webpack://restful-booker-qa-foundation/./cypress/e2e/smoke/reservation-page.cy.ts:8:30)
+    at getRet (https://automationintesting.online/__cypress/runner/cypress_runner.js:122243:20)
+    at tryCatcher (https://automationintesting.online/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (https://automationintesting.online/__cypress/runner/cypress_runner.js:4285:29)
+    at Context.thenFn (https://automationintesting.online/__cypress/runner/cypress_runner.js:122254:66)
+    at Context.then (https://automationintesting.online/__cypress/runner/cypress_runner.js:122505:21)
+    at wrapped (https://automationintesting.online/__cypress/runner/cypress_runner.js:145577:19)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

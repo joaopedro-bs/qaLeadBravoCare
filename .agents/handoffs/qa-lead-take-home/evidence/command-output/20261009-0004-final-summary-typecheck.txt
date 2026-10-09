@@ -1,0 +1,7 @@
+Command: npm run typecheck
+
+> restful-booker-qa-foundation@1.0.0 typecheck
+> tsc --noEmit
+
+
+Exit: 0

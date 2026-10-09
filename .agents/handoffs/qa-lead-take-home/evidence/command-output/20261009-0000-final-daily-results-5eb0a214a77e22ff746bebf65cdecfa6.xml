@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="3.219" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-10-09T02:58:44" tests="0" file="cypress/e2e/smoke/reservation-page.cy.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Reservation page" timestamp="2026-10-09T02:58:44" tests="1" time="3.217" failures="0">
+    <testcase name="Reservation page [S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke" time="2.787" classname="[S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke">
+    </testcase>
+  </testsuite>
+</testsuites>

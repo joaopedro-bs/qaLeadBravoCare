@@ -1,0 +1,9 @@
+Command: npm run typecheck
+
+> restful-booker-qa-foundation@1.0.0 typecheck
+> tsc --noEmit
+
+cypress/support/e2e.ts(13,69): error TS2445: Property 'currentRetry' is protected and only accessible within class 'Runnable' and its subclasses.
+cypress/support/node-tasks.ts(155,82): error TS2339: Property 'error' does not exist on type 'AttemptResult'.
+
+Exit: 2

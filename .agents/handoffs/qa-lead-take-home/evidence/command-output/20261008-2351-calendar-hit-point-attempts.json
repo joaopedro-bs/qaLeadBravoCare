@@ -1,0 +1,38 @@
+{
+  "run": "2faba490-da95-491a-8100-847624fba359",
+  "node": "v24.11.1",
+  "cypress": "15.5.0",
+  "specs": [
+    {
+      "spec": "cypress/e2e/smoke/reservation-page.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Reservation page",
+            "[S-09][R-01] API-sourced room opens reservation form @p0 @readonly @smoke"
+          ],
+          "state": "failed",
+          "attempts": [
+            {
+              "state": "failed"
+            },
+            {
+              "state": "failed"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "browserSymptoms": [
+    {
+      "react418": 1
+    },
+    {
+      "react418": 1
+    }
+  ],
+  "cleanup": [],
+  "unresolvedCleanup": 0,
+  "status": "FUNCTIONAL RESULTS WITH RISKS; inspect symptoms and cleanup history"
+}

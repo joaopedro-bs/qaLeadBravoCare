@@ -1,0 +1,48 @@
+{
+  "run": "7d05c7fa-0cb5-4e8b-9e83-98b7817d6c95",
+  "node": "v24.11.1",
+  "cypress": "15.5.0",
+  "specs": [
+    {
+      "spec": "cypress/e2e/daily/booking-api.cy.ts",
+      "tests": [
+        {
+          "title": [
+            "Guest to administrative API lifecycle",
+            "[S-31][S-12][S-15][R-01][R-02][R-03] create, overlap, admin visibility, report and owned deletion @p0 @write @daily"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Guest to administrative API lifecycle",
+            "[S-14][R-01][R-03] invalid fields return observed validation rules @p1 @write @daily"
+          ],
+          "state": "passed",
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "browserSymptoms": [],
+  "cleanup": [
+    {
+      "bookingid": 4,
+      "marker": "qakskqbajf",
+      "outcome": "deleted-and-absent",
+      "status": 202,
+      "classification": "not-applicable"
+    }
+  ],
+  "unresolvedCleanup": 0,
+  "status": "inspect test results; retries remain visible"
+}
