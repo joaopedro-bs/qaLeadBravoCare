@@ -13,9 +13,15 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
   let registry: Entry[] = fs.existsSync(registryFile)
     ? JSON.parse(fs.readFileSync(registryFile, 'utf8')) as Entry[] : [];
   const outcomes: CleanupOutcome[] = [];
+  const browserSymptoms: { react418: number; test?: string; attempt?: number }[] = [];
+  const bookingObservations: unknown[] = [];
   let token: string | undefined;
   const base = config.baseUrl!;
-  const persist = () => fs.writeFileSync(registryFile, JSON.stringify(registry, null, 2));
+  const persist = () => {
+    const pending = `${registryFile}.tmp`;
+    fs.writeFileSync(pending, JSON.stringify(registry, null, 2));
+    fs.renameSync(pending, registryFile);
+  };
   const credentials = () => ({ username: process.env.CYPRESS_ADMIN_USER, password: process.env.CYPRESS_ADMIN_PASSWORD });
   async function request(method: string, endpoint: string, body?: unknown, admin = false): Promise<{ status: number; body: any }> {
     try {
@@ -50,7 +56,7 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
       depositpaid: input.depositpaid, bookingdates: { ...input.bookingdates } };
   }
   function register(input: { bookingid: number | null; identity: BookingIdentity }) {
-    const id = typeof input.bookingid === 'number' && Number.isInteger(input.bookingid) ? input.bookingid : null;
+    const id = typeof input.bookingid === 'number' && Number.isSafeInteger(input.bookingid) && input.bookingid > 0 ? input.bookingid : null;
     if (!registry.some(e => e.run === run && e.bookingid === id && e.identity.lastname === input.identity.lastname)) {
       registry.push({ run, bookingid: id, identity: identity(input.identity) });
       persist();
@@ -79,7 +85,7 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
       return record(entry, 'already-absent', 404); // Symptom only; cause remains unknown.
     }
     if (read.status !== 200) return record(entry, 'identity-unverified-no-delete', read.status);
-    if (!matches(read.body, entry.identity)) return record(entry, 'identity-mismatch-no-delete', 200);
+    if (read.body?.bookingid !== entry.bookingid || !matches(read.body, entry.identity)) return record(entry, 'identity-mismatch-no-delete', 200);
     const deletion = await request('DELETE', endpoint, undefined, true);
     if (deletion.status !== 202 && deletion.status !== 404) return record(entry, 'delete-failed', deletion.status);
     const verify = await request('GET', endpoint, undefined, true);
@@ -88,21 +94,39 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
     return record(entry, deletion.status === 202 ? 'deleted-and-absent' : 'already-absent', deletion.status);
   }
   on('task', {
+    recordBookingObservation(observation: { status: number; expectedDates: unknown; submittedDates: unknown; bookingid: number | null }) {
+      bookingObservations.push(observation);
+      return null;
+    },
+    recordBrowserSymptoms(symptoms: { react418: number; test?: string; attempt?: number }) {
+      if (symptoms.react418) {
+        browserSymptoms.push(symptoms);
+        console.log(`[browser symptom] React #418 occurrences=${symptoms.react418}; cause unknown; functional coverage has risks`);
+      }
+      return null;
+    },
     credentialsAvailable() { const c = credentials(); return !!(c.username && c.password); },
     registerBooking: register,
     async createBooking(payload: BookingRequest): Promise<SafeResponse> {
       const r = await request('POST', '/api/booking', payload);
-      if (r.status >= 200 && r.status < 300) register({ bookingid: r.body?.bookingid ?? null, identity: payload });
+      if ((r.status >= 200 && r.status < 300) || typeof r.body?.bookingid === 'number') register({ bookingid: r.body?.bookingid ?? null, identity: payload });
+      const hasBooking = r.body && typeof r.body.bookingid === 'number' &&
+        typeof r.body.roomid === 'number' && typeof r.body.firstname === 'string' &&
+        typeof r.body.lastname === 'string' && typeof r.body.depositpaid === 'boolean' &&
+        typeof r.body.bookingdates?.checkin === 'string' && typeof r.body.bookingdates?.checkout === 'string';
+      const knownRules = ['size must be between 3 and 18', 'size must be between 3 and 30',
+        'size must be between 11 and 21', 'Firstname should not be blank', 'Lastname should not be blank',
+        'must be a well-formed email address'];
       return { status: r.status,
-        booking: r.status === 201 && r.body ? { bookingid: r.body.bookingid, ...identity(r.body) } : undefined,
-        errors: Array.isArray(r.body?.errors) ? r.body.errors.filter((s: unknown) => typeof s === 'string') : undefined,
+        booking: r.status === 201 && hasBooking ? { bookingid: r.body.bookingid, ...identity(r.body) } : undefined,
+        errors: Array.isArray(r.body?.errors) ? r.body.errors.map((s: unknown) => knownRules.includes(String(s)) ? String(s) : '[unrecognized validation rule redacted]') : undefined,
         error: r.body?.error === 'Failed to create booking' ? r.body.error : undefined,
         contactFieldsAbsent: r.body ? !('email' in r.body) && !('phone' in r.body) : undefined };
     },
     async verifyOwnedBooking(input: { bookingid: number; identity: BookingIdentity }) {
       const r = await request('GET', `/api/booking/${input.bookingid}`, undefined, true);
       const list = r.status === 200 ? await request('GET', `/api/booking?roomid=${input.identity.roomid}`, undefined, true) : null;
-      return { status: r.status, matches: r.status === 200 && matches(r.body, input.identity),
+      return { status: r.status, matches: r.status === 200 && r.body?.bookingid === input.bookingid && matches(r.body, input.identity),
         listStatus: list?.status, listed: Array.isArray(list?.body?.bookings) && list.body.bookings.some((b: BookingCreated) =>
           b.bookingid === input.bookingid && matches(b, input.identity)) };
     },
@@ -116,16 +140,34 @@ export function installTasks(on: Cypress.PluginEvents, config: Cypress.PluginCon
     }
   });
   const specs: unknown[] = [];
+  const failureSymptom = (message: string | undefined) => {
+    if (!message) return undefined;
+    if (message.includes('real calendar submitted dates')) return 'submitted-dates-mismatch';
+    if (message.includes('cy.trigger()') && message.includes('hidden from view')) return 'pointer-target-hidden';
+    if (message.includes('cy.trigger()') && message.includes('covered by another element')) return 'pointer-target-covered';
+    if (message.includes('Selected') && message.includes('.rbc-event')) return 'calendar-selection-not-visible';
+    if (message.includes('Minified React error #418')) return 'react-hydration-418';
+    return 'failure-detail-withheld-for-privacy';
+  };
   on('after:spec', (spec, results) => {
     if (!results) return;
     specs.push({ spec: spec.relative, tests: results.tests.map(t => ({ title: t.title, state: t.state,
-      attempts: t.attempts.map(a => ({ state: a.state })) })) });
+      finalSymptom: failureSymptom(t.displayError ?? undefined),
+      attempts: t.attempts.map(a => ({ state: a.state, classification: a.state === 'failed' ? 'unknown' : undefined })) })) });
   });
   on('after:run', results => {
+    const cleanupProblems = outcomes.some(o => !['deleted-and-absent', 'already-absent'].includes(o.outcome));
+    const totals = 'totalTests' in results ? { tests: results.totalTests, passed: results.totalPassed,
+      failed: results.totalFailed, pending: results.totalPending, skipped: results.totalSkipped } : undefined;
+    const status = registry.length ? 'UNRESOLVED CLEANUP'
+      : !totals ? 'UNVERIFIED TEST OUTCOME'
+      : totals.failed ? 'FAIL: CORE INCOMPLETE'
+      : totals.pending || totals.skipped ? 'INCOMPLETE: UNEXECUTED TESTS'
+      : browserSymptoms.length || cleanupProblems ? 'PASS WITH RISKS' : 'PASS';
     fs.writeFileSync(path.join(dir, 'run-summary.json'), JSON.stringify({ run, node: process.version,
       cypress: 'cypressVersion' in results ? results.cypressVersion : null,
-      specs, cleanup: outcomes, unresolvedCleanup: registry.length,
-      status: registry.length ? 'UNRESOLVED CLEANUP' : 'inspect test results; retries remain visible' }, null, 2));
+      specs, totals, browserSymptoms, bookingObservations, cleanup: outcomes, unresolvedCleanup: registry.length,
+      cleanupStatus: registry.length ? 'UNRESOLVED' : 'RESOLVED', status }, null, 2));
     if (registry.length) throw new Error(`UNRESOLVED CLEANUP: ${registry.length} obligation(s); inspect results/cleanup-registry.json. Original test results are retained.`);
   });
 }

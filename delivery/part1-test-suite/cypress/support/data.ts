@@ -20,6 +20,9 @@ export function roomAndDates(): Cypress.Chainable<{ room: Room; dates: Dates }> 
       for (let i = 0; i < 20; i++) {
         const start = new Date(); start.setUTCHours(0, 0, 0, 0);
         start.setUTCDate(start.getUTCDate() + 730 + Math.floor(Math.random() * 365));
+        // Keep the two-night selection in one calendar row and month for actual mouse dragging.
+        start.setUTCDate(start.getUTCDate() + (1 - start.getUTCDay() + 7) % 7);
+        if (start.getUTCDate() > 25) continue;
         const end = new Date(start.getTime() + 2 * day);
         const free = report.body.report.every(e => end.getTime() + day < Date.parse(e.start) || start.getTime() - day > Date.parse(e.end));
         if (free) return { room, dates: { checkin: start.toISOString().slice(0, 10), checkout: end.toISOString().slice(0, 10) } };

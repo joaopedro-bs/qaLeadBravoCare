@@ -2,13 +2,16 @@
   "name": "restful-booker-qa-foundation",
   "version": "1.0.0",
   "private": true,
-  "engines": { "node": ">=24 <25" },
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "cy:open": "cypress open",
     "smoke": "cypress run --spec 'cypress/e2e/smoke/**/*.cy.ts'",
     "hotfix": "cypress run --spec 'cypress/e2e/smoke/**/*.cy.ts,cypress/e2e/hotfix/**/*.cy.ts'",
-    "daily": "cypress run --spec 'cypress/e2e/**/*.cy.ts'"
+    "daily": "cypress run --spec 'cypress/e2e/**/*.cy.ts'",
+    "test:cleanup": "node --experimental-strip-types --test tests/cleanup.test.mjs"
   },
   "devDependencies": {
     "@types/node": "24.10.0",
