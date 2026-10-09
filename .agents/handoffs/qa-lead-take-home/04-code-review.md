@@ -1,5 +1,27 @@
 # Automation Code Review - qa-lead-take-home
 
+## Verification of final corrections (1e88fab, 2026-10-09)
+
+Reviewer: automation-reviewer, read-only. I reran no tests and changed no code. This file is the only one I wrote. Inputs: `git show --stat 1e88fab` (committed 2026-10-09 01:47:26 -03; 5 delivery files, +11/-10), `git diff 0225278 1e88fab -- :/delivery`, `git diff --stat 1e88fab HEAD -- :/delivery`, the cited source and doc lines, and the evidence for run `e4d0dccd`.
+
+| # | Correction | Status | Evidence |
+|---|---|---|---|
+| 1 | Fail-closed #418 stack origin | VERIFIED | `guest-booking.cy.ts:28` sets `stackSourceMatched` to `null` when there is no chunk frame. `:30` is `allowed = messageMatched && stackSourceMatched === true && matchesThisLoad === 0`, so a null or false origin is not allowed and `:36` returns `undefined`, which fails the test. `:31` increments `matchesThisLoad` on every message match and `:22` resets it only on `window:before:load`, so a second match in the same load fails. The comments at `:29` and `:35` describe the same rule. `DECISIONS.md:245-247` (D-019) says it too: "a missing or different stack origin fails the test" and only the first match in a load is allowed. |
+| 2 | Neutral browser-error logging | VERIFIED | `node-tasks.ts:108-109` now prints `[browser error] allowed=... messageMatched=... stackSourceMatched=... test=... attempt=... load=...`. The hard-coded `React #418` label and the allowed/rejected prefix are gone (diff 0225278..1e88fab). Lines `:111` and `:113` of `20261009-014752-final-s10-s11.txt` show the neutral label for S-10 and S-11, and `README.md:77` documents the same format. |
+| 3 | Duration and price vs exact dates | VERIFIED | `reservation.ts:19` reads "Pre-submit check of stay length and price only (not the exact dates)". `DECISIONS.md:275` (D-020) says the check "does not identify which dates are selected", and `:285` says the nights count and total "establish only duration and price", with the exact dates asserted in the submitted request, the 201 response echo and the confirmation card. `README.md:3` says the same and calls calendar selection deferred (untested). `README.md:73` and `:77` make no claim about dates before submission. `DECISIONS.md:284` and `README.md:39` keep calendar interaction as deferred coverage. |
+| 4a | Run started after the commit | VERIFIED | 1e88fab was committed at 01:47:26 -03. The manifest (`20261009-0004-execution-manifest.md:43`) records the run start as 01:47:52 -03, and the first allowed error is stamped 04:48:07Z (01:48:07 -03). The manifest takes the tested tree hashes from the coordinator's statement because run-summary.json records no SHA (`:42`, F-04). |
+| 4b | Only README changed under delivery/ after 1e88fab | VERIFIED | `git diff --stat 1e88fab HEAD -- :/delivery` shows only `README.md` (1 line added, 1 removed), which is the `README.md:3` result sentence. |
+| 4c | Run 92ae02d0 is not presented as a 1e88fab run | VERIFIED | `README.md:3` ties `92ae02d0` (6/9, FAIL) to `0225278` and says the full core suite "was not rerun at this revision". `README.md:73` attributes `bc081863` and `92ae02d0` to `0225278`. Manifest `:66` says the last full core run is still `92ae02d0` at `0225278` and was NOT rerun at `1e88fab`. In 03, `92ae02d0` appears only at `:56`, in the earlier stage section; the section headed "Final corrections, live (1e88fab)" (`:246-253`) cites only `e4d0dccd`. |
+| 4d | S-10/S-11 outcome in e4d0dccd | VERIFIED | `20261009-final-s10-s11-run-summary.json` records run `e4d0dccd-c4a1-...`, status `PASS WITH RISKS` and totals of 2 passed, 0 failed, 0 pending, 0 skipped. Attempts are `["passed"]` for both S-10 and S-11. `allowedAppErrors` holds 2 entries, one per test, each with attempt 0, load 1, messageMatched true, stackSourceMatched true, firstChunkFrame `/_next/static/chunks/174b7k13ybrt2.js` and allowed true. Cleanup shows bookingid 4 and 5 `deleted-and-absent` with 202, and `unresolvedCleanup` is 0. The CLI exit status is 0 (`.txt:144-145`). |
+
+Discrepancies: none.
+
+Non-blocking note: the coverage table at `README.md:38` still cites only the live runs `bc081863` and `92ae02d0` for S-10/S-11. It does not mention `e4d0dccd`, which `README.md:3` covers. This is accurate but incomplete, not a misattribution.
+
+Part 1 limits still apply. The full suite was not rerun at `1e88fab`; the last complete run is `92ae02d0` at `0225278` (6/9, FAIL: CORE INCOMPLETE). Calendar interaction, CI, Xray and real Safari/iOS remain unverified.
+
+Outcome: VERIFIED. All four final corrections hold at `1e88fab`, and run `e4d0dccd` supports them. The status for S-10/S-11 stays PASS WITH RISKS, and the Part 1 limits above are unchanged.
+
 ## Re-review (stage 7, 2026-10-09)
 
 Reviewer: automation-reviewer (independent, read-only), stage 8. I changed no code, config or docs, ran no Cypress, made no HTTP calls, installed nothing and committed nothing. The only local commands I ran were `npm run typecheck` (tsc emitted no errors) and `npm run test:cleanup` (9 tests, 9 pass, 0 fail).

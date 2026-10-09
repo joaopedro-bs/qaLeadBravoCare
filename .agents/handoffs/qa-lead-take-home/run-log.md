@@ -423,3 +423,149 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
 - Post-run doc change: README.md line 3 (writer replaced the "pending execution" line with the observed result). `git diff --stat 1e88fab -- :/delivery` = README.md only.
 - Manifest: notes/20261009-0004-execution-manifest.md, section "Final corrected revision (1e88fab)".
 - Timebox respected (01:44:54-01:50, limit 01:59).
+
+### 2026-10-09 02:17 -03 - Stage 10 start: Part 1 final verification + Parts 2 and 3 (coordinator)
+
+- User brief:
+  - Verify the 1e88fab corrections read-only (automation-reviewer -> 04).
+  - Then Part 2: test-specifier draft of delivery/part2-test-plan-review.md.
+  - Then Part 3: qa-report-writer draft of delivery/part3-qa-process.md.
+  - Then ONE combined automation-reviewer review of Parts 2+3. It also serves as Part 2's independent content review, to avoid repeated review loops.
+  - Fix only factual inconsistencies / missing requirements.
+  - No commits this stage. Timebox Parts 2+3 to 60-90 min.
+- Locations:
+  - Parts 2/3 review notes: `.agents/handoffs/qa-lead-take-home/part2-3-review.md`, separate so 04's Part 1 verdict is not replaced.
+  - Part 2 analysis notes: `.agents/handoffs/qa-lead-take-home/part2-analysis.md`.
+  - Material Parts 2/3 assumptions/decisions: `.agents/handoffs/qa-lead-take-home/evidence/notes/20261009-part2-3-decisions.md`.
+- State at start: HEAD 983c94d; tree clean except the unrelated root package-lock.json.
+- Human working time: NOT YET PROVIDED.
+
+### 2026-10-09 02:17-02:21 -03 - Stage 10a: Part 1 final verification (automation-reviewer)
+
+- 04: new section "Verification of final corrections (1e88fab, 2026-10-09)". Only 04 changed.
+- 1 fail-closed origin VERIFIED (guest-booking.cy.ts:28-31,36; D-019 DECISIONS.md:245-247).
+- 2 neutral logging VERIFIED (node-tasks.ts:108-109; final-s10-s11.txt:111,113).
+- 3 duration/price vs exact dates VERIFIED (reservation.ts:19; D-020 :275,:285; README:3).
+- 4 source-to-execution VERIFIED (commit 01:47:26 < run 01:47:52; only README changed after 1e88fab; 92ae02d0 tied to 0225278 in README, manifest:66 and 03:246-253).
+- No discrepancies. Non-blocking note: the README:38 coverage table cites bc081863/92ae02d0 but not e4d0dccd. Left as is (no implementation/doc changes authorized beyond 04 in this step).
+- Part 1 limits unchanged:
+  - S-10/S-11 first-attempt PASS WITH RISKS at 1e88fab, one allowed #418 each, cleanup resolved;
+  - full suite not rerun at 1e88fab; last complete 6/9 at 0225278;
+  - calendar, CI, Xray and real Safari/iOS unverified.
+- Coordinator note: notes/20261009-part2-3-decisions.md written (Part 2 assumptions P2-A1..A5, Part 3 decisions P3-D1..D4, AI disclosure).
+
+### 2026-10-09 02:21-02:26 -03 - Stage 10b: Part 2 draft (test-specifier) + coordinator read-through
+
+- test-specifier wrote delivery/part2-test-plan-review.md (~2,170 words) and part2-analysis.md (AC map, assumptions P2-A1..A5, interpretations). No other files touched.
+- Content:
+  - all 12 cases plus the nurse.qa note: Remove 2, Fix 5, Replace 3, Question 2;
+  - 10 missing scenarios (7 P1 required, 3 P2/P3 optional);
+  - 13 questions;
+  - junior message ~275 words, draft, not sent.
+- Coordinator read-through against PDF p2:
+  - case 5 vs AC2, AC3, the four states, nurse + support corrections incl. expiration date and both entry points, checks open reviews not invalidations, confirmation by check or support, AC4 + issuing-state TZ, numeric assumption, isolated data, daily-check processing, usage-based device coverage: all present.
+  - No invented validation rules found.
+- Interpretations flagged for the combined review:
+  - case 6 applies AC1 to support number corrections (AC1 names no actor);
+  - AC3 from Invalid read as "stays Invalid, not re-queued";
+  - Q13 goes beyond the brief.
+- Part 3: qa-report-writer launched at ~02:26 (overridden contract: write only delivery/part3-qa-process.md, not 06).
+
+### 2026-10-09 02:26-02:29 -03 - Stage 10c: Part 3 draft (qa-report-writer) + coordinator read-through
+
+- qa-report-writer wrote delivery/part3-qa-process.md (746 words, six headings matching the questions). Default 06 contract overridden; no other files written.
+- Coordinator full read (file intact despite the writer's "changed on disk" note). Present:
+  - shared ownership, refinement risk talk, dev pre-handoff checks, QA exploratory + coaching, product acceptance, post-deploy smoke with named owners;
+  - release/hotfix checklists with real-iPhone checks;
+  - 30/60/90; five "not yet" items with reasons;
+  - four metrics + qualitative feedback, baselines in the first 30 days, no figures/targets;
+  - needs list;
+  - a single accurate Part 1 reference (line 28);
+  - AI note.
+- Combined Parts 2+3 review (automation-reviewer) launched ~02:29 -> part2-3-review.md.
+
+### 2026-10-09 02:29-02:31 -03 - Stage 10d: combined Parts 2+3 review (automation-reviewer) + coordinator corrections
+
+- automation-reviewer wrote part2-3-review.md only. This is the stage-specific review; 04's Part 1 verdict is untouched.
+- Verdicts: Part 2 READY AFTER MUST-FIXES; Part 3 READY AFTER MUST-FIXES.
+  - Interpretation checks: (i) AC1 applied to support corrections = plain reading (Optional note); (iii) P3 row correct; (iv) Q13 labelled out of scope, fine.
+- Coordinator applied (exact replacement texts from the review; scripted exact-match, count == 1):
+  - P2-01 Must-fix: AC3 row no longer asserts "not queued for re-checking"; it is now open (Q2, Q8).
+  - P3-01 Must-fix: the Part 1 reference now says S-10/S-11 passed with risks under a temporary #418 allowance; the last full-suite run at an earlier revision was 6/9 and not rerun; calendar, CI, Xray and Safari/iOS unverified.
+  - P3-02 Should-fix, applied because it is a missing context requirement (the assignment states QA-approved features still break): the 30-day plan now traces recent post-approval breakages to their source.
+- Not applied (style/interpretation; the user asked for factual and missing-requirement fixes only):
+  - P2-02, P2-03 (Should-fix);
+  - P2-04..06, P3-03, P3-04 (Optional).
+  - They are listed in part2-3-review.md for the candidate's consideration.
+- Final sizes: part2 2,168 words; part3 773 words (~1 page).
+- Observed agent wall-clock for stage 10 (Part 1 verification + Parts 2 and 3): 02:17-02:31, about 14 min. Human working time: NOT YET PROVIDED.
+- No commits (user instruction). Uncommitted:
+  - delivery/part2-test-plan-review.md, delivery/part3-qa-process.md;
+  - 04-code-review.md, part2-analysis.md, part2-3-review.md, notes/20261009-part2-3-decisions.md, run-log.md.
+- Root package-lock.json untouched.
+
+### 2026-10-09 - Stage 11: content closure for human review (coordinator)
+
+- Scope from the user: final factual and requirement-coverage corrections to Parts 2 and 3, one focused AI review, and the 06 final report. No tests run, no Cypress or React work, root package-lock.json untouched.
+- Already resolved before this stage: P2-01 (AC3 re-check claim), P3-01 (Part 1 reference), P3-02 (post-approval breakages).
+- Part 2 changes (delivery/part2-test-plan-review.md):
+  - AC2 now explicitly covers support correcting the **expiration date** of an Invalid license: Not checked yet, booking blocked. This is in the case 6 matrix and the P1 support-correction row. Valid and Expired date corrections stay open (Q7, narrowed to Valid).
+  - Junior message: new item 4 names the missing AC3 and AC4 cases. Item 5 asks for case 11 to name the next daily check and its outcomes.
+  - Case 11 no longer attributes an immediate-check assumption to the junior.
+  - Case 8: "at minimum, record unchanged" became a conditional expected result, dependent on Q1/Q9.
+  - Unsupported praise removed: "which most first drafts skip", and case 7 counted as a strength.
+  - Internal ID "P2-A4" replaced by "Spec (state definitions)".
+  - AI disclosure is now specific: Claude coordinated the agents; test-specifier drafted; automation-reviewer reviewed independently; human review pending.
+  - Unchanged: comments for all 12 cases plus the nurse.qa note, isolated-data guidance, P1/P2/P3 gaps (10 scenarios, 7 required), 13 questions, draft-not-sent message.
+- Part 3 changes (delivery/part3-qa-process.md):
+  - Release criterion: a known failure ships only if its impact is understood, compensating checks cover it where appropriate, the accountable release decision-maker explicitly accepts the risk, and a rollback or mitigation plan exists. An unexplained failure in a critical journey blocks the release.
+  - Hotfix checks are sized to the change and the journeys it affects, and the same failure rule applies.
+  - The Part 1 implementation parenthesis was removed. Part 1 results stay in the Part 1 docs and in 06.
+  - "One or two teams" became "one or two features".
+  - PR smoke plus the daily run is now a starting point, not a claim of sufficiency.
+  - Metrics source named (Jira/Xray and suite runs). There are still no figures or targets.
+  - AI disclosure is now specific: qa-report-writer drafted; automation-reviewer reviewed independently; human review pending.
+- Launched in parallel:
+  - automation-reviewer for the round-2 final review, appended to part2-3-review.md (04-code-review.md untouched);
+  - qa-report-writer for 06-final-report.md.
+- Human time spent per part: AWAITING CANDIDATE INPUT.
+- No commits, pushes, uploads, session exports or messages sent.
+- Round-2 review result (appended to part2-3-review.md, "Final review (round 2)"): Part 2 READY AFTER MUST-FIXES (R2-P2-01); Part 3 READY.
+  - R2-P2-01 applied: "the core promise of the feature" removed from the Summary and the junior message, since the spec does not rank the ACs. Part 2 is now READY on the reviewer's criteria. No further review loop.
+- 06-final-report.md written by qa-report-writer, and the coordinator spot-checked it.
+  - Test execution: INCOMPLETE. S-10/S-11 PASS WITH RISKS at 1e88fab (e4d0dccd); last full core 6/9 FAIL at 0225278 (92ae02d0); not rerun at 1e88fab; calendar, CI, Xray and real Safari/iOS NOT VERIFIED.
+  - Delivery readiness: written and AI-reviewed; human review pending.
+  - Evidence gaps the writer noted: cleanup for earlier runs rests on run-log/04/05, not a file re-check; no run summary records a source SHA (F-04); the smoke specs failing on #418 at 1e88fab is an unverified assumption.
+- Final word counts: Part 2 about 2,300; Part 3 about 830 (about one page, at the upper edge).
+
+### 2026-10-09 20:08 -03 - Observation by the Claude background coordinator session (not the author of Stage 11)
+
+- This session received the Stage 11 hand-back from the reused review agent. That agent's runtime was about 17.5 h, so it was resumed outside this session. This session did not direct Stage 11 and does not treat the hand-back as user approval.
+- Read-only consistency check:
+  - `git status`: no commits since 983c94d; root package-lock.json still only the old 2-line change.
+  - Part 2: 2,299 words, "core promise" removed.
+  - Part 3: 827 words, no Part 1/#418 reference.
+  - 06 states INCOMPLETE, PASS WITH RISKS at 1e88fab, 6/9 at 0225278, NOT VERIFIED items.
+  - Grep for overclaims (calendar coverage, Safari/iPhone validation, a green full suite) across Parts 2/3 and 06: none.
+- No changes made by this session beyond this note.
+
+### 2026-10-09 — Human approval and Part 1 time reconciliation
+
+- User explicitly approved the deliverables. Final human approval is recorded separately from test execution status; the suite results are unchanged. Publication/upload authorization has not been given.
+- Candidate reports beginning shortly after 22:00 and finishing Part 1 around 02:00. Recorded work starts 2026-10-08 22:41; final corrections finish 2026-10-09 01:50 (3h09 elapsed); the final independent verification runs 02:17–02:21 (3h40 from recorded start, including intervening waiting).
+- Submission estimate for Part 1: approximately 4 hours, based on candidate recollection and corroborating logs, not an exact measurement of active human effort.
+- Parts 2/3: drafts and combined review are recorded 02:21–02:31, but later closure and human revisions have incomplete timing. No human-time estimate assigned to them yet. The later 17.5-hour agent/session span is not counted as active work.
+- Updated disclosures and Part 1 time in README/report. No commits or publication.
+
+### 2026-10-09 — Candidate-confirmed final time estimates
+
+- Part 1: approximately 4 hours, including the final independent verification.
+- Parts 2 and 3 combined: approximately 1 hour, including production, review and adjustments. No separate breakdown was tracked.
+- Total: approximately 5 hours, within the assignment six-hour cap. Estimates explicitly confirmed by the user.
+- Updated final report, README and Parts 2/3. No commits, pushes or uploads.
+
+### Submission preparation — João Barbosa Martins
+
+- Candidate approved all deliverables and confirmed ~4h Part 1 plus ~1h Parts 2/3 combined (~5h total).
+- Added candidate identity to deliverables; synchronized report with completed reviews, candidate revisions and approval. Kept hydration cause as a hypothesis and S-14 as an invalid POST check.
+- Preparing scoped local commits and a standalone suite history. Publication, Drive upload and AI-session sharing remain unauthorized. Root lockfile excluded.
