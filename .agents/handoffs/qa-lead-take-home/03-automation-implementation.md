@@ -231,3 +231,14 @@ This is a summary; the full detail is in git history and the earlier evidence.
 ## Handoff status
 
 **BLOCKED.** The P0 guest booking journey (S-10/S-11) fails before the calendar interaction because of unsuppressed application error React #418. The corrected driver and selection proof are not yet validated live. No cleanup obligation remains. D-018 was not accepted; a new explicit user decision on #418 is needed before further live validation. If a new allowance is authorized, it needs a new code commit and a rerun of S-10/S-11, then the daily core.
+
+## Final corrections, Phase A (2026-10-09 01:46 -03)
+
+Scope: review findings R-01, R-02/R-03 and R-05 from 04. Local checks only: no live run, no commit, no install.
+
+- R-01 `cypress/e2e/hotfix/guest-booking.cy.ts`: the allowance now requires `stackSourceMatched === true`, which makes it fail-closed. A missing chunk frame (null) or a non-matching chunk frame (false) fails the test, and the record is kept with `allowed:false`. The D-019 bullet was updated to match.
+- R-05 `cypress/support/node-tasks.ts`: the CLI label is now neutral: `[browser error] allowed=.. messageMatched=.. stackSourceMatched=.. test=.. attempt=.. load=..`. The JSON field is still `allowedAppErrors`. No proof depended on the old label.
+- R-02/R-03 wording: `DECISIONS.md` D-020 (two lines) and the `reservation.ts:19` comment now use 04's exact texts. `README.md:3` was rewritten (reduced journey PASS WITH RISKS at `0225278`; the full core FAILED 6/3 in run `92ae02d0`; the S-10/S-11 rerun at the corrected revision is "pending execution"). README:77 was aligned with R-01/R-05.
+- Smoke specs are untouched, and no allowance was added to them.
+- Validation: typecheck exit 0 (`evidence/command-output/20261009-014618-final-typecheck.txt`); cleanup proofs 9 pass, 0 fail, exit 0 (`evidence/command-output/20261009-014620-final-cleanup-proofs.txt`).
+- NOT RUN: the live S-10/S-11 rerun at the corrected revision. The live evidence covers `0225278` only.
