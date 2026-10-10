@@ -569,3 +569,8 @@ Independent re-verification at stage 2 start (coordinator, not relying on the st
 - Candidate approved all deliverables and confirmed ~4h Part 1 plus ~1h Parts 2/3 combined (~5h total).
 - Added candidate identity to deliverables; synchronized report with completed reviews, candidate revisions and approval. Kept hydration cause as a hypothesis and S-14 as an invalid POST check.
 - Preparing scoped local commits and a standalone suite history. Publication, Drive upload and AI-session sharing remain unauthorized. Root lockfile excluded.
+
+### Supplied AI-session links and delivery updates
+
+- Candidate supplied Claude artifact summary, Codex session presentation, and both repository transcript links. Added them to root/suite READMEs, Parts 2/3 and final report; updating external Drive PDFs.
+- Anonymous HTTP checks returned 200 for both presentation pages and both raw transcript URLs; page rendering and Google Drive permissions are separate checks. No application tests run.

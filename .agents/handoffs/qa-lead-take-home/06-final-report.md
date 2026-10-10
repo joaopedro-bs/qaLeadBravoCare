@@ -12,7 +12,7 @@ Report date: 2026-10-09. Author: João Barbosa Martins, with AI support. Every e
 | Full core suite at the final revision 1e88fab | NOT RUN | - | run-log Stage 9; `evidence/notes/20261009-0004-execution-manifest.md` |
 | Test-data cleanup (final run) | RESOLVED: 2 bookings created, deleted (202) and confirmed absent; registry empty; 0 unresolved | 1e88fab, run e4d0dccd | `20261009-final-s10-s11-cleanup-outcomes.jsonl`, `...-cleanup-registry.json` |
 | Calendar date selection, CI, Xray, real Safari/iOS | NOT VERIFIED | - | run-log Stages 7 and 9; 04 |
-| **DELIVERY READINESS** | **Parts 1-3 written and reviewed by AI. Final human review and approval are COMPLETE. Nothing committed, pushed, uploaded or sent in this closing stage.** | Part 1 code at 1e88fab; Parts 2/3 uncommitted | below |
+| **DELIVERY READINESS** | **Parts 1-3 written and reviewed by AI. Final human review and approval are COMPLETE. Nothing committed, pushed, uploaded or sent in this closing stage.** | Part 1 tested code at 1e88fab; Parts 2/3 committed | below |
 | Time spent per part | Approximately 5 hours total: Part 1, 4 hours; Parts 2 and 3 combined, 1 hour | - | run-log "Time tracking" |
 
 Overall Part 1 status: **PASS WITH RISKS for the reduced booking journey only. INCOMPLETE for the suite.** The suite as a whole is not labelled PASS.
@@ -115,7 +115,7 @@ This work was developed collaboratively by me with Claude and Codex as supportin
 
 - Written: the Part 1 suite, README and DECISIONS (code at 1e88fab), Part 2, Part 3, and handoffs 01-06.
 - AI-reviewed: Part 1 (04, APPROVE WITH NOTES for the change set; not a release approval) and Parts 2/3 (`part2-3-review.md`).
-- Pending: packaging checks, actual AI-session links/exports, public publication and access verification. The candidate accepted the documented limitations; R-06 remains a technical follow-up, not a new investigation in this submission.
+- Pending: Google Drive upload and verification of Drive file permissions. The repository has been published, and the candidate supplied session links and transcript records. The candidate accepted the documented limitations; R-06 remains a technical follow-up, not a new investigation in this submission.
 - **Nothing has been committed, pushed, uploaded or sent in this closing stage.**
 
 ## Time spent per part
@@ -130,7 +130,7 @@ Part 1 includes work through the final independent verification. Parts 2 and 3 w
 
 ## Submission steps and future work
 
-Submission: package the approved deliverables and selected evidence; preserve incremental suite history; add actual AI-session links or exports; publish only after authorization and verify anonymous access to the repository and Drive files.
+Submission: package the approved deliverables and selected evidence; preserve incremental suite history; include the supplied AI-session links and transcripts; verify anonymous access to Drive files after upload.
 
 Future engineering work, outside the completed timebox: resolve the smoke UI hydration failures, restore calendar interaction coverage, record source SHAs automatically, execute CI, validate Xray integration, and test real Safari/iOS. A complete suite run is needed after future code changes before claiming full-suite success.
 
@@ -139,3 +139,12 @@ Future engineering work, outside the completed timebox: resolve the smoke UI hyd
 **Part 1 test execution: INCOMPLETE.** The reduced S-10/S-11 journey is PASS WITH RISKS at 1e88fab (run e4d0dccd). The last full core was 6/9 FAIL at 0225278 (run 92ae02d0), and it has not been rerun at 1e88fab.
 
 **Delivery readiness: developed under human direction and reviewed with AI support; final human review and approval are complete.**
+
+## AI sessions and transcripts
+
+- [Claude session summary](https://claude.ai/artifact/AET4HD3cJWYBPZHKq5HJQn) — condensed account, not the full transcript.
+- [Codex session presentation](https://qa-lead-take-home-session.elatedpeony.chatgpt.site).
+- [Claude transcript in this repository](https://github.com/joaopedro-bs/qaLeadBravoCare/blob/main/2026-10-09-210910-we-will-prepare-the-qa-lead-take-home-exercise-in.txt).
+- [Codex transcript in this repository](https://github.com/joaopedro-bs/qaLeadBravoCare/blob/main/codex-session-01a11e63-0975-7f03-b06b-6a54e6dc802e.md).
+
+The transcript files are supplied session records; the Claude artifact is explicitly a summary. This work was developed collaboratively by João Barbosa Martins with AI support, with human-in-the-loop decisions and feedback and human-on-the-loop supervision. The candidate reviewed and approved the deliverables and remains responsible for the submission.

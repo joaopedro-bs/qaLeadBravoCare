@@ -93,3 +93,12 @@ Deferred: admin UI login, contact messages, room CRUD, availability-filter seman
 Manual pre-release charter (unexecuted): on a real iPhone Safari, select booking dates, interact with the keyboard, submit a synthetic booking and contact message under approved identity-checked cleanup. Separate authorization charter: agree expected admin protection, message-count visibility and token revocation with Product/Security before probing further.
 
 This work was developed collaboratively by me with Claude and Codex as supporting tools, not as an independently produced AI deliverable. I remained human-in-the-loop through scope decisions, approvals and iterative feedback, and human-on-the-loop through supervision of execution, evidence and risks. AI supported analysis, drafting, implementation and review where applicable; I retain responsibility for the conclusions and submission. Final human review and approval have been completed. Commands and live responses were inspected, and independent AI-assisted automation reviews are recorded in the handoffs. Part 1 took approximately 4 hours through the final independent verification, based on my confirmed estimate and corroborating overnight logs. Agent wall-clock is not reported as active human effort.
+
+## AI sessions and transcripts
+
+- [Claude session summary](https://claude.ai/artifact/AET4HD3cJWYBPZHKq5HJQn) — condensed account, not the full transcript.
+- [Codex session presentation](https://qa-lead-take-home-session.elatedpeony.chatgpt.site).
+- [Claude transcript in this repository](https://github.com/joaopedro-bs/qaLeadBravoCare/blob/main/2026-10-09-210910-we-will-prepare-the-qa-lead-take-home-exercise-in.txt).
+- [Codex transcript in this repository](https://github.com/joaopedro-bs/qaLeadBravoCare/blob/main/codex-session-01a11e63-0975-7f03-b06b-6a54e6dc802e.md).
+
+The transcript files are supplied session records; the Claude artifact is explicitly a summary. This work was developed collaboratively by João Barbosa Martins with AI support, with human-in-the-loop decisions and feedback and human-on-the-loop supervision. The candidate reviewed and approved the deliverables and remains responsible for the submission.
